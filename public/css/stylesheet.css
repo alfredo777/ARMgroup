@@ -10558,7 +10558,7 @@ header[role="banner25"] .nav-contact ul li a:hover {
     position: absolute;
     z-index: 100;
     bottom: -15px;
-    background-image: url(/assets/elements/testimonials/testimonial-down-arrow.png);
+    background-image: url(/images/elements/testimonials/testimonial-down-arrow.png);
     background-position: center top;
     background-repeat: no-repeat;
     height: 15px;
@@ -32066,7 +32066,7 @@ section {
 }
 .parallax-59 {
     background-attachment: fixed;
-    background-image: url(/images/backparallax/2.scrollup.jpg);
+    background-image: url(/images/backparallax/2.jpg);
     background-repeat: repeat-y;
     background-position: 50% 0;
     background-size: 100%;

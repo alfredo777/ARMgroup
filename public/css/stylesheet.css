@@ -194,7 +194,7 @@ nav.sticky .navbar-brand {
     padding-left: 15px;
 }
 nav.sticky .navbar-brand img {
-    width: 80%;
+    width: 200px !important;
     height: auto;
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
@@ -34104,7 +34104,7 @@ section {
         transition: all 0.4s ease;
     }
     nav .navbar-brand img {
-        width: 80%;
+        width: 250px;
         height: auto;
         -webkit-transition: all 0.4s ease;
         transition: all 0.4s ease;

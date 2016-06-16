@@ -47,13 +47,17 @@
     <script type="text/javascript">
 		  $(document).ready(function(){
 		  	loadDBTPL("", "menu", "menu");
+        setTimeout(function(){
 		  	loadDBTPL("", "slider", "slider");
-		  	loadDBTPL("", "method", "method");
-		  	loadDBTPL("", "certificaciones", "certificaciones");
-		  	loadDBTPL("", "infraestuctura", "infraestuctura");
-		  	loadDBTPL("", "say", "say");
-		  	loadDBTPL("", "lastnews", "lastnews");
-        loadDBTPL("", "contact-intern", "contact-intern");
+        },1000)
+
+        loadDBTPL("", "method", "method");
+        loadDBTPL("", "certificaciones", "certificaciones");
+        loadDBTPL("", "infraestuctura", "infraestuctura");
+        loadDBTPL("", "say", "say");
+        loadDBTPL("", "lastnews", "lastnews");
+        loadDBTPL("", "contact-intern", "contact-intern");  
+		  	
 		  });
 		</script>
      

@@ -32066,7 +32066,7 @@ section {
 }
 .parallax-59 {
     background-attachment: fixed;
-    background-image: url(/images/backparallax/2.jpg);
+    background-image: url(/images/backparallax/2.scrollup.jpg);
     background-repeat: repeat-y;
     background-position: 50% 0;
     background-size: 100%;
@@ -32206,7 +32206,7 @@ section {
     display: none;
     text-indent: -9999px;
     background-color: #0495db;
-    background-image: url(/assets/icons/to-top/to-top.png);
+    background-image: url(/images/icons/to-top/to-top.png);
     background-repeat: no-repeat;
     background-position: center center;
     z-index: 999997;

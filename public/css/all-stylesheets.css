@@ -31,27 +31,27 @@ Primary use:	Multi-Purpose
 @import url("equal-height-columns.css");
 
 /* REVOLUTION STYLE SHEETS */
-@import url("/revolution/css/settings.css");
-@import url("/revolution/css/layers.css");
-@import url("/revolution/css/navigation.css");
-@import url("/revolution/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css");
-@import url("/revolution/fonts/font-awesome/css/font-awesome.min.css");
+@import url("../revolution/css/settings.css");
+@import url("../revolution/css/layers.css");
+@import url("../revolution/css/navigation.css");
+@import url("../revolution/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css");
+@import url("../revolution/fonts/font-awesome/css/font-awesome.min.css");
 
 /* Overlay Menu[2] */
-@import url("/js/overlay-menu/css/style12.css");
+@import url("../js/overlay-menu/css/style12.css");
 
 /* Magnific Popup core CSS file */
-@import url("/js/magnific-popup/magnific-popup.css");
+@import url("../js/magnific-popup/magnific-popup.css");
 
 /* Flex Slider */
 @import url("flexslider/flexslider.css");
 
 /* Owl Carousel */
-@import url("/js/owl-carousel/owl.carousel.css");
-@import url("/js/owl-carousel/owl.theme.default.min.css");
+@import url("../js/owl-carousel/owl.carousel.css");
+@import url("../js/owl-carousel/owl.theme.default.min.css");
 
 /* FontAwesome */
-@import url("/fonts/font-awesome/css/font-awesome.min.css");
+@import url("../fonts/font-awesome/css/font-awesome.min.css");
 
 /* Font Pe Icons Stroke */
-@import url("/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css");
+@import url("../fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css");

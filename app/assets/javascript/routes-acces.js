@@ -4,7 +4,7 @@ function IndexRoute(){
     loadDBTPL("", "slider", "slider");
     setTimeout(function(){
       $('#preloader').hide();
-    },5000);
+    },2000);
     loadDBTPL("", "infraestuctura", "infraestuctura");
     loadDBTPL("", "say", "say");
     setTimeout(function(){

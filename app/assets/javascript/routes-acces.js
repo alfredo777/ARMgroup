@@ -1,5 +1,6 @@
 function IndexRoute(){
     setTimeout(function(){
+    setTimeout(function(){
       $('#preloader').hide();
     },5000);
     $('#index').show();
@@ -11,6 +12,7 @@ function IndexRoute(){
     loadDBTPL("", "say", "say");
     loadDBTPL("", "lastnews", "lastnews");
     loadDBTPL("", "contact-intern", "contact-intern");  
+    },3000);
 }
 
 function ReloadIndex(){

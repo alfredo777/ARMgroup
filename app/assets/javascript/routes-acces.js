@@ -1,10 +1,10 @@
 function IndexRoute(){
+    loadDBTPL("", "menu", "menu");
+    loadDBTPL("", "slider", "slider");
     setTimeout(function(){
       $('#preloader').hide();
     },5000);
     $('#index').show();
-    loadDBTPL("", "menu", "menu");
-    loadDBTPL("", "slider", "slider");
     loadDBTPL("", "infraestuctura", "infraestuctura");
     loadDBTPL("", "say", "say");
     setTimeout(function(){

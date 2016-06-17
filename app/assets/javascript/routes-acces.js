@@ -1,8 +1,9 @@
 function IndexRoute(){
-    setTimeout(function(){
+    
     setTimeout(function(){
       $('#preloader').hide();
     },5000);
+    setTimeout(function(){
     $('#index').show();
     loadDBTPL("", "menu", "menu");
     loadDBTPL("", "slider", "slider");
@@ -12,7 +13,7 @@ function IndexRoute(){
     loadDBTPL("", "say", "say");
     loadDBTPL("", "lastnews", "lastnews");
     loadDBTPL("", "contact-intern", "contact-intern");  
-    },3000);
+    },4000);
 }
 
 function ReloadIndex(){

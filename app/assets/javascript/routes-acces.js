@@ -1,7 +1,7 @@
 function IndexRoute(){
-  setTimeout(function(){
-    $('#preloader').hide();
-  },8000);
+    setTimeout(function(){
+      $('#preloader').hide();
+    },5000);
     $('#index').show();
     loadDBTPL("", "menu", "menu");
     loadDBTPL("", "slider", "slider");

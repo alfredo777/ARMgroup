@@ -32055,24 +32055,23 @@ section {
 .parallax-57 {
     background-attachment: fixed;
     background-image: url(/images/instalaciones/arm_8.jpg);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-repeat: repeat-y;
+    background-size: 150%;
     background-position: 50% 0;
 }
 .parallax-58 {
     background-attachment: fixed;
     background-image: url(/images/backparallax/1.jpg);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-repeat: repeat-y;
+    background-size: 150%;
     background-position: 50% 0;
 }
 .parallax-59 {
     background-attachment: fixed;
     background-image: url(/images/backparallax/2.jpg);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-repeat: repeat-y;
+    background-size: 150%;
     background-position: 50% 0;
-    background-size: 100%;
 }
 .parallax-60 {
     background-attachment: fixed;

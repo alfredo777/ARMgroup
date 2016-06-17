@@ -1,12 +1,11 @@
 function IndexRoute(){
-    
     setTimeout(function(){
       $('#preloader').hide();
     },5000);
-    setTimeout(function(){
     $('#index').show();
     loadDBTPL("", "menu", "menu");
     loadDBTPL("", "slider", "slider");
+    setTimeout(function(){
     loadDBTPL("", "method", "method");
     loadDBTPL("", "certificaciones", "certificaciones");
     loadDBTPL("", "infraestuctura", "infraestuctura");

@@ -20,7 +20,7 @@ function ReloadIndex(){
 
 function AccesTPL(){
   $('#index').hide();
-  $('#loader').show()
+  $('#loader').show();
 }
 function AboutUs(){
   AccesTPL();

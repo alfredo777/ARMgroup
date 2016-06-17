@@ -5,11 +5,12 @@ function IndexRoute(){
     $('#index').show();
     loadDBTPL("", "menu", "menu");
     loadDBTPL("", "slider", "slider");
+    loadDBTPL("", "infraestuctura", "infraestuctura");
+    loadDBTPL("", "say", "say");
     setTimeout(function(){
     loadDBTPL("", "method", "method");
     loadDBTPL("", "certificaciones", "certificaciones");
-    loadDBTPL("", "infraestuctura", "infraestuctura");
-    loadDBTPL("", "say", "say");
+    
     loadDBTPL("", "lastnews", "lastnews");
     loadDBTPL("", "contact-intern", "contact-intern");  
     },4000);

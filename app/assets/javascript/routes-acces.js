@@ -34,3 +34,8 @@ function RedCampo(){
   AccesTPL();
   loadDBTPL("", "red_campo", "loader");
 }
+
+function Tecnologias(){
+  AccesTPL();
+  loadDBTPL("", "tecnologias", "loader");
+}

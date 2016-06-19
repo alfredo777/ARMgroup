@@ -39,3 +39,10 @@ function Tecnologias(){
   AccesTPL();
   loadDBTPL("", "tecnologias", "loader");
 }
+
+all_infraestructura
+
+function Infraestructura(){
+  AccesTPL();
+  loadDBTPL("", "all_infraestructura", "loader");
+}

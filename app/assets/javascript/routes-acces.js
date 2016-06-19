@@ -29,3 +29,8 @@ function AboutUs(){
   AccesTPL();
   loadDBTPL("", "about", "loader");
 }
+
+function RedCampo(){
+  AccesTPL();
+  loadDBTPL("", "red_campo", "loader");
+}

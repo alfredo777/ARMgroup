@@ -40,9 +40,17 @@ function Tecnologias(){
   loadDBTPL("", "tecnologias", "loader");
 }
 
-all_infraestructura
-
 function Infraestructura(){
   AccesTPL();
   loadDBTPL("", "all_infraestructura", "loader");
+}
+
+function Fundacion(){
+  AccesTPL();
+  loadDBTPL("", "fundacion", "loader");
+}
+
+function Certificaciones(){
+  AccesTPL();
+  loadDBTPL("", "all_certificaciones", "loader");
 }

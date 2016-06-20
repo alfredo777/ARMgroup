@@ -54,3 +54,8 @@ function Certificaciones(){
   AccesTPL();
   loadDBTPL("", "all_certificaciones", "loader");
 }
+
+function Metodologias(){
+  AccesTPL();
+  loadDBTPL("", "metodologias", "loader");
+}

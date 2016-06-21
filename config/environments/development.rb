@@ -38,4 +38,13 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address:              'sapiens.email',
+      port:                 993,
+      domain:               'sapiens.email',
+      user_name:            'alfredo',
+      password:             '777divino',
+      authentication:       'plain',
+      enable_starttls_auto: true  }
 end

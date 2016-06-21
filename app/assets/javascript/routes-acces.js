@@ -59,3 +59,8 @@ function Metodologias(){
   AccesTPL();
   loadDBTPL("", "metodologias", "loader");
 }
+
+function Contacto(){
+  AccesTPL();
+  loadDBTPL("", "contacto", "loader");
+}

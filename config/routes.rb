@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'home/index'
 
   get 'home/contact'
+  post 'home/contact'
 
   get 'home/arm'
 

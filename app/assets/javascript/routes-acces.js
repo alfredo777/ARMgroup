@@ -64,3 +64,13 @@ function Contacto(){
   AccesTPL();
   loadDBTPL("", "contacto", "loader");
 }
+
+function Operaciones(){
+  AccesTPL();
+  loadDBTPL("", "Operaciones", "loader");
+}
+
+function Cuantitativos(){
+  AccesTPL();
+  loadDBTPL("", "cuantitativos", "loader");
+}

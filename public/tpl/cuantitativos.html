@@ -1,0 +1,142 @@
+<script type="text/javascript" src="/js/highcharts.js"></script>
+
+<div class="inner-banner-style-01 b-img-10">
+  <div class="container">
+    <div class="col-lg-6">
+      <div class="info">
+        <h1 style="color:#039be5;">División cuantitativa</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="team-03">
+  <div class="container progress-01">
+    <div class="row">
+      <div class="col-lg-7 col-md-7 col-sm-7" style="text-align: justify;">
+        <h1>Convertimos datos y estrategias en oportunidades de negocio</h1>
+        <p>En ARM ututilizamos diversas metodologías análisis y modelos.</p>
+        <ul>
+          <li> Imagen y posicionamiento</li>
+          <li> Estudios de satisfacción centrado en los centros de distribución</li>
+          <li> Publicidad y efectividad de la comunicación</li> Medios masivos y canales alternos</li>
+          <li> Segmentación</li>
+          <li> Usos y hábitos</li>
+          <li> Necesidades de consumo y compra vs hábitos de consumo</li>
+          <li> Copy testing</li>
+          <li> Estudios sensoriales</li>
+          <li> Clínicas de conceptos</li>
+          <li> Clínicas de autos</li>
+          <li> Elasticidad de precios</li>
+          <li> Chequeo de precios, promociones y existencias</li>
+          <li> Efectividad de las actividades promociónales</li>
+          <li> Pruebas de producto y concepto</li>
+          <li> Estudios sindicados</li>
+          <li> Canales de comercialización y promoción</li>
+          <li> Comportamiento del cliente en el punto de venta</li>
+          <li> Árboles de decisión</li>
+          <li> Estudios específicos por canal de venta: Tradicional (Detallistas), No tradicional, Conveniencia</li>
+        </ul>
+        <h1>Contamos con Diversos tipos de análisis y modelos</h1>
+        <ul>
+          <li> Multivariado</li>
+          <li> Correlaciones</li>
+          <li> Regresión Múltiple</li>
+          <li> Factorial</li>
+          <li> Componentes Principales</li>
+          <li> Anova</li>
+          <li> Manova</li>
+          <li> Canónico Conglomerados</li>
+          <li> Discriminante</li>
+        </ul>
+        <h1>Modelos Estadísticos</h1>
+        <ul>
+          <li> Calidad</li>
+          <li> Competitividad</li>
+          <li> Lealtad</li>
+          <li> Imagen</li>
+          <li> Factores de Riesgos</li>
+          <li> Ruta Crítica y Causa Efecto</li>
+          <li> Árboles de Decisión</li>
+          <li> Mapas Perceptuales</li>
+          <li> Exploratorio</li>
+          <li> Estadística Descriptiva e Inferencial</li>
+          <li> Segmentación</li>
+          <li> Psicográficos - Actitudinal</li>
+        </ul>
+      </div>
+      <div class="col-lg-5 col-md-5 col-sm-5">
+        <div id="chart1"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    // Age categories
+    var categories = ['0-4', '5-9', '10-14', '15-19',
+            '20-24', '25-29', '30-34', '35-39', '40-44',
+            '45-49', '50-54', '55-59', '60-64', '65-69',
+            '70-74', '75-79', '80-84', '85-89', '90-94',
+            '95-99', '100 + '];
+    $(document).ready(function () {
+        $('#chart1').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Piramide de población México 2016'
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            },
+            xAxis: [{
+                categories: categories,
+                reversed: false,
+                labels: {
+                    step: 1
+                }
+            }, { // mirror axis on right side
+                opposite: true,
+                reversed: false,
+                categories: categories,
+                linkedTo: 0,
+                labels: {
+                    step: 1
+                }
+            }],
+            yAxis: {
+                title: {
+                    text: null
+                },
+                labels: {
+                    formatter: function () {
+                        return Math.abs(this.value) + '%';
+                    }
+                }
+            },
+
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + ', edad ' + this.point.category + '</b><br/>' +
+                        'Población: ' + Highcharts.numberFormat(Math.abs(this.point.y), 0);
+                }
+            },
+
+            series: [{
+                name: 'Hombres',
+                data: [-4.6,-4.6,-4.7,-4.5,-4.2,-3.8,-3.6,-3.3,-2.9,-2.3,-1.9,-1.5,-1.1,-0.8,-0.5,-0.3,-0.2,-0.1,-0.0,-0.0]
+            }, {
+                name: 'Mujeres',
+                data: [4.4,4.4,4.5,4.4,4.1,3.9,3.7,3.5,3.0,2.5,2.1,1.7,1.2,0.9,0.6,0.5,0.3,0.1,0.0,0.0]
+            }]
+        });
+    });
+
+});
+</script>

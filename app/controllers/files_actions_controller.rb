@@ -1,0 +1,2 @@
+class FilesActionsController < ApplicationController
+end

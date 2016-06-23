@@ -35,6 +35,12 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem "highcharts-rails"
+gem 'devise'
+gem 'carrierwave'
+gem "mini_magick"
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem "font-awesome-rails"
 
 

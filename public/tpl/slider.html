@@ -104,7 +104,7 @@
   <div class="row" style="background: rgba(27, 42, 53, 0.7); padding:5%;">
   <div class="col-md-12">
   <div class="col-md-12">Ponte en contacto <br/>
-  <p style="font-size: 45%; color:#A4A4A4;">Estamos en toda Latinoamérica.</p>
+  <p style="font-size: 45%; color:#A4A4A4;">Estamos en toda Latinoamérica e Estados Unidos.</p>
   </div>
   <center><div class="red col-md-4 pull-right" style="font-size:40px; background: #e22626!important; font-size: 18px; color: rgb(255, 255, 255); transition: none; line-height: 44px; border-width: 1px; margin: 0px; padding: 12px 15px; letter-spacing: 0px; font-weight: 500;" onclick="Contacto()">Contactar</div>
   </center>
@@ -154,8 +154,9 @@
   width: 100px;
   height: 100px;
   margin: 0 auto;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  background: rgba(28, 231, 248, 0.6);
+  border: 2px solid rgba(120, 145, 142, 0.9);
+  /*background: rgba(28, 231, 248, 0.6);*/
+  background: rgba(255,255,255,0.5);
   will-change: transform;
   text-align: center;
   line-height: 120px;
@@ -293,8 +294,8 @@ var $bubbles = $('.bubbles');
 function bubbles() {
   
   // Settings
-  var min_bubble_count = 3, // Minimum number of bubbles
-      max_bubble_count = 5, // Maximum number of bubbles
+  var min_bubble_count = 1, // Minimum number of bubbles
+      max_bubble_count = 3, // Maximum number of bubbles
       min_bubble_size = 110, // Smallest possible bubble diameter (px)
       max_bubble_size = 110; // Maximum bubble blur amount (px)
   
@@ -303,11 +304,11 @@ function bubbles() {
   
   // Create the bubbles
 
-  var link_act = ["arm1","arm3","arm1", "arm5"];
+  var link_act = ["/images/otroslogos/logo1.png","/images/otroslogos/logo2.png","/images/otroslogos/logo3.png","/images/otroslogos/logo4.png"];
 
   for (var i = 0; i < bubbleCount; i++) {
     for (var inx = 0; inx < link_act.length; inx++){
-    $bubbles.append('<div class="bubble-container"><div class="bubble"><p>'+link_act[inx]+'</p></div></div>');
+    $bubbles.append('<div class="bubble-container"><div class="bubble"><center><img src="'+link_act[inx]+'" width="80%"/></center></div></div>');
     }
   }
   
@@ -315,7 +316,7 @@ function bubbles() {
   $bubbles.find('.bubble-container').each(function(){
     
     // Randomise the bubble positions (0 - 100%)
-    var pos_rand = Math.floor(Math.random() * 131);
+    var pos_rand = Math.floor(Math.random() * 100);
     
     // Randomise their size
     var size_rand = min_bubble_size + Math.floor(Math.random() * (max_bubble_size + 1));
@@ -327,7 +328,7 @@ function bubbles() {
     var speed_rand = 3 + Math.floor(Math.random() * 20);
     
     // Random blur
-    var blur_rand = Math.floor(Math.random() * 3);
+    var blur_rand = Math.floor(Math.random() * 1);
     
     // Cache the this selector
     var $this = $(this);

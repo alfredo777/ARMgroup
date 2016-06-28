@@ -74,3 +74,8 @@ function Cuantitativos(){
   AccesTPL();
   loadDBTPL("", "cuantitativos", "loader");
 }
+
+function Modelos(){
+  AccesTPL();
+  loadDBTPL("", "modelos", "loader");
+}

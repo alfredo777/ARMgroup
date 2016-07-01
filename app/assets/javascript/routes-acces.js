@@ -69,7 +69,7 @@ function Contacto(){
 
 function Operaciones(){
   AccesTPL();
-  loadDBTPL("", "Operaciones", "loader");
+  loadDBTPL("", "operaciones", "loader");
 }
 
 function Cuantitativos(){

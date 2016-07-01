@@ -14,12 +14,8 @@
     <script type="text/javascript" src="/js/jquery.elevateZoom.js"></script>
     <script type="text/javascript">
       for(var i=0, l=12; i<l; i++){
-        setTimeout(function(){
-          var ImgX = '<img src="/images/modelos/modelo-'+i+'.jpg" width="100%" class="zooming" data-zoom-image="/images/modelos/modelo-'+i+'.jpg"/>';
-          $('.images').append(ImgX);
-          
-
-        },i*500); 
+        var ImgX = '<img src="/images/modelos/modelo-'+i+'.jpg" width="100%" class="zooming" data-zoom-image="/images/modelos/modelo-'+i+'.jpg"/>';
+        $('.images').append(ImgX);
       }
       setTimeout(function(){
       $(".zooming").elevateZoom(

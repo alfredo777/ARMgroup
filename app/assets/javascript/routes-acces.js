@@ -19,11 +19,13 @@ function IndexRoute(){
 function ReloadIndex(){
   $('#loader').hide();
   $('#index').show();
+  $('.zoomContainer').remove();
 }
 
 function AccesTPL(){
   $('#index').hide();
   $('#loader').show();
+  $('.zoomContainer').remove();
 }
 function AboutUs(){
   AccesTPL();

@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <link rel="shortcut icon" type="image/png" href="/images/logo/favicon.png"/>
-
-  <title>ARMgroup | Agencia lider en investigación de mercados.</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application' %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<%= yield %>
-</body>
+  <head>
+    <link rel="shortcut icon" type="image/png" href="/images/logo/favicon.png"/>
+    <title>ARMgroup | Agencia lider en investigación de mercados.</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <% unless current_admin || current_customer %>
+  <body style="background: url('/images/backparallax/18.jpg'); background-size:100% 100%; background-repeat: no-repeat; min-height:800px;">
+    <%else%>
+    <body>
+      <% if !flash[:notice].nil? %>
+      <div class="alert alert-info alert-dismissible" id="alert">
+      <%= flash[:notice] %>
+      <script type="text/javascript">$(document).ready(function(){
+          setTimeout(function(){
+            $('#alert').hide();
+          },3000);
+        });</script>
+      </div>
+      
+      <%end%>
+      <%= render partial: '/admin/menu' %>
+      <div class="container">
+        <%end%>
+        <%= yield %>
+        <% if current_admin || current_customer %>
+      </div>
+      <%end%>
+  </body>
 </html>

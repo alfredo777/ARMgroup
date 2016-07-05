@@ -1,24 +1,19 @@
-<p id="notice"><%= notice %></p>
-
+<div class="row">
+<%= link_to 'Regresar', publications_path, class: "btn btn-default" %>
+<%= link_to 'Editar', edit_publication_path(@publication), class: "btn btn-info" %>
+</div><br/><br/>
 <p>
-  <strong>Title:</strong>
-  <%= @publication.title %>
+  <%= image_tag(@publication.head_image, width: "100%") %>
 </p>
-
 <p>
-  <strong>Content:</strong>
-  <%= @publication.content %>
+  <h1><%= @publication.title %></h1>
 </p>
-
 <p>
-  <strong>Admin:</strong>
-  <%= @publication.admin_id %>
+  <%= @publication.content.html_safe %>
 </p>
-
 <p>
-  <strong>Head image:</strong>
-  <%= @publication.head_image %>
+ <strong>Por:</strong> <%= @publication.admin.email %>
 </p>
-
-<%= link_to 'Edit', edit_publication_path(@publication) %> |
-<%= link_to 'Back', publications_path %>
+<p>
+  
+</p>

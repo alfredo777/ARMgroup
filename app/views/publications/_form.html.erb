@@ -1,33 +1,41 @@
-<%= form_for(@publication) do |f| %>
+<%= form_for(@publication, multipart: true)  do |f| %>
+<div class="form-group">
   <% if @publication.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@publication.errors.count, "error") %> prohibited this publication from being saved:</h2>
-
-      <ul>
+  <div id="error_explanation">
+    <h2><%= pluralize(@publication.errors.count, "error") %> prohibited this publication from being saved:</h2>
+    <ul>
       <% @publication.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <li><%= message %></li>
       <% end %>
-      </ul>
-    </div>
+    </ul>
+  </div>
   <% end %>
-
+  <div class="field">
+    <%= f.hidden_field :admin_id, value: current_admin.id %>
+    <%= f.label :head_image %><br>
+    <%= f.file_field :head_image, class: "form-control"%>
+  </div>
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :content %><br>
-    <%= f.text_area :content %>
+    <%= f.text_area :content, class: "form-control summernote" %>
   </div>
-  <div class="field">
-    <%= f.label :admin_id %><br>
-    <%= f.number_field :admin_id %>
-  </div>
-  <div class="field">
-    <%= f.label :head_image %><br>
-    <%= f.text_field :head_image %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+</div>
+<div class="panel" style="background:#eee; padding:20px; margin-top: -10px;">
+<%= f.submit "Publicar", class:"btn btn-primary pull-right" %>
+
 <% end %>
+
+<script>
+  $(document).ready(function(){
+    $('.summernote').summernote({ 
+      height: 300,                 // set editor height
+      minHeight: null,             // set minimum height of editor
+      maxHeight: null,             // set maximum height of editor
+      focus: true   
+    });
+  });
+</script>

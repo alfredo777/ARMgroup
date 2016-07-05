@@ -1,2 +1,19 @@
-<h1>Admin#view_all_pages</h1>
-<p>Find me in app/views/admin/view_all_pages.html.erb</p>
+<h1>Páginas</h1>
+<div class="row">
+  <div class="col-md-3">
+    <% @pages.each_with_index do |page, index| %>
+    <b> <%=index%>.- </b><%= link_to "#{page.split('/').last}", admin_view_all_pages_path(fileoppen: index) %><br/>
+    <%end%>
+  </div>
+  <div class="col-md-9">
+    <%= form_tag(admin_edit_pages_op_path) do -%>
+    <div class="form-group">
+      <%= hidden_field_tag :file_route, @route %>
+      <%= text_area_tag :file_w, @oppen_page, class:"form-control", style: "height: 400px;" %>
+    </div>
+    <div class="form-group">
+      <%= submit_tag "Guardar Archivo", class: "btn btn-primary pull-right" %>
+    </div>
+    <%end%>
+  </div>
+</div>

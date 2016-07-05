@@ -1,0 +1,13 @@
+<h1>Crear Cliente</h1>
+<%= form_tag admin_create_customer_path do -%>
+<div class="form-group">
+  <%= text_field_tag "email", '', class:"form-control", placeholder: "Ingresa el Email"%><br/>
+  <%= password_field_tag "password", '', class:"form-control", placeholder: "Ingresa la contraseña"%><br/>
+  <%= text_field_tag "route_files", '', class:"form-control", placeholder: "Ingresa ruta para archivos de audio."%><br/>
+  <%= text_field_tag "empresa", '', class: "form-control", placeholder: "Ingresa el nombre de la empresa a la que pertenece"%><br/>
+  <%= text_field_tag "idempresa", '', class: "form-control", placeholder: "Identificador empresa que pertenece" %><br/>
+  <%= text_field_tag "name", '', class: "form-control", placeholder: "Nombre"%><br/>
+  <%= text_field_tag "submname", '', class: "form-control", placeholder: "Apellidos"%><br/>
+  <%= submit_tag "Crear nuevo Cliente", class: "btn btn-default pull-right" %>
+</div>
+<%end%>

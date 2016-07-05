@@ -1,12 +1,10 @@
-<p id="notice"><%= notice %></p>
+<h1>Publicaciones del sistema</h1>
+<%= link_to 'Nueva publicación', new_publication_path, class: "btn btn-info pull-right" %>
 
-<h1>Listing Publications</h1>
-
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Title</th>
-      <th>Content</th>
       <th>Admin</th>
       <th>Head image</th>
       <th colspan="3"></th>
@@ -17,12 +15,11 @@
     <% @publications.each do |publication| %>
       <tr>
         <td><%= publication.title %></td>
-        <td><%= publication.content %></td>
         <td><%= publication.admin_id %></td>
         <td><%= publication.head_image %></td>
-        <td><%= link_to 'Show', publication %></td>
-        <td><%= link_to 'Edit', edit_publication_path(publication) %></td>
-        <td><%= link_to 'Destroy', publication, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Ver', publication %></td>
+        <td><%= link_to 'Editar', edit_publication_path(publication) %></td>
+        <td><%= link_to 'Destruir', publication, method: :delete, data: { confirm: '¿Estas seguro de elminar esta publicación?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +27,3 @@
 
 <br>
 
-<%= link_to 'New Publication', new_publication_path %>

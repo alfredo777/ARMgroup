@@ -24,6 +24,25 @@ class AdminController < ApplicationController
   end
 
   def edit_customer
+    @customer = Customer.find(params[:id])
+  end
+
+  def update_customer
+    @customer = Customer.find(params[:id])
+    @customer.email = params[:email]
+    @customer.route_files = params[:route_files]
+    @customer.empresa = params[:empresa]
+    @customer.idempresa = params[:idempresa]
+    @customer.name = params[:name]
+    @customer.submname = params[:submname]
+    if !params[:password].nil?
+      @customer.password = params[:password]
+    end
+    @customer.save(:validate => false)
+
+    flash[:notice] = "Se ha actualizado el usuario correctamente."
+    redirect_to :back
+
   end
 
   def delete_customer

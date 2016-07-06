@@ -11,4 +11,8 @@ class HomeController < ApplicationController
 
   def arm
   end
+
+  def blog_call
+    @blog = Publication.paginate(:page => params[:page], :per_page => 30).order('id DESC')
+  end
 end

@@ -1,1 +1,13 @@
-<h1>Editar usuario</h1>
+<h1>Crear Cliente</h1>
+<%= form_tag admin_update_customer_path(id: @customer.id) do -%>
+<div class="form-group">
+  <%= text_field_tag "email", @customer.email, class:"form-control", placeholder: "Ingresa el Email"%><br/>
+  <%= password_field_tag "password", "", class:"form-control", placeholder: "Ingresa la contraseña"%><br/>
+  <%= text_field_tag "route_files", @customer.route_files, class:"form-control", placeholder: "Ingresa ruta para archivos de audio."%><br/>
+  <%= text_field_tag "empresa", @customer.empresa, class: "form-control", placeholder: "Ingresa el nombre de la empresa a la que pertenece"%><br/>
+  <%= text_field_tag "idempresa", @customer.idempresa, class: "form-control", placeholder: "Identificador empresa que pertenece" %><br/>
+  <%= text_field_tag "name", @customer.name, class: "form-control", placeholder: "Nombre"%><br/>
+  <%= text_field_tag "submname", @customer.submname, class: "form-control", placeholder: "Apellidos"%><br/>
+  <%= submit_tag "Actualizar Cliente", class: "btn btn-info pull-right" %>
+</div>
+<%end%>

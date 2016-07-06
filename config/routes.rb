@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
   get 'admin/edit_customer', as: "admin_edit_customer"
 
+  get 'admin/update_customer', as: "admin_update_customer"
+  post 'admin/update_customer'
+
   get 'admin/delete_customer', as: "admin_delete_customer"
   post 'admin/delete_customer'
 
@@ -19,9 +22,12 @@ Rails.application.routes.draw do
   post 'admin/edit_pages'
 
   resources :publications
-  devise_for :customers, path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }
+  devise_for :customers, path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }, :path_prefix => 'my'
   devise_for :admins, path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }
-
+  
+  authenticate :admins do
+    resources :publications, only: [:new, :create, :edit, :update, :destroy]
+  end
 
   get 'home/index'
   get 'home/contact'

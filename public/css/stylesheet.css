@@ -35889,4 +35889,12 @@ section {
     background: #00acec;
 
 }
+
+.social{
+    padding: 5%;
+    text-align: center;
+    border-top: solid 10px #000;
+    background: #282828;
+
+}
 /* ----------------------------------------------------------------------------- MEDIA QURIES ENDS ------------------ */

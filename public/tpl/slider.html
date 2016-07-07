@@ -4,7 +4,7 @@
 <ul>
   <li data-transition="zoomout" data-slotamount="default"  data-easein="Power4.easeInOut" data-easeout="Power4.easeInOut" data-masterspeed="1000" data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7" data-saveperformance="off" data-title= "ARM procesos"  class="bubbles">
     <!-- MAIN IMAGE -->
-    <img src="images/backparallax/26.jpg" alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
+    <img src="images/backparallax/interrogacion_4-01.jpg" alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
     <div class="tp-caption News-Title tp-caption NotGeneric-Title tp-resizeme rs-parallaxlevel-0 t-center "
       data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
       data-y="['center','center','center','center']" data-voffset="['-50','-50','-50','-30']"
@@ -304,28 +304,42 @@ function bubbles() {
   
   // Create the bubbles
 
-  var link_act = ["/images/otroslogos/logo1.png","/images/otroslogos/logo2.png","/images/otroslogos/logo3.png","/images/otroslogos/logo4.png"];
+  var link_act = ["/images/otroslogos/logo0.png","/images/otroslogos/logo1.png","/images/otroslogos/logo2.png","/images/otroslogos/logo3.png","/images/otroslogos/logo4.png"];
 
   for (var i = 0; i < bubbleCount; i++) {
     for (var inx = 0; inx < link_act.length; inx++){
-    $bubbles.append('<div class="bubble-container"><div class="bubble"><center><img src="'+link_act[inx]+'" width="80%"/></center></div></div>');
+    if(inx == 0){
+     $bubbles.append('<div class="bubble-container super-buble"><div class="bubble"><center><img src="'+link_act[inx]+'" width="90%" style="margin-top:40%;"/></center></div></div>');
+    }else{
+     $bubbles.append('<div class="bubble-container"><div class="bubble"><center><img src="'+link_act[inx]+'" width="80%" style="margin-top:30%;"/></center></div></div>'); 
+    }
+    
     }
   }
   
   // Now randomise the various bubble elements
+
   $bubbles.find('.bubble-container').each(function(){
-    
+    var superBBB = $(this).hasClass('super-buble');
+
     // Randomise the bubble positions (0 - 100%)
     var pos_rand = Math.floor(Math.random() * 100);
     
-    // Randomise their size
-    var size_rand = min_bubble_size + Math.floor(Math.random() * (max_bubble_size + 1));
+    if(superBBB == true){
+     var size_rand = min_bubble_size + Math.floor((Math.random() * 500) + 200);
+     var speed_rand = 3 + Math.floor(Math.random() * 8);
+
+    }else{
+      var size_rand = min_bubble_size + Math.floor(Math.random() * (max_bubble_size + 20));
+      var speed_rand = 3 + Math.floor(Math.random() * 15);
+
+
+    }
     
     // Randomise the time they start rising (0-15s)
-    var delay_rand = Math.floor(Math.random() * 5);
+    var delay_rand = Math.floor(Math.random() * 45);
     
     // Randomise their speed (3-8s)
-    var speed_rand = 3 + Math.floor(Math.random() * 20);
     
     // Random blur
     var blur_rand = Math.floor(Math.random() * 1);

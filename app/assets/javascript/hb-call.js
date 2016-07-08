@@ -4,6 +4,14 @@ function loadDBTPL(data, tpln, divloadtpl){
     });  
 }
 
+function loadTPLAPI(jsonn, datax,tpln, divloadtpl){
+   getasJSONAPI(jsonn, datax,function(data, err) {
+      getTemplate(tpln, data, function(output, err) {
+        $("#"+divloadtpl).html(output);
+      });    
+   });
+}
+
 function getTemplate(name, context, callback) {
   $.ajax({
     url: '/tpl/' + name + '.html',
@@ -12,6 +20,21 @@ function getTemplate(name, context, callback) {
       var tpl = Handlebars.compile(data),
       output = tpl(context);
       callback(output, null);
+    },
+    error: function(err) {
+      callback(null, err);
+    }
+  });
+}
+
+function getasJSONAPI(json_file, datax ,callback){
+  $.ajax({
+    dataType: "json",
+    url: '/api/'+ json_file + '.json',
+    data: datax,
+    cache: true,
+    success: function (data) {
+      callback(data, null);
     },
     error: function(err) {
       callback(null, err);
@@ -35,4 +58,8 @@ Handlebars.registerHelper('mobiledetection', function(options) {
       out = options.fn(this);
     }
   return out;
+});
+
+Handlebars.registerHelper("prettifyDate", function(timestamp) {
+    return new Date(timestamp).toLocaleDateString();
 });

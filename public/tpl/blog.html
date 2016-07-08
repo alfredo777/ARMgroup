@@ -1,0 +1,37 @@
+<div class="blog-standard-full-content grey-bg">
+  <div class="container">
+    <div class="row">
+      {{#each posts}}
+      <div class="col-lg-10 col-lg-offset-1 padding-t-b white-bg">
+        <!-- Post Starts -->
+        <div class="post">
+          <div class="image">
+            <img src="{{head_image.url}}" class="img-responsive" alt="" >
+            <div class="user">
+              <div class="pic"><img src="http://dummyimage.com/75x75" width="72" height="72" class="img-circle" alt="" ></div>
+              <div class="name">Por ARM</div>
+            </div>
+          </div>
+          <h1>{{title}}</h1>
+          <div class="meta clearfix">
+            <ul>
+              <li>Posteado en <a href="/">ARMgroup</a></li>
+              <li>{{prettifyDate created_at}}</li>
+            </ul>
+            <div class="share-this"><i class="fa fa-share-alt"></i></div>
+          </div>
+          <div class="details">
+            <div class="description">
+              <div class="row">
+              <div class="col-lg-12">
+              {{{content}}}
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

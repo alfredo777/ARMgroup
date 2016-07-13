@@ -1,0 +1,25 @@
+<div class="inner-banner-style-01" id="fuull" style="background: url('/images/team/0.jpg'); height: 100%; width: 100%;">
+  <div class="container">
+    <div class="col-lg-8">
+      <div class="info">
+        <h1 style="color:#039be5; font-size: 60px;">Socios y Equipo</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="team-03">
+    <div class="images">
+    </div>
+    <script type="text/javascript">
+      for(var i=1, l=9; i<l; i++){
+        var names = ["Antonio", "Yadira", "Claudia", "Luis Esteban", "José Luis", "Lia", "Rubén", "Elba"]
+        var iio = i - 1;
+        var ImgX = '<center><div class="col-lg-12" style="background:#000; color:#fff; font-size:60px; padding: 40px;">'+names[iio]+'</div><img src="/images/team/'+i+'.jpg" width="105%" class="zooming" data-zoom-image="/images/team/'+i+'.jpg"/></center>';
+        $('.images').append(ImgX);
+      }
+      var hXCE = $(window).height();
+      console.log(hXCE);
+      $('#fuull').height(hXCE);
+    </script>
+
+</div>

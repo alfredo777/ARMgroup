@@ -1,0 +1,90 @@
+/* line 5, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-shares {
+  margin: 0.2em 0;
+}
+
+/* line 9, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-shares * {
+  box-sizing: border-box;
+}
+
+/* line 13, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-share {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0.3em;
+}
+
+/* line 19, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-share:first-child {
+  margin-left: 0;
+}
+
+/* line 23, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-share:last-child {
+  margin-right: 0;
+}
+
+/* line 27, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-share-logo {
+  width: 1em;
+  vertical-align: middle;
+  font-size: 1.5em;
+}
+
+/* line 33, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+img.jssocials-share-logo {
+  width: auto;
+  height: 1em;
+}
+
+/* line 38, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-share-link {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1;
+}
+/* line 44, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-share-link.jssocials-share-link-count {
+  padding-top: .2em;
+}
+/* line 47, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-share-link.jssocials-share-link-count .jssocials-share-count {
+  display: block;
+  font-size: .6em;
+  margin: 0 -.5em -.8em -.5em;
+}
+/* line 54, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-share-link.jssocials-share-no-count {
+  padding-top: .5em;
+}
+/* line 57, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-share-link.jssocials-share-no-count .jssocials-share-count {
+  height: 1em;
+}
+
+/* line 63, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-share-label {
+  padding-left: 0.3em;
+  vertical-align: middle;
+}
+
+/* line 68, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-share-count-box {
+  display: inline-block;
+  height: 1.5em;
+  padding: 0 0.3em;
+  vertical-align: middle;
+  cursor: default;
+}
+/* line 75, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-share-count-box.jssocials-share-no-count {
+  display: none;
+}
+
+/* line 80, /Users/macdejarda/Documents/quaestio/app/assets/stylesheets/jsocial/_jssocials.scss */
+.jssocials-share-count {
+  line-height: 1.5em;
+  vertical-align: middle;
+}

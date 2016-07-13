@@ -86,3 +86,8 @@ function Modelos(){
   AccesTPL();
   loadDBTPL("", "modelos", "loader");
 }
+
+function Team(){
+  AccesTPL();
+  loadDBTPL("", "team", "loader");
+}

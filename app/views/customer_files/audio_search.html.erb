@@ -1,0 +1,27 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Fecha</th>
+      <th>Audio</th>
+      <th>Otros componentes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @scoped_audios_results.each do |audiox|%>
+    <tr>
+      <td><%= audiox[:name] %></td>
+      <td> <%= audiox[:date] %></td>
+      <td>
+        <div class="ui360">
+          <a href="<%= audiox[:url] %>"></a>
+        </div>
+      </td>
+      <td>
+        <%= audiox[:components] %>
+      </td>
+    </tr>
+    <%end%>
+    
+  </tbody>
+</table>

@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'customer_files/shared'
+
+  get 'customer_files/audio_search'
+
+  get 'customer_files/audio_selected'
+
   get 'admin/panel'
 
   get 'admin/customers', as: "admin_customers"

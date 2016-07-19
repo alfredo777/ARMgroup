@@ -10,8 +10,7 @@
     <%= csrf_meta_tags %>
   </head>
   <% unless current_admin || current_customer %>
-  <!--<body style="background: url('/images/backparallax/18.jpg'); background-size:100% 100%; background-repeat: no-repeat; min-height:800px;">-->
-   <body>
+  <body style="background: url('/images/backparallax/18.jpg'); background-size:100% 100%; background-repeat: no-repeat; min-height:800px;">
     <%else%>
     <body>
       <% if !flash[:notice].nil? %>

@@ -17,4 +17,12 @@
 //= require soundmanager2-jsmin
 //= require soundmanager2-nodebug-jsmin
 //= require soundmanager2-nodebug
-//= require_tree .
+//= require berniecode-animator
+//= require player360
+//= require handlebars
+//= require hb-call
+//= require routes-acces
+//= require AJAXforms
+//= require actions
+//= require summernote
+

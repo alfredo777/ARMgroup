@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160704225821) do
+ActiveRecord::Schema.define(version: 20160719211158) do
+
+  create_table "actions", force: :cascade do |t|
+    t.string  "action"
+    t.string  "time_in_come"
+    t.integer "customer_id"
+  end
+
+  add_index "actions", ["customer_id"], name: "index_actions_on_customer_id"
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -54,6 +62,17 @@ ActiveRecord::Schema.define(version: 20160704225821) do
   add_index "customers", ["email"], name: "index_customers_on_email", unique: true
   add_index "customers", ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
 
+  create_table "notices", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "customer_id"
+    t.integer  "admin_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "notices", ["admin_id"], name: "index_notices_on_admin_id"
+  add_index "notices", ["customer_id"], name: "index_notices_on_customer_id"
+
   create_table "publications", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
@@ -62,5 +81,18 @@ ActiveRecord::Schema.define(version: 20160704225821) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "shared_files", force: :cascade do |t|
+    t.string   "url"
+    t.string   "name"
+    t.integer  "fileable_id"
+    t.string   "fileable_type"
+    t.integer  "admin_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "shared_files", ["fileable_id"], name: "index_shared_files_on_fileable_id"
+  add_index "shared_files", ["fileable_type"], name: "index_shared_files_on_fileable_type"
 
 end

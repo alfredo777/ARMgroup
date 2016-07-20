@@ -2,7 +2,7 @@
 
 class HeadImageUploader < CarrierWave::Uploader::Base
 
-  include CarrierWave::RMagick
+  #include CarrierWave::RMagick
 
   process resize_to_fill: [1140, 552]
   process convert: 'png'

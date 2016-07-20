@@ -36,7 +36,7 @@
             <p style="font-size: 45%; color:#fff;"> Somos expertos en investigación de mercados.</p>
           </div>
           <center>
-            <div class="red col-md-4 col-lg-12  pull-right" style="font-size:40px; background: #e22626!important; font-size: 22.5%; color: rgb(255, 255, 255); transition: none; line-height: 44px; border-width: 1px; margin: 0px; padding: 12px 15px; letter-spacing: 0px; font-weight: 500;" onclick="AboutUs()" >
+            <div class="red col-md-4  pull-right" style="font-size:40px; background: #e22626!important; font-size: 22.5%; color: rgb(255, 255, 255); transition: none; line-height: 44px; border-width: 1px; margin: 0px; padding: 12px 15px; letter-spacing: 0px; font-weight: 500;" onclick="AboutUs()" >
               Conocenos
             </div>
           </center>
@@ -46,7 +46,6 @@
       </div>
       <script type="text/javascript"> type="text/css">
         $('.red').removeClass('pull-right');
-        $('.red').removeClass('col-lg-12 ');
         $('.red').removeClass('col-md-4');
         $('.red').width('70%');
         $('.red').css({"font-size": "50%", "text-align": "center"});
@@ -90,7 +89,7 @@
         <p style="font-size: 45%; color:#A4A4A4;">Te invitamos a que veas todos nuestros modelos y metodologías.</p>
         <br/>
         <center>
-          <div class="red col-md-5 col-lg-12  pull-right" style="font-size:40px; background: #e22626!important; font-size: 22.5%; color: rgb(255, 255, 255); transition: none; line-height: 44px; border-width: 1px; margin: 0px; padding: 12px 15px; letter-spacing: 0px; font-weight: 500;" onclick="Metodologias()">Ver Modelos y Metodologías</div>
+          <div class="red col-md-5  pull-right" style="font-size:40px; background: #e22626!important; font-size: 22.5%; color: rgb(255, 255, 255); transition: none; line-height: 44px; border-width: 1px; margin: 0px; padding: 12px 15px; letter-spacing: 0px; font-weight: 500;" onclick="Metodologias()">Ver Modelos y Metodologías</div>
         </center>
         <div></div>
     {{#mobiledetectionInverse}}
@@ -129,7 +128,7 @@
   <div class="col-md-12">Ponte en contacto <br/>
   <p style="font-size: 45%; color:#A4A4A4;">Estamos en toda Latinoamérica e Estados Unidos.</p>
   </div>
-  <center><div class="red col-md-4 col-lg-12 pull-right" style="font-size:40px; background: #e22626!important; font-size: 22.5%; color: rgb(255, 255, 255); transition: none; line-height: 44px; border-width: 1px; margin: 0px; padding: 12px 15px; letter-spacing: 0px; font-weight: 500;" onclick="Contacto()">Contactar</div>
+  <center><div class="red col-md-4 pull-right" style="font-size:40px; background: #e22626!important; font-size: 22.5%; color: rgb(255, 255, 255); transition: none; line-height: 44px; border-width: 1px; margin: 0px; padding: 12px 15px; letter-spacing: 0px; font-weight: 500;" onclick="Contacto()">Contactar</div>
   </center>
   </div>
   </div>
@@ -422,3 +421,14 @@ $('.bubble-toggle').click(function(){
 bubbles();
 </script>
 {{/mobiledetection}}
+{{#mobiledetectionInverse}}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.red').removeClass('pull-right');
+    $('.red').removeClass('col-md-4');
+    $('.red').width('70%');
+    $('.red').css({"font-size": "50%", "text-align": "center"});
+    $('.red').addClass('pull-left');
+  });
+</script>>
+{{/mobiledetectionInverse}}

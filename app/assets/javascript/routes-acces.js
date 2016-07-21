@@ -91,3 +91,8 @@ function Team(){
   AccesTPL();
   loadDBTPL("", "team", "loader");
 }
+
+function workBag(){
+  AccesTPL();
+  loadDBTPL("", "bolsa_de_trabajo", "loader");
+}

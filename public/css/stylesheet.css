@@ -35897,4 +35897,26 @@ section {
     background: #282828;
 
 }
+
+.work-bag{
+    margin-top: 220px;
+    position: fixed;
+    border-right:solid 15px #e55353;
+    background: #434543;
+    padding: 10px;
+    z-index: 9999999999999;
+    color: #fff !important;
+    cursor: pointer;
+}
+
+.work-bag:hover{
+    margin-top: 220px;
+    position: fixed;
+    border-right:solid 15px #434543;
+    background: #e55353;
+    padding: 10px;
+    z-index: 9999999999999;
+    color: #fff !important;
+    cursor: pointer;
+}
 /* ----------------------------------------------------------------------------- MEDIA QURIES ENDS ------------------ */

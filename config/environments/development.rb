@@ -43,8 +43,8 @@ Rails.application.configure do
       address:              'sapiens.email',
       port:                 2525,
       domain:               'sapiens.email',
-      user_name:            'alfredo',
-      password:             '777divino',
+      user_name:            'no-reply',
+      password:             'no-reply2016',
       authentication:       :plain,
       enable_starttls_auto: true  
     }

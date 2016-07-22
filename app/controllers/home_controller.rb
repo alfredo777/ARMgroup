@@ -5,7 +5,8 @@ class HomeController < ApplicationController
 
   def contact
     @mail = ContactMailer.contact_email(params[:email], "alfredo@rockstars.mx", params[:name], params[:phone], params[:comment]).deliver_now
-    #@mail = ContactMailer.contact_email(params[:email], "carolina.cortes@research-ss.com", params[:name], params[:phone], params[:comment]).deliver_now
+    @mail = ContactMailer.contact_email(params[:email], "carolina.cortes@research-ss.com", params[:name], params[:phone], params[:comment]).deliver_now
+    @mail = ContactMailer.contact_email(params[:email], "contacto@research-ss.com", params[:name], params[:phone], params[:comment]).deliver_now
 
     puts @mail
     render json: {reponse: true}

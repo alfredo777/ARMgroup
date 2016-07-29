@@ -7,3 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 @admin = Admin.create(email: "alfredo@rockstars.mx", password: "123456789")
+@admin2 = Admin.create(email: "carolina.cortes@research-ss.com", password: "carolina123")
+

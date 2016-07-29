@@ -30,8 +30,8 @@ Rails.application.routes.draw do
   get 'api/blog', as: "blog_call"
 
   resources :publications
-  devise_for :customers, path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }, :path_prefix => 'my'
-  devise_for :admins, path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }
+  devise_for :customers, path_names: { password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }, :path_prefix => 'my'
+  devise_for :admins, path_names: { password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }
   
   authenticate :admins do
     resources :publications, only: [:new, :create, :edit, :update, :destroy]

@@ -79,6 +79,10 @@ body {
     color: #999999;
     line-height: 30px;
 }
+
+a {
+ cursor: pointer !important;
+}
 /* ---------------------------------------------------------------------- PRELOADER STARTS ------------------ */
 
 #preloader {
@@ -35454,7 +35458,7 @@ section {
         font-weight: 400;
         color: #fff;
         text-align: center;
-        padding-top: 10px;
+        padding-top: 40px;
         padding-left: 0px;
         padding-right: 0px;
         padding-bottom: 10px;

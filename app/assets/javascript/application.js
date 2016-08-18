@@ -25,4 +25,14 @@
 //= require AJAXforms
 //= require actions
 //= require summernote
+//= require jquery
+//= require ahoy
+
+$(document).ready(function(){
+  $('a').click(function(){
+    var hreF = $(this).attr('href');
+    ahoy.track("Click", {title: "Click en -> "+hreF});
+  });
+});
+
 

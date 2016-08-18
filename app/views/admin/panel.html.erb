@@ -1,1 +1,20 @@
-<h1>Estadisticas Admin</h1>
+<h1>Ultimos eventos</h1>
+<div class="row">
+  <div class="col-md-10">
+    <table class="table table-bordered" id="table">
+      <tr>
+        <th>Acción</th>
+        <th>Fecha y Hora</th>
+      </tr>
+      <% @visit.each do |v| %>
+      <tr>
+        <td><%= "#{v.properties["page"]} #{v.properties["name"]} ->  #{v.properties["tag"]}  -> #{v.properties["url"]} #{v.properties["title"]} #{v.properties["href"]}"   %></td>
+        <td><%= v.time %></td>
+      </tr>
+      <%end%>
+    </table>
+    <%= will_paginate @visit, renderer: BootstrapPagination::Rails %>
+  </div>
+  <div class="col-md-6">
+  </div>
+</div>

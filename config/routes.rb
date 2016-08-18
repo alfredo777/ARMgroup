@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
-  get 'customer_files/shared'
+  get 'customer_files/shared', as: "customers_share_files"
 
-  get 'customer_files/audio_search'
+  get 'customer_files/open_file', as: "open_file"
 
-  get 'customer_files/audio_selected'
+  get 'customer_files/audio_search', as: "customer_audio_files"
+
+  get 'customer_files/audio_selected', as: "open_audio"
+
+  get 'customer_files/notify', as: :customer_notify
 
   get 'admin/panel'
 
@@ -28,6 +32,22 @@ Rails.application.routes.draw do
   post 'admin/edit_pages'
 
   get 'api/blog', as: "blog_call"
+
+
+  get 'api/create_notify', as: "create_notify"
+  post  'api/create_notify'
+
+  get "admin/library/:id", to: "admin#library", as: "library_admin"
+
+
+  get "admin/files_add/:id", to: "admin#files_add"
+  post "admin/files_add/:id", to: "admin#files_add"
+  get "admin/library_event", as: :library_event
+
+  get "admin/delete_file", as: :delete_file
+  post "admin/delete_file"
+
+  get "admin/notify", as: :admin_notify
 
   resources :publications
   devise_for :customers, path_names: { password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }, :path_prefix => 'my'

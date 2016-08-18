@@ -1,6 +1,6 @@
 <div class="row">
 <%= link_to 'Regresar', publications_path, class: "btn btn-default" %>
-<%= link_to 'Editar', edit_publication_path(@publication), class: "btn btn-info" %>
+<%= link_to 'Editar', edit_publication_path(@publication), class: "btn btn-info", data: { no_turbolink: true } %>
 </div><br/><br/>
 <p>
   <%= image_tag(@publication.head_image, width: "100%") %>

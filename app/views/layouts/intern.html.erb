@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application' %>
-    <%= javascript_include_tag 'bootstrap' %>
+    <%#= javascript_include_tag 'bootstrap' %>
     <%= csrf_meta_tags %>
   </head>
   <% unless current_admin || current_customer %>
@@ -25,7 +25,9 @@
       </div>
       
       <%end%>
-      <%= render partial: '/admin/menu' %>
+      <%= render partial: '/admin/menu' if current_admin %>
+      <%= render partial: '/customer_files/menu' if current_customer %>
+
       <div class="container">
         <%end%>
         <%= yield %>

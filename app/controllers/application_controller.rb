@@ -2,8 +2,33 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  helper_method :host_url
+  helper_method :customer_act_search
+  helper_method :authenticate_any
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+
+  def host_url
+    if Rails.env == "Production"
+      @h = "http://myproduction.com"
+    else  
+      @h = "http://localhost:3000"
+    end
+    @h
+  end
+
+  def customer_act_search(id, relation)
+    @id = id.to_i
+    @string = "properties LIKE '%\""+"#{relation}"+"\":"+"#{@id}"+"%'"
+  end
+
+  def authenticate_any!
+    if admin_signed_in?
+        true
+    else
+        authenticate_customer!
+    end
+end
 
   protected
 

@@ -1,7 +1,17 @@
 class CustomerFilesController < ApplicationController
+  before_action :authenticate_any!
   layout "intern"
-  def shared
 
+  def shared
+    @customer = current_customer
+  end
+
+  def open_file
+   @file = SharedFile.find(params[:id])
+   @type = @file.name.split('.').last 
+   if current_customer
+   ahoy.track "Open File", title: "El archivo fue abierto #{@file.name} por #{current_customer.email} - #{Time.now}", customer:current_customer.id, archivo:params[:id].to_i
+   end
   end
 
   def audio_search
@@ -17,10 +27,13 @@ class CustomerFilesController < ApplicationController
     ]
 
     @scoped_audios_results = result_audios_proccess(audios_result)
-
   end
 
   def audio_selected
+  end
+
+  def notify
+    @notices = Notice.where(customer_id: current_customer.id).paginate(:page => params[:page], :per_page => 2).order('id DESC')
   end
 
   def result_audios_proccess(audios_result)
@@ -43,4 +56,7 @@ class CustomerFilesController < ApplicationController
     @result = proces_results.to_a
 
   end
+
+
+
 end

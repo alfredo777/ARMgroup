@@ -2,6 +2,7 @@ class AdminController < ApplicationController
   before_action :authenticate_admin!
   layout "intern"
   def panel
+    @visit = Ahoy::Event.paginate(:page => params[:page], :per_page => 10).order('time DESC')
   end
 
   def customers
@@ -10,6 +11,11 @@ class AdminController < ApplicationController
 
   def new_customer
   end
+
+  def notify
+    @notices = Notice.where(customer_id: params[:customer]).paginate(:page => params[:page], :per_page => 2).order('id DESC')
+  end
+
 
   def create_customer
     @customer = Customer.create(email: params[:email], password: params[:password], name: params[:name], submname: params[:submname], empresa: params[:empresa], idempresa: params[:idempresa], route_files: params[:route_files])
@@ -69,9 +75,63 @@ class AdminController < ApplicationController
     @oppen_page = File.read(oppenroute)
   end
 
+  def library
+    @customer = Customer.find(params[:id])
+  end
+
+
+  def files_add
+    @share_file = SharedFile.new
+    @share_file.admin_id = current_admin.id
+    @share_file.url = params[:file]
+    @share_file.fileable_type = "Customer"
+    @share_file.fileable_id = params[:id]
+    @share_file.save
+
+    if @share_file.save
+      @share_file.name = "#{@share_file.url}".split('/').last
+      @share_file.save
+      notify = Notice.new
+      notify.customer_id = params[:id]
+      notify.admin_id = current_admin.id
+      notify.content = "<a href='#{open_file_path(id: @share_file.id)}'>#{@share_file.name}</a>"
+      notify.owner_id = current_admin.id
+      notify.owner_type = "Admin"
+      notify.save
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def delete_file
+    if current_admin
+    @share_file = SharedFile.find(params[:id])
+    @share_file.destroy
+
+    if @share_file.destroy
+      ahoy.track "Destroy File", title: "Archivo #{@share_file.name} destruido por #{current_admin.email}"
+
+      flash[:notice] = "Archivo eliminado correctamente"
+      redirect_to :back
+
+    end
+    else
+      flash[:notice] = "Usted no esta autorizado para eliminar el archivo"
+      redirect_to :back
+    end
+  end
+
+  def library_event
+   event = Ahoy::Event.where(name: "Open File")
+   @event = event.where(customer_act_search(params[:file],'archivo'))
+  end
+
   def  edit_pages
     @file = File.open(params[:file_route], 'w') { |file| file.write(params[:file_w]) }
     flash[:notice] = "Archivo guardado correctamente"
     redirect_to :back
   end
+
 end

@@ -28,8 +28,8 @@
         <%= c.empresa %>
       </td>
       <td>
-        <%= link_to "Editar", admin_edit_customer_path(id: c.id) %>
-        <%= link_to "Eliminar", admin_delete_customer_path(id: c.id), data: { confirm: '¿Estas seguro de elminar este cliente?' } %>
+        <%= link_to "Editar", admin_edit_customer_path(id: c.id) %> |
+        <%= link_to "Eliminar", admin_delete_customer_path(id: c.id), data: { confirm: '¿Estas seguro de elminar este cliente?' } %> | <%= link_to "Archivos", library_admin_path(c.id) %> | <%= link_to "Mensaje", admin_notify_path(customer: c.id) %>
       </td>
     </tr>
     <%end%>

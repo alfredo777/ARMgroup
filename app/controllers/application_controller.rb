@@ -33,7 +33,7 @@ end
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :submname, :route_files, :empresa, :idempresa, :email, :password, :password_confirmation, :remember_me, :current_password)}
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :submname, :route_files, :empresa, :idempresa, :email, :password, :password_confirmation, :remember_me, :current_password)}
+    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :submname, :route_files, :empresa, :idempresa, :email, :password, :password_confirmation, :remember_me, :current_password)}
+    devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :submname, :route_files, :empresa, :idempresa, :email, :password, :password_confirmation, :remember_me, :current_password)}
   end
 end

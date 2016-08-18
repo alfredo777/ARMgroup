@@ -1,5 +1,6 @@
 class CustomerFilesController < ApplicationController
-  before_action :authenticate_any!
+  before_action :authenticate_any!, only: [:open_file]
+  before_action :authenticate_customer!, except: [:open_file]
   layout "intern"
 
   def shared

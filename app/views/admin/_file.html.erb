@@ -1,0 +1,9 @@
+<tr>
+  <% if permited %>
+  <td><a href="<%= f.url %>" download="<%= f.name %>"> <%= f.name %> </a></td>
+  <td> <%= link_to "Historial", library_event_path(customer: f.fileable.id, file: f.id)%> | <%= link_to "Eliminar", delete_file_path(id: f.id), data: { confirm: '¿Estas seguro de elminar este Archivo?' } %></td>
+  <%else%>
+  <td> <%= f.name %> </td>
+  <td> <%= link_to "Abrir", open_file_path(id: f.id) %></td>
+  <%end%>
+</tr>

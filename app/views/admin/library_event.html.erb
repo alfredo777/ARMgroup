@@ -1,0 +1,13 @@
+<div class="row">
+<div class="col-md-2">
+</div>
+<div class="col-md-8">
+ <table class="table table-bordered">
+<tr><th>#</th><th>Evento</th></tr>
+<% @event.each_with_index do |e, index| %>
+  <tr><td><%= index + 1 %></td><td><center><%= e.properties['title'] %></center></td></tr>
+<%end%>
+ </table>
+
+</div>
+</div>

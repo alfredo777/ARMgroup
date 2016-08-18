@@ -1,0 +1,12 @@
+<div class="row">
+<a href="<%= @file.url %>" class="btn btn-primary" download>Descargar</a>
+</div>
+<br/>
+<div class="row">
+<% case @type %>
+<% when 'png','jpg','gif','jpeg' %>
+ <%= image_tag @file.url %>
+<% when 'pdf','ppt','xls','xlsx' %>
+<iframe src="http://docs.google.com/gview?url=<%="#{Rails.root}#{@file.url}"%>&embedded=true" style="width:600px; height:800px;" frameborder="0"></iframe>
+<%end%> 
+</div>

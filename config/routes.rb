@@ -49,6 +49,9 @@ Rails.application.routes.draw do
 
   get "admin/notify", as: :admin_notify
 
+  get "legal/terms_and_contions", to: "home#legal_terms_and_conditions", as: :legal_terms_and_conditions
+  get "legal/privacy", to: "home#privacy", as: :legal_privacity
+
   resources :publications
   devise_for :customers, path_names: { password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }, :path_prefix => 'my'
   devise_for :admins, path_names: { password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }

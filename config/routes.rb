@@ -49,7 +49,7 @@ Rails.application.routes.draw do
 
   get "admin/notify", as: :admin_notify
 
-  get "legal/terms_and_contions", to: "home#legal_terms_and_conditions", as: :legal_terms_and_conditions
+  get "legal/terms_and_conditions", to: "home#legal_terms_and_conditions", as: :legal_terms_and_conditions
   get "legal/privacy", to: "home#privacy", as: :legal_privacity
 
   resources :publications

@@ -6,6 +6,7 @@ class Customer < ActiveRecord::Base
 
   has_many :shared_files, as: :fileable
   has_many :notices, as: :owner
+  has_many :campaings
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

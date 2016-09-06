@@ -14,6 +14,18 @@ class ApiController < ApplicationController
     notify.owner_id = params[:owner_id]
     notify.owner_type = params[:owner_type]
     notify.save
+    
+    notice = "<h3>Usted ha recibido una notificación ingrese a ARM para responderla | <a href='#{host_url}/customer_files/notify'>Ingresar</a> </h3>"
+   
+    if params[:owner_type] == "Admin"
+       toemail = Customer.find(params[:customer_id])
+       fromemail = "contacto@research-ss.com"
+       #toemail = "alfredo@rockstars.mx"
+       @mail = ContactMailer.notify_me(fromemail,toemail,notice).deliver_now
+    else
+      puts "Notificación de administrador"
+    end
+
 
     redirect_to :back
   end

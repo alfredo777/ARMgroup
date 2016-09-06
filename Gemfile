@@ -21,7 +21,6 @@ end
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.6'
-gem 'will_paginate-bootstrap'
 gem "font-awesome-rails"
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
@@ -44,5 +43,8 @@ gem 'devise'
 gem 'carrierwave'
 gem "mini_magick"
 gem 'rmagick'
-gem 'will_paginate'
 gem 'ahoy_matey'
+gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails', :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
+gem 'rubyzip'
+gem 'bootstrap-select-rails'
+#gem 'rails-simple-search'

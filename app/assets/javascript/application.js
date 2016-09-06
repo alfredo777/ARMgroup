@@ -27,6 +27,12 @@
 //= require summernote
 //= require jquery
 //= require ahoy
+//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js
+//= require bootstrap-select
+//= require bootstrap/alert
+//= require bootstrap/dropdown
 
 $(document).ready(function(){
   $('a').click(function(){

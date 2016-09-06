@@ -6,7 +6,7 @@ class AdminController < ApplicationController
   end
 
   def customers
-    @customers = Customer.all
+    @customers = Customer.paginate(:page => params[:page], :per_page => 30).order('id DESC')
   end
 
   def new_customer
@@ -14,6 +14,36 @@ class AdminController < ApplicationController
 
   def notify
     @notices = Notice.where(customer_id: params[:customer]).paginate(:page => params[:page], :per_page => 2).order('id DESC')
+  end
+
+  def campaings
+    @customer = Customer.find(params[:id])
+    @campaing = @customer.campaings.paginate(:page => params[:page], :per_page => 10).order('id DESC')
+  end
+
+  def create_campaing
+    campaing = Campaing.new
+    campaing.customer_id = params[:customer_id]
+    campaing.admin_id = params[:admin_id]
+    campaing.campaing_code = params[:code]
+    campaing.campaing_title = params[:title]
+    campaing.active = true
+    campaing.restrict_audio_download = false
+    campaing.save
+
+    if campaing.save 
+     flash[:notice] = "Campaña creada correctamente"
+   else
+     flash[:notice] = "La campaña no pudo ser creada"
+   end
+   redirect_to :back
+  end
+
+  def delete_campaing
+    campaing = Campaing.find(params[:id])
+    campaing.destroy
+    flash[:notice] = "Se ha eliminado la campaña correctamente"
+    redirect_to :back
   end
 
 
@@ -77,6 +107,7 @@ class AdminController < ApplicationController
 
   def library
     @customer = Customer.find(params[:id])
+    @files = @customer.shared_files.paginate(:page => params[:page], :per_page => 12).order('id DESC')
   end
 
 
@@ -98,6 +129,11 @@ class AdminController < ApplicationController
       notify.owner_id = current_admin.id
       notify.owner_type = "Admin"
       notify.save
+      notice = "<h3>Usted ha recibido una notificación de Archivo compartido ingrese a ARM para responderla | <a href='#{host_url}/customer_files/notify'>Ingresar</a> </h3>"
+      toemail = Customer.find(params[:id])
+      fromemail = "contacto@research-ss.com"
+      #toemail = "alfredo@rockstars.mx"
+      mail = ContactMailer.notify_me(fromemail,toemail,notice).deliver_now
     end
 
     respond_to do |format|

@@ -7,13 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application' %>
-    <%#= javascript_include_tag 'bootstrap' %>
+    <script type="text/javascript" src="/javascripts/bootstrap.js"></script>
     <%= csrf_meta_tags %>
   </head>
   <% unless current_admin || current_customer %>
   <body style="background: url('/images/backparallax/18.jpg'); background-size:100% 100%; background-repeat: no-repeat; min-height:800px;">
     <%else%>
-    <body>
+    <body 
+      <% if content_for?(:body_attributes) %>
+        <%= yield(:body_attributes) %> 
+      <% end %>>
+      
       <% if !flash[:notice].nil? %>
       <div class="alert alert-info alert-dismissible" id="alert">
       <%= flash[:notice] %>

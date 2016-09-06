@@ -1,40 +1,47 @@
 <h1>Clientes</h1>
-<%= link_to "Nuevo cliente", admin_new_customer_path, class: "btn btn-info pull-right"%>
-<table class="table">
-  <thead>
-    <td>
-      <tr>
-        <th>Email</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Empresa</th>
-        <th>Opcciones</th>
-      </tr>
-    </td>
-  </thead>
-  <tbody>
-    <% @customers.each do |c| %>
-    <tr>
-      <td>
-        <%= c.email %>
-      </td>
-      <td>
-        <%= c.name %>
-      </td>
-      <td>
-        <%= c.submname %>
-      </td>
-      <td>
-        <%= c.empresa %>
-      </td>
-      <td>
-        <%= link_to "Editar", admin_edit_customer_path(id: c.id) %> |
-        <%= link_to "Eliminar", admin_delete_customer_path(id: c.id), data: { confirm: '¿Estas seguro de elminar este cliente?' } %> | <%= link_to "Archivos", library_admin_path(c.id) %> | <%= link_to "Mensaje", admin_notify_path(customer: c.id) %>
-      </td>
-    </tr>
-    <%end%>
-  </tbody>
-</table>
-
-
-
+<%= link_to "Nuevo cliente + ", admin_new_customer_path, class: "btn btn-info pull-right"%>
+<br/><br/>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Empresa</th>
+            <th colspan="5">Opcciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @customers.each do |c| %>
+          <tr>
+            <td>
+              <%= c.email %>
+            </td>
+            <td>
+              <%= c.name %>
+            </td>
+            <td>
+              <%= c.submname %>
+            </td>
+            <td>
+              <%= c.empresa %>
+            </td>
+            <td>
+              <%= link_to "Editar", admin_edit_customer_path(id: c.id) %>
+            </td>
+            <td> <%= link_to "Eliminar", admin_delete_customer_path(id: c.id), data: { confirm: '¿Estas seguro de elminar este cliente?' } %> </td>
+            <td> <%= link_to "Archivos", library_admin_path(c.id) %> </td>
+            <td> <%= link_to "Mensaje", admin_notify_path(customer: c.id) %></td>
+            <td> <%= link_to "Campañas", campaings_user_list_admin_path(id: c.id)%></td>
+            
+          </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <center><%= will_paginate @customers, renderer: BootstrapPagination::Rails %></center>
+</div>

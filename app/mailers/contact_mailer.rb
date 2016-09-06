@@ -8,4 +8,11 @@ class ContactMailer < ApplicationMailer
     @comment = comment
     mail(to: @toemail, subject: "#{@name} se ha puesto en contacto con ARM")
   end
+
+  def notify_me(fromemail,toemail, notice)
+    @fromemail = fromemail
+    @toemail = toemail
+    @notice = notice
+    mail(to: @toemail, subject: "Tienes una nueva notificación de ARMgroup")
+  end
 end

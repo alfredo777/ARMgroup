@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
    skip_before_filter :verify_authenticity_token 
-   layout "legal", only: [:legal_terms_and_conditions, :privacy]
+   layout "legal", only: [:legal_terms_and_conditions, :privacy, :aviso_de_privacidad]
   def index
   end
 
@@ -20,6 +20,9 @@ class HomeController < ApplicationController
   end
 
   def privacy
+  end
+
+  def aviso_de_privacidad
   end
 
   def blog_call

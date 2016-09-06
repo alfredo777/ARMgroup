@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160818175229) do
+ActiveRecord::Schema.define(version: 20160826162027) do
 
   create_table "actions", force: :cascade do |t|
     t.string  "action"
@@ -50,6 +50,22 @@ ActiveRecord::Schema.define(version: 20160818175229) do
   add_index "ahoy_events", ["name", "time"], name: "index_ahoy_events_on_name_and_time"
   add_index "ahoy_events", ["user_id", "name"], name: "index_ahoy_events_on_user_id_and_name"
   add_index "ahoy_events", ["visit_id", "name"], name: "index_ahoy_events_on_visit_id_and_name"
+
+  create_table "campaings", force: :cascade do |t|
+    t.integer  "customer_id"
+    t.integer  "admin_id"
+    t.string   "campaing_code"
+    t.string   "campaing_title"
+    t.boolean  "active"
+    t.boolean  "restrict_audio_download"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "campaings", ["active"], name: "index_campaings_on_active"
+  add_index "campaings", ["admin_id"], name: "index_campaings_on_admin_id"
+  add_index "campaings", ["campaing_code"], name: "index_campaings_on_campaing_code"
+  add_index "campaings", ["customer_id"], name: "index_campaings_on_customer_id"
 
   create_table "customers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

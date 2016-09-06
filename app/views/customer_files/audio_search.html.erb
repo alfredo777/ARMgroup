@@ -1,27 +1,16 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Fecha</th>
-      <th>Audio</th>
-      <th>Otros componentes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @scoped_audios_results.each do |audiox|%>
-    <tr>
-      <td><%= audiox[:name] %></td>
-      <td> <%= audiox[:date] %></td>
-      <td>
-        <div class="ui360">
-          <a href="<%= audiox[:url] %>"></a>
-        </div>
-      </td>
-      <td>
-        <%= audiox[:components] %>
-      </td>
-    </tr>
-    <%end%>
-    
-  </tbody>
-</table>
+<% content_for(:body_attributes) do %>
+data-no-turbolink="true"
+<% end %>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="col-md-12">
+      <%= link_to "Ver Respaldos", view_backups_path %> |
+      <a type="button" data-toggle="modal" data-target="#myModal" style="cursor:pointer;">Busqueda <i class="fa fa-search" aria-hidden="true" ></i></a>
+      <%= render partial: '/customer_files/audio_search' %>
+    </div>
+    <br/><br/>
+    <div class="col-md-12">
+      <%= render partial: '/customer_files/audio_list', :locals => {scoped_audios_results: @scoped_audios_results, data: @data, file_name: @multi_download_file_name, name_file: @name_file, with_options: false} %>
+    </div>
+  </div>
+</div>

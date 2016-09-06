@@ -1,9 +1,32 @@
-<tr>
+<div class="col-md-2 panel panel-default ">
   <% if permited %>
-  <td><a href="<%= f.url %>" download="<%= f.name %>"> <%= f.name %> </a></td>
-  <td> <%= link_to "Historial", library_event_path(customer: f.fileable.id, file: f.id)%> | <%= link_to "Eliminar", delete_file_path(id: f.id), data: { confirm: '¿Estas seguro de elminar este Archivo?' } %></td>
-  <%else%>
-  <td> <%= f.name %> </td>
-  <td> <%= link_to "Abrir", open_file_path(id: f.id) %></td>
+  <center>
+  <%= link_to  open_file_path(id: f.id) do %>
+  <%= truncate(f.name, length: 17) %> <%= image_tag(f.file_image)%>
   <%end%>
-</tr>
+  </center>
+  <div class="col-md-12 panel panel-default">
+    <div class="col-md-4">
+      <a href="<%= f.url %>" download="<%= f.name %>"> <i class="fa fa-download" aria-hidden="true"></i> </a>
+    </div>
+    <div class="col-md-4">
+      <%= link_to library_event_path(customer: f.fileable.id, file: f.id) do %>
+      <i class="fa fa-history" aria-hidden="true"></i>
+      <%end%>
+    </div>
+    <div class="col-md-4">
+      <%= link_to delete_file_path(id: f.id), data: { confirm: '¿Estas seguro de elminar este Archivo?' } do %>
+      <i class="fa fa-trash" aria-hidden="true"></i>
+      <%end%>
+    </div>
+  </div>
+  <%else%>
+  <br/>
+  <center>
+  <%= link_to  open_file_path(id: f.id) do %>
+  <%= truncate(f.name, length: 17) %> <%= image_tag(f.file_image)%>
+  <%end%>
+  </center>
+  <br/>
+  <%end%>
+</div>

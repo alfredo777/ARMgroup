@@ -1,16 +1,21 @@
 <h1>Archivos compartidos con el usuario</h1>
-<div class="row">
-  <div class="col-lg-12">
-    <div class="col-md-9">
-      <table class="table" id="files">
-        <tr>
-          <th>Archivo</th>
-          <th>Opcciones</th>
-        </tr>
-        <% @customer.shared_files.each do |f| %>
-        <%= render partial: 'admin/file', locals: {f: f, permited: false} %>
-        <%end%>
-      </table>
-    </div>
+<%#= render partial: '/customer_files/find_files', locals: {user: current_customer.id} %>
+
+<div class="loading"></div>
+<div class="row" id="load-consult" style="display:none;">
+  <div class="col-lg-12" style="padding:30px">
+    <% @files.each do |f| %>
+    <%= render partial: 'admin/file', locals: {f: f, permited: false} %>
+    <%end%>
   </div>
+  <center><%= will_paginate @files, renderer: BootstrapPagination::Rails %></center>
 </div>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      setTimeout(function(){
+        $('#load-consult').slideToggle('slow');
+      },1000)
+
+    });
+  </script>

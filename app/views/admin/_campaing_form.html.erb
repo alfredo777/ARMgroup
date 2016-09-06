@@ -1,0 +1,15 @@
+<div class="row">
+  <%= form_tag create_campaing_path do -%>
+  <%= hidden_field_tag 'customer_id', params[:id] %>
+  <%= hidden_field_tag 'admin_id', current_admin.id %>
+  <div class="col-md-5">
+    <%= text_field_tag 'title', '', placeholder: "Título de campaña", class:"form-control" %>
+  </div>
+  <div class="col-md-5">
+    <%= number_field_tag 'code', '', placeholder: "Número de campaña", class:"form-control" %>
+  </div>
+  <div class="col-md-2">
+    <%= submit_tag "Crear Campaña", class: "btn btn-primary"%>
+  </div>
+  <%end%>
+</div>

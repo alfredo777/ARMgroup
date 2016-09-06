@@ -1,0 +1,53 @@
+<%= form_tag audio_search_files_path do -%>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <h4 class="modal-title" id="myModalLabel">Busqueda de Audios</h4>
+        <a id="advance" class="pull-right">Opcciones Avanzadas <i class="fa fa-cog" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="modal-body">
+        <b>De la fecha</b>
+        <%= text_field_tag 'date', '', "data-provide": 'datepicker', placeholder: "Selecciona una Fecha", class: "form-control ", required: true%><br/>
+        <div id="advanced-op" style="display:none;">
+          <b>A la fecha</b>
+          <%= text_field_tag 'todate', '', "data-provide": 'datepicker', placeholder: "Selecciona una Fecha Límite", class: "form-control"%><br/>
+          <div class="col-md-6">
+            <b>Selecciona una hora</b>
+            <select id="hour" name="hour" class="form-control">
+              <% 24.times do  |i|%>
+              <%= content_tag(:option, i, value: i) %>
+              <%end%>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <b>Selecciona un minuto</b>
+            <select id="minute" name="minute" class="form-control">
+              <% 61.times do  |i|%>
+              <%if "#{i}".mb_chars.length == 2%>
+              <%= content_tag(:option, i, value: i) %>
+              <%else%>
+              <%= content_tag(:option, "0#{i}", value: i) %>
+              <%end%>
+              <%end%>
+            </select>
+          </div>
+        </div>
+        <b>Selecciona una campaña</b>
+        <%= select_tag "code", options_from_collection_for_select(current_customer.campaings, "campaing_code", "campaing_title"), class: "form-control", include_blank: "Todas" %><br/>
+      </div>
+      <div class="modal-footer">
+        <%= submit_tag 'Buscar', class: 'btn btn-primary pull-right' %>
+        <button type="button" class="btn btn-default pull-right" data-dismiss="modal" style="margin-right:10px;">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<%end%>
+<script type="text/javascript">
+$('#advance').click(function(){
+$('#advanced-op').slideToggle();
+});
+</script>

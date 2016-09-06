@@ -1,0 +1,5 @@
+<% content_for(:body_attributes) do %>
+    data-no-turbolink="true"
+<% end %>
+<h1>Busqueda de audios</h1>
+<%= render partial: '/customer_files/audio_list', :locals => {scoped_audios_results: @scoped_audios_results, data: @data, file_name: @multi_download_file_name, name_file: @name_file, with_options: true} %>

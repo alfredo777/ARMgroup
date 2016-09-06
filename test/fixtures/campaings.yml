@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_id: 1
+  admin_id: 1
+  campaing_code: MyString
+  campaing_title: MyString
+  active: 
+
+two:
+  customer_id: 1
+  admin_id: 1
+  campaing_code: MyString
+  campaing_title: MyString
+  active: 

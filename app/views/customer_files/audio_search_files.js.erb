@@ -1,0 +1,1 @@
+$('#audios').append("<%= escape_javascript render(:partial => '/customer_files/audio_list', :locals => {scoped_audios_results: @scoped_audios_results, with_options: true, data: @data, file_name: @multi_download_file_name, name_file: @name_file}) %>");

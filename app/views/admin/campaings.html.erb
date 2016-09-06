@@ -1,0 +1,25 @@
+<h1>Listado de Campañas del usuario</h1>
+<div class="panel panel-default" style="padding:40px;">
+<%= render partial: "/admin/campaing_form" %>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <tr>
+          <th>Titulo de la campaña</th>
+          <th>Código</th>
+          <th>Opcciones</th>
+        </tr>
+        <%  @campaing.each_with_index do |campaing, index| %>
+        <tr>
+          <td><%= campaing.campaing_title %></td>
+          <td><%= campaing.campaing_code %></td>
+          <th> <%= link_to "Eliminar", delete_campaing_path(id: campaing.id), data: { confirm: '¿Estas seguro de elminar esta Campaña?' } %></th>
+        </tr>
+        <%end%>
+      </table>
+    </div>
+    <center><%= will_paginate @campaing, renderer: BootstrapPagination::Rails %></center>
+  </div>
+</div>

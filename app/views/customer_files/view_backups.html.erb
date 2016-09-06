@@ -1,0 +1,31 @@
+<h1>Respaldos de busquedas</h1>
+<%= link_to "Regresar a los audios", customer_audio_files_path, data: { no_turbolink: true }, class: "btn btn-info"%>
+<% if @data != 0 %>
+<br/><br/>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Respaldo</th>
+            <th>Opcciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @data.each_with_index do |data, index| %>
+          <tr>
+            <td><%=index+1%></td>
+            <td><%=data[:url].split('/').last%> </td>
+            <td> <a href="<%=data[:url]%>" download>Descargar</a> | <%= link_to "Eliminar", delete_backup_path(real_path: data[:real_path]), data: { confirm: '¿Estas seguro de elminar este Respaldo?' }%> </td>
+          </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<%else%>
+<center><h3>No hay respaldos</h3></center>
+<%end%>

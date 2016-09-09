@@ -82,7 +82,7 @@ class CustomerFilesController < ApplicationController
     end
 
     else
-    hour = "0000"
+    hour = "000"
     end
 
     puts "******************>>>>>>>>>#{hour}<<<<<<<<<<<<<****************************"
@@ -121,10 +121,11 @@ class CustomerFilesController < ApplicationController
       myhour = components[2].to_s
       myhour = myhour.slice(0,4)
 
-      if hour == "0000" || hour = "000"
+      if hour = "000"
         if params[:code].empty?
           customer.campaings.each do |codecampaing|
-            if campaign == codecampaing.campaing_code
+            if campaign.to_i == codecampaing.campaing_code.to_i
+              puts "**********************parte 1"
               real_routes.push(full_adress: "#{r}", name:"#{full_name}")
               rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
               audios_result.push({url: "#{rinx}"})
@@ -145,13 +146,13 @@ class CustomerFilesController < ApplicationController
         end
         if timevalidate
             if params[:code].empty?
-          customer.campaings.each do |codecampaing|
-              if campaign == codecampaing.campaing_code
-                real_routes.push(full_adress: "#{r}", name:"#{full_name}")
-                rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-                audios_result.push({url: "#{rinx}"})
+              customer.campaings.each do |codecampaing|
+                  if campaign.to_i == codecampaing.campaing_code.to_i
+                    real_routes.push(full_adress: "#{r}", name:"#{full_name}")
+                    rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
+                    audios_result.push({url: "#{rinx}"})
                   end
-                end 
+              end 
             else
               if campaign.to_i == params[:code].to_i
                 real_routes.push(full_adress: "#{r}", name:"#{full_name}")
@@ -215,30 +216,48 @@ class CustomerFilesController < ApplicationController
         myhour = components[2].to_s
         myhour = myhour.slice(0,4)
         puts myhour
-        if hour != "0000" &&  hour != "000"
-        if myhour == hour
-          timevalidate = true
-        else
-          timevalidate = false
-        end
-          if timevalidate
-          customer.campaings.each do |codecampaing|
-            if campaign == codecampaing.campaing_code
-              real_routes.push(full_adress: "#{r}", name:"#{full_name}")
-              rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-              audios_result.push({url: "#{rinx}"})
-            end
+        if  hour != "000"
+          if myhour == hour
+            timevalidate = true
+          else
+            timevalidate = false
           end
+          if timevalidate
+            if params[:code].empty?
+              customer.campaings.each do |codecampaing|
+                if campaign == codecampaing.campaing_code
+                  real_routes.push(full_adress: "#{r}", name:"#{full_name}")
+                  rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
+                  audios_result.push({url: "#{rinx}"})
+                end
+              end
+            else
+              if params[:code].to_i == campaign.to_i
+                real_routes.push(full_adress: "#{r}", name:"#{full_name}")
+                rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
+                audios_result.push({url: "#{rinx}"})
+              end
+            end
           else
             puts "Hora no coincide con busqueda"
           end
         else
-          customer.campaings.each do |codecampaing|
-          if campaign == codecampaing.campaing_code
-            real_routes.push(full_adress: "#{r}", name:"#{full_name}")
-            rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-            audios_result.push({url: "#{rinx}"})
-          end
+          if params[:code].empty?
+            customer.campaings.each do |codecampaing|
+              if campaign == codecampaing.campaing_code
+                real_routes.push(full_adress: "#{r}", name:"#{full_name}")
+                rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
+                audios_result.push({url: "#{rinx}"})
+              end
+            end
+          else
+          puts "tipo n ********************** date"
+            if params[:code].to_i == campaign.to_i
+              real_routes.push(full_adress: "#{r}", name:"#{full_name}")
+              rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
+              audios_result.push({url: "#{rinx}"})
+            end
+           
           end
         end
        

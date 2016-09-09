@@ -7,6 +7,7 @@
         <h4 class="modal-title" id="myModalLabel">Busqueda de Audios</h4>
         <a id="advance" class="pull-right">Opcciones Avanzadas <i class="fa fa-cog" aria-hidden="true"></i>
         </a>
+        <%= hidden_field_tag 'id', @customer.id if !current_customer%>
       </div>
       <div class="modal-body">
         <b>De la fecha</b>
@@ -14,6 +15,7 @@
         <div id="advanced-op" style="display:none;">
           <b>A la fecha</b>
           <%= text_field_tag 'todate', '', "data-provide": 'datepicker', placeholder: "Selecciona una Fecha Límite", class: "form-control"%><br/>
+          <div class="row">
           <div class="col-md-6">
             <b>Selecciona una hora</b>
             <select id="hour" name="hour" class="form-control">
@@ -34,9 +36,25 @@
               <%end%>
             </select>
           </div>
+          </div><br/><br/>
+          <% if current_admin %>
+          <div class="row panel">
+          <%else%>
+          <div class="row panel" style="display:none;">
+          <%end%>
+
+          <div class="panel-footer">
+            <b>Opcciones esclusivas de administrador</b><br/><br/>
+            <b>Ingresa un código encuestador</b><br/>
+            <%= text_field_tag 'conde_entreviwer', '', placeholder: "Código de la persona que levanto la entrevista", class: "form-control"%><br/>
+            <b>Ingresa un teléfono</b><br/>
+            <%= text_field_tag 'phone', '', placeholder: "Linea a buscar", class: "form-control"%><br/><br/>
+          </div>
+          </div>
         </div>
         <b>Selecciona una campaña</b>
-        <%= select_tag "code", options_from_collection_for_select(current_customer.campaings, "campaing_code", "campaing_title"), class: "form-control", include_blank: "Todas" %><br/>
+        <%= select_tag "code", options_from_collection_for_select(@customer.campaings, "campaing_code", "campaing_title"), class: "form-control", include_blank: "Todas" %><br/>
+
       </div>
       <div class="modal-footer">
         <%= submit_tag 'Buscar', class: 'btn btn-primary pull-right' %>

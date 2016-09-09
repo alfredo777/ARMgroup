@@ -1,6 +1,6 @@
 class CustomerFilesController < ApplicationController
-  before_action :authenticate_any!, only: [:open_file, :audio_search, :audio_search_files]
-  before_action :authenticate_customer!, except: [:open_file, :audio_search, :audio_search_files]
+  before_action :authenticate_any!, only: [:open_file, :audio_search, :audio_search_files, :zip_compress_download, :create_backup]
+  before_action :authenticate_customer!, except: [:open_file, :audio_search, :audio_search_files, :zip_compress_download, :create_backup]
   layout "intern"
 
   def shared
@@ -53,11 +53,14 @@ class CustomerFilesController < ApplicationController
         end
       end
     end
-    ahoy.track "Ingreso a los audios", title: "Se ha ingresado a los audios por #{current_customer.email} - #{Time.now}", customer:current_customer.id, campaign: params[:code]
-    @scoped_audios_results = result_audios_proccess_no_campaing(audios_result) 
+    ahoy.track "Ingreso a los audios", title: "Se ha ingresado a los audios por #{customer.email} - #{Time.now}", customer:customer.id, campaign: params[:code]
+    conde_entreviwer = "OUT"
+    phone = "9"
+    @scoped_audios_results = result_audios_proccess_no_campaing(audios_result, conde_entreviwer, phone) 
     puts @scoped_audios_results 
     @data = real_routes 
     @multi_download_file_name = "" 
+    @customer = customer
   end
 
   def audio_selected
@@ -66,8 +69,12 @@ class CustomerFilesController < ApplicationController
   def audio_search_files
     customer = current_customer if current_customer
     customer = Customer.find(params[:id]) if !current_customer
+    conde_entreviwer = "OUT#{params[:conde_entreviwer]}"
+    phone = "9#{params[:phone]}"
+    @customer = customer
     if !params[:hour].nil?
     hour = "#{params[:hour]}#{params[:minute]}"
+    
     if hour.mb_chars.length == 4
       hour = hour
     else
@@ -78,7 +85,7 @@ class CustomerFilesController < ApplicationController
     hour = "0000"
     end
 
-    puts hour
+    puts "******************>>>>>>>>>#{hour}<<<<<<<<<<<<<****************************"
     puts params
     ##### dates #######
     format_date = params[:date].gsub!('/',',')
@@ -113,7 +120,8 @@ class CustomerFilesController < ApplicationController
       campaign = components[3]
       myhour = components[2].to_s
       myhour = myhour.slice(0,4)
-      if hour == "0000"
+
+      if hour == "0000" || hour = "000"
         if params[:code].empty?
           customer.campaings.each do |codecampaing|
             if campaign == codecampaing.campaing_code
@@ -157,16 +165,16 @@ class CustomerFilesController < ApplicationController
 
       end
     end
-    ahoy.track "Search File", title: "Se ha realizado una busqueda de archivos de la campaña #{params[:code]} por #{current_customer.email} - #{Time.now}", customer:current_customer.id, campaign: params[:code]
+    ahoy.track "Search File", title: "Se ha realizado una busqueda de archivos de la campaña #{params[:code]} por #{customer.email} - #{Time.now}", customer:customer.id, campaign: params[:code]
     
     if params[:code].empty?
-      @scoped_audios_results = result_audios_proccess_no_campaing(audios_result)  
+      @scoped_audios_results = result_audios_proccess_no_campaing(audios_result, conde_entreviwer,phone)  
       @data = real_routes 
       @multi_download_file_name = multi_download_name 
       @name_file = format_date
       @campaign = "all"
     else
-    @scoped_audios_results = result_audios_proccess(audios_result,params[:code])  
+    @scoped_audios_results = result_audios_proccess(audios_result,params[:code], conde_entreviwer, phone)  
     @data = real_routes 
     @multi_download_file_name = multi_download_name 
     @name_file = format_date
@@ -207,7 +215,7 @@ class CustomerFilesController < ApplicationController
         myhour = components[2].to_s
         myhour = myhour.slice(0,4)
         puts myhour
-        if hour != "0000"
+        if hour != "0000" &&  hour != "000"
         if myhour == hour
           timevalidate = true
         else
@@ -237,8 +245,8 @@ class CustomerFilesController < ApplicationController
       end
     end
     
-    ahoy.track "Busqueda de audios a los audios", title: "Busqueda de audios del #{d1} al #{d2} por #{current_customer.email} - #{Time.now}", customer:current_customer.id, campaign: params[:code]
-    @scoped_audios_results = result_audios_proccess_no_campaing(audios_result) 
+    ahoy.track "Busqueda de audios a los audios", title: "Busqueda de audios del #{d1} al #{d2} por #{customer.email} - #{Time.now}", customer:customer.id, campaign: params[:code]
+    @scoped_audios_results = result_audios_proccess_no_campaing(audios_result, conde_entreviwer,phone) 
     puts @scoped_audios_results 
     @data = real_routes 
     @name_file = d2
@@ -251,6 +259,8 @@ class CustomerFilesController < ApplicationController
   end
 
   def zip_compress_download
+    customer = current_customer if current_customer
+    customer = current_admin if !current_customer
     require 'zip'
     data = params[:data]
     zipfile_name = params[:file_name]
@@ -265,14 +275,16 @@ class CustomerFilesController < ApplicationController
       zipfile.get_output_stream("#{name_file}-#{Time.now}") { |os| os.write "Archivo compreso de #{name_file} descargado #{Time.now}" }
     end
     rinx = zipfile_name.gsub!("#{Rails.root}/public", "#{host_url}")
-    ahoy.track "Download zip File", title: "Se ha descargado #{name_file}-#{Time.now} por #{current_customer.email} - #{Time.now}", customer:current_customer.id, archivo: rinx
+    ahoy.track "Download zip File", title: "Se ha descargado #{name_file}-#{Time.now} por #{customer.email} - #{Time.now}", customer:customer.id, archivo: rinx
 
     redirect_to "#{rinx}"
   end
 
   def create_backup
+    customer = current_customer if current_customer
+    customer = Customer.find(params[:id]) if !current_customer
      require 'zip'
-     new_folder = "#{Rails.root}/public/backups/#{current_customer.id}"
+     new_folder = "#{Rails.root}/public/backups/#{customer.id}"
      unless File.directory?(new_folder)
        FileUtils.mkdir new_folder
        else
@@ -293,7 +305,7 @@ class CustomerFilesController < ApplicationController
         zipfile.get_output_stream("#{name_file}-#{Time.now}") { |os| os.write "Archivo compreso de #{name_file} descargado #{Time.now}" }
       end
       rinx = zipfile_name.gsub!("#{Rails.root}/public", "#{host_url}")
-      ahoy.track "Backup zip File", title: "Se ha respaldado #{name_file}-#{Time.now} por #{current_customer.email} - #{Time.now}", customer:current_customer.id, archivo: rinx
+      ahoy.track "Backup zip File", title: "Se ha respaldado #{name_file}-#{Time.now} por #{customer.email} - #{Time.now}", customer:customer.id, archivo: rinx
   end
 
   def view_backups
@@ -323,24 +335,46 @@ class CustomerFilesController < ApplicationController
     @notices = Notice.where(customer_id: current_customer.id).paginate(:page => params[:page], :per_page => 2).order('id DESC')
   end
 
-  def result_audios_proccess(audios_result, campaign_code)
+  def result_audios_proccess(audios_result, campaign_code, conde_entreviwer, phone)
     proces_results = []
     audios_result.each do |au|
       url = au[:url]
       full_name = au[:url].split('/').last
       components = full_name.split('-')
+      entreviwer = components[0]
       audio_date = components[1].to_date
       campaign = components[3].to_s
+      phone_i = components[4].to_s
       name = components[5].to_s
-      if campaign_code.to_s == campaign
-      proces_results.push({
-        url: url,
-        full_name: full_name,
-        name: name,
-        date: audio_date,
-        campaign: campaign,
-        components: components
-      })
+
+      case conde_entreviwer
+      when 'OUT'
+        ent = true
+      when entreviwer    
+        ent = true
+      when !entreviwer && !'OUT'
+        ent = false
+      end
+
+      case phone 
+      when "9"
+        pho = true
+      when phone_i
+        pho = true
+      when !phone_i && !'9'
+        pho = false
+      end
+      if campaign_code.to_s == campaign 
+        if ent && pho
+        proces_results.push({
+          url: url,
+          full_name: full_name,
+          name: name,
+          date: audio_date,
+          campaign: campaign,
+          components: components
+        })
+        end
       end
     end
 
@@ -348,15 +382,38 @@ class CustomerFilesController < ApplicationController
 
   end
 
-  def result_audios_proccess_no_campaing(audios_result)
+  def result_audios_proccess_no_campaing(audios_result, conde_entreviwer, phone)
     proces_results = []
     audios_result.each do |au|
       url = au[:url]
       full_name = au[:url].split('/').last
       components = full_name.split('-')
+      entreviwer = components[0]
       audio_date = components[1].to_date
       campaign = components[3].to_s
+      phone_i = components[4].to_s
       name = components[5].to_s
+
+      case conde_entreviwer
+      when 'OUT'
+        ent = true
+      when entreviwer    
+        ent = true
+      when !entreviwer && !'OUT'
+        ent = false
+      end
+
+
+      case phone 
+      when "9"
+        pho = true
+      when phone_i
+        pho = true
+      when !phone_i && !'9'
+        pho = false
+      end
+
+      if ent && pho
       proces_results.push({
         url: url,
         full_name: full_name,
@@ -365,6 +422,7 @@ class CustomerFilesController < ApplicationController
         campaign: campaign,
         components: components
       })
+     end
     end
 
     @result = proces_results.to_a

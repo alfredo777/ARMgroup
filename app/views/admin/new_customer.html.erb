@@ -1,6 +1,10 @@
 <h1>Crear Cliente</h1>
-<%= form_tag admin_create_customer_path do -%>
+<%= form_tag admin_create_customer_path, multipart: true  do -%>
 <div class="form-group">
+  <b>Logo</b>
+  <%= file_field_tag 'logo' %></br>
+  <b>Avatar</b>
+  <%= file_field_tag 'avatar' %></br>
   <%= text_field_tag "email", '', class:"form-control", placeholder: "Ingresa el Email"%><br/>
   <%= password_field_tag "password", '', class:"form-control", placeholder: "Ingresa la contraseña"%><br/>
   <%= text_field_tag "route_files", '', class:"form-control", placeholder: "Ingresa ruta para archivos de audio."%><br/>

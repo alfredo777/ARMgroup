@@ -1,6 +1,12 @@
 <h1>Crear Cliente</h1>
-<%= form_tag admin_update_customer_path(id: @customer.id) do -%>
+<%= form_tag admin_update_customer_path(id: @customer.id), multipart: true do -%>
 <div class="form-group">
+  <b>Logo</b>
+  <%= image_tag(@customer.logo, width: "200px") if !@customer.logo.nil?%>
+  <%= file_field_tag 'logo' %></br>
+  <b>Avatar</b>
+  <%= image_tag(@customer.avatar, width: "200px") if !@customer.avatar.nil?%>
+  <%= file_field_tag 'avatar' %><br/>
   <%= text_field_tag "email", @customer.email, class:"form-control", placeholder: "Ingresa el Email"%><br/>
   <%= password_field_tag "password", "", class:"form-control", placeholder: "Ingresa la contraseña"%><br/>
   <%= text_field_tag "route_files", @customer.route_files, class:"form-control", placeholder: "Ingresa ruta para archivos de audio."%><br/>

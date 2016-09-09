@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826162027) do
+ActiveRecord::Schema.define(version: 20160909021256) do
 
   create_table "actions", force: :cascade do |t|
     t.string  "action"
@@ -85,6 +85,8 @@ ActiveRecord::Schema.define(version: 20160826162027) do
     t.string   "route_files"
     t.string   "empresa"
     t.string   "idempresa"
+    t.string   "avatar"
+    t.string   "logo"
   end
 
   add_index "customers", ["email"], name: "index_customers_on_email", unique: true

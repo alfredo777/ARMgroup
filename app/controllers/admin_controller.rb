@@ -48,7 +48,7 @@ class AdminController < ApplicationController
 
 
   def create_customer
-    @customer = Customer.create(email: params[:email], password: params[:password], name: params[:name], submname: params[:submname], empresa: params[:empresa], idempresa: params[:idempresa], route_files: params[:route_files])
+    @customer = Customer.create(email: params[:email], password: params[:password], name: params[:name], submname: params[:submname], empresa: params[:empresa], idempresa: params[:idempresa], route_files: params[:route_files], logo: params[:logo], avatar: params[:avatar])
 
     if @customer.save
       flash[:notice] = "Se ha creado correctamente el cliente"
@@ -71,6 +71,8 @@ class AdminController < ApplicationController
     @customer.idempresa = params[:idempresa]
     @customer.name = params[:name]
     @customer.submname = params[:submname]
+    @customer.logo = params[:logo]
+    @customer.avatar = params[:avatar]
     if !params[:password].nil?
       @customer.password = params[:password]
     end

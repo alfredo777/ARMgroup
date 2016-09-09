@@ -14,4 +14,8 @@ class Customer < ActiveRecord::Base
   has_many :actions
   has_many :shared_files, as: :fileable
   has_many :notices 
+
+  mount_uploader :avatar, AvatarUploader
+  mount_uploader :logo, LogoUploader
+  
 end

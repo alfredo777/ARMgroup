@@ -27,6 +27,7 @@
 //= require summernote
 //= require jquery
 //= require ahoy
+//= require speed
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js

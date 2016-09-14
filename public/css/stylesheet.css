@@ -31697,6 +31697,14 @@ section {
     background-position: 50% 0;
     background-size: cover;
 }
+
+.b-img-12 {
+    background-attachment: fixed;
+    background-image: url(/images/backparallax/instituto.jpg);
+    background-repeat: repeat-y;
+    background-position: 50% 0;
+    background-size: cover;
+}
 /* ------------------------------------------------------ BACKGROUND IMAGES STARTS ---------- */
 /* ------------------------------------------------------ PARALLAX STARTS ---------- */
 

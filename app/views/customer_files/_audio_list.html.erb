@@ -25,10 +25,10 @@
       
     </div>
     <div class="col-md-3">
-      <%= form_tag zip_compress_download_path(data: data) do -%>
+      <%= form_tag zip_compress_download_path(data: data), id:"zip_compress_download"  do -%>
       <%= hidden_field_tag 'file_name', file_name %>
       <%= hidden_field_tag 'name_file', name_file %>
-      <button class='btn btn-primary pull-left'>
+      <button class='btn btn-primary pull-left' >
       Decargar todos los archivos <i class="fa fa-download" aria-hiddenn="true"></i>
       </button>
       <%end%>
@@ -40,7 +40,7 @@
 <div id="load-consult" class="row slidelnDown" style="display:none;">
   <div class="col-md-12">
     <% @scoped_audios_results.each_with_index do |audiox, index|%>
-    <div class="col-md-2 ">
+    <div class="col-md-2 audio-int">
       <div class="panel panel-default">
         <div class="panel-heading">
           <center><h3><%= index + 1 %></h3></center>

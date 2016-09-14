@@ -92,6 +92,12 @@ function Team(){
   loadDBTPL("", "team", "loader");
 }
 
+
+function Instituto(){
+  AccesTPL();
+  loadDBTPL("", "instituto", "loader");
+}
+
 function workBag(){
   AccesTPL();
   loadDBTPL("", "bolsa_de_trabajo", "loader");

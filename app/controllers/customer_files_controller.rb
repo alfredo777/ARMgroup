@@ -273,8 +273,8 @@ class CustomerFilesController < ApplicationController
     @name_file = d2
     t = Time.new
     t = t.to_f
-    @multi_download_file_name =  "#{Rails.root}/public/audios/#{d2.strftime('%Y''%m''%d')}/#{d2}-#{t}.zip"
-    dir = "#{Rails.root}/public/audios/#{d2.strftime('%Y''%m''%d')}"
+    @multi_download_file_name =  "#{Rails.root}/public/audiosdown/#{d2.strftime('%Y''%m''%d')}/#{d2}-#{t}.zip"
+    dir = "#{Rails.root}/public/audiosdown/#{d2.strftime('%Y''%m''%d')}"
     FileUtils.mkdir_p(dir) unless File.directory?(dir)
     end
   end
@@ -283,12 +283,13 @@ class CustomerFilesController < ApplicationController
     customer = current_customer if current_customer
     customer = current_admin if !current_customer
     require 'zip'
-    data = params[:data]
+    data = eval(params[:data])
     zipfile_name = params[:file_name]
+    puts data
     puts zipfile_name
     name_file = params[:name_file] 
     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
-      data.each do |d|
+      data[:acdata].each do |d|
         adress  = d[:full_adress]
         name = d[:name]
         zipfile.add(name, adress)

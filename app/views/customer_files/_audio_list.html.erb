@@ -25,9 +25,10 @@
       
     </div>
     <div class="col-md-3">
-      <%= form_tag zip_compress_download_path(data: data), id:"zip_compress_download"  do -%>
+      <%= form_tag zip_compress_download_path, id:"zip_compress_download", method: :post  do -%>
       <%= hidden_field_tag 'file_name', file_name %>
       <%= hidden_field_tag 'name_file', name_file %>
+      <%= hidden_field_tag 'data', "{'acdata': #{data}}" %>
       <button class='btn btn-primary pull-left' >
       Decargar todos los archivos <i class="fa fa-download" aria-hiddenn="true"></i>
       </button>
@@ -36,6 +37,7 @@
   </div>
 </div>
 <br/><br/><br/>
+
 <%end%>
 <div id="load-consult" class="row slidelnDown" style="display:none;">
   <div class="col-md-12">

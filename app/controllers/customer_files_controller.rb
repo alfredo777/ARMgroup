@@ -317,7 +317,7 @@ class CustomerFilesController < ApplicationController
      end
      t = Time.new
      t = t.to_f
-     name_file = "campaña-#{params[:campaign]}-#{t}.zip"
+     name_file = "campaña-#{params[:campaign]}c-#{t}-#{Time.now}.zip"
      zipfile_name = new_folder +"/"+ name_file
       data = eval(params[:data])
       puts zipfile_name
@@ -327,7 +327,7 @@ class CustomerFilesController < ApplicationController
           name = d[:name]
           zipfile.add(name, adress)
         end
-        zipfile.get_output_stream("#{name_file}-#{Time.now}") { |os| os.write "Archivo compreso de #{name_file} descargado #{Time.now}" }
+        zipfile.get_output_stream("#{name_file}") { |os| os.write "Archivo compreso de #{name_file} descargado #{Time.now}" }
       end
       rinx = zipfile_name.gsub!("#{Rails.root}/public", "#{host_url}")
       ahoy.track "Backup zip File", title: "Se ha respaldado #{name_file}-#{Time.now} por #{customer.email} - #{Time.now}", customer:customer.id, archivo: rinx

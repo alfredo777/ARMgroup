@@ -31,6 +31,18 @@
       <%end%>
       <%= render partial: '/admin/menu' if current_admin %>
       <%= render partial: '/customer_files/menu' if current_customer %>
+      <div id="loader-ink" style="position:fixed; z-index: 99999; float:right; background:transparent; display: none;"><img src="/gears.gif" width="70px"><b>Procesando ...</b></div>
+
+      <script type="text/javascript">
+        $.ajaxSetup({
+            beforeSend: function() {
+                $('#loader-ink').show();
+            },
+            complete: function() {
+                $('#loader-ink').hide();
+            }
+        });
+      </script>
 
       <div class="container">
         <%end%>

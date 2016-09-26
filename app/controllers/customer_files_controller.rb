@@ -125,7 +125,7 @@ class CustomerFilesController < ApplicationController
       myhour = components[2].to_s
       myhour = myhour.slice(0,4)
 
-      if hour = "000"
+      if hour == "000"
         if params[:code].empty?
           customer.campaings.each do |codecampaing|
             if campaign.to_i == codecampaing.campaing_code.to_i

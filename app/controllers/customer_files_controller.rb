@@ -18,6 +18,8 @@ class CustomerFilesController < ApplicationController
   end
 
   def audio_search
+    require 'will_paginate/array'
+
     customer = current_customer if current_customer
     customer = Customer.find(params[:id]) if !current_customer
     hoy = Date.today
@@ -59,7 +61,7 @@ class CustomerFilesController < ApplicationController
     conde_entreviwer = "OUT"
     phone = "9"
     @scoped_audios_results = result_audios_proccess_no_campaing(audios_result, conde_entreviwer, phone) 
-    puts @scoped_audios_results 
+    @scoped_audios_results = @scoped_audios_results.paginate(:page => params[:page], :per_page => 100)
     @data = real_routes 
     @multi_download_file_name = "" 
     @customer = customer

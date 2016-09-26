@@ -133,6 +133,7 @@ class AdminController < ApplicationController
       notify.save
       notice = "<h3>Usted ha recibido una notificación de Archivo compartido ingrese a ARM para responderla | <a href='#{host_url}/customer_files/notify'>Ingresar</a> </h3>"
       toemail = Customer.find(params[:id])
+      toemail = toemail.email
       fromemail = "contacto@research-ss.com"
       #toemail = "alfredo@rockstars.mx"
       mail = ContactMailer.notify_me(fromemail,toemail,notice).deliver_now

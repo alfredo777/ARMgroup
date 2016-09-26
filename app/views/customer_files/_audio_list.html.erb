@@ -10,14 +10,18 @@
     </div>
     <div class="col-md-2">
       <% if current_customer %>
-      <%= form_tag create_backup_path(data: data, campaign: @campaign), remote: true do -%>
+      <%= form_tag create_backup_path(campaign: @campaign), remote: true do -%>
+      <%= hidden_field_tag 'data', "{'acdata': #{data}}" %>
+
       <button class='btn btn-primary pull-right'>
       Generar Respaldo <i class="fa fa-hdd-o" aria-hidden="true"></i>
       </button>
       <%end%>
       <%else%>
-      <%= form_tag create_backup_path(data: data, campaign: @campaign, id: @customer.id), remote: true do -%>
+      <%= form_tag create_backup_path(campaign: @campaign, id: @customer.id), remote: true do -%>
       <button class='btn btn-primary pull-right'>
+      <%= hidden_field_tag 'data', "{'acdata': #{data}}" %>
+
       Generar Respaldo <i class="fa fa-hdd-o" aria-hidden="true"></i>
       </button>
       <%end%>

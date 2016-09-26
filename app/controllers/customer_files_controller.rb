@@ -316,10 +316,10 @@ class CustomerFilesController < ApplicationController
      t = t.to_f
      name_file = "campaña-#{params[:campaign]}-#{t}.zip"
      zipfile_name = new_folder +"/"+ name_file
-      data = params[:data]
+      data = eval(params[:data])
       puts zipfile_name
       Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
-        data.each do |d|
+        data[:acdata].each do |d|
           adress  = d[:full_adress]
           name = d[:name]
           zipfile.add(name, adress)

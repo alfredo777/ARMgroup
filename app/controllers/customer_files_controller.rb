@@ -21,13 +21,15 @@ class CustomerFilesController < ApplicationController
     customer = current_customer if current_customer
     customer = Customer.find(params[:id]) if !current_customer
     hoy = Date.today
+
     hace_10_dias = Date.today - 30.days
     puts hoy
     puts hace_10_dias
+
     array_dates = []
     30.times do |i|
       date = hoy - i.day
-      date = date.strftime('%Y''%m''%d')
+      date = "#{date.strftime('%Y''%m')}/#{date.strftime('%Y''%m''%d')}"
       date = date.to_s
       array_dates.push(date)
     end
@@ -106,10 +108,10 @@ class CustomerFilesController < ApplicationController
       month = "0#{arr[0]}"
     end
     day = arr[1].to_s
-    routeAU = "#{Rails.root}/public/audios/#{year}#{month}#{day}/*"
+    routeAU = "#{Rails.root}/public/audios/#{year}#{month}/#{year}#{month}#{day}/*"
     t = Time.new
     t = t.to_f
-    multi_download_name = "#{Rails.root}/public/audios/#{year}#{month}#{day}/#{format_date}-#{t}.zip"
+    multi_download_name = "#{Rails.root}/public/audiosdown/#{year}#{month}#{day}/#{format_date}-#{t}.zip"
     puts routeAU
     audios_result_no_tuning = Dir.glob(routeAU)
     audios_result = []
@@ -194,7 +196,7 @@ class CustomerFilesController < ApplicationController
 
     days_into_date.times do |i|
       date = d2 - i.day
-      date = date.strftime('%Y''%m''%d')
+      date = "#{date.strftime('%Y''%m')}/#{date.strftime('%Y''%m''%d')}"
       date = date.to_s
       array_dates.push(date)
     end

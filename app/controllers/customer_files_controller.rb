@@ -61,7 +61,7 @@ class CustomerFilesController < ApplicationController
     conde_entreviwer = "OUT"
     phone = "9"
     @scoped_audios_results = result_audios_proccess_no_campaing(audios_result, conde_entreviwer, phone) 
-    @scoped_audios_results = @scoped_audios_results.paginate(:page => params[:page], :per_page => 100)
+    @scoped_audios_results = @scoped_audios_results.paginate(:page => params[:page], :per_page => 50)
     @data = real_routes 
     @multi_download_file_name = "" 
     @customer = customer

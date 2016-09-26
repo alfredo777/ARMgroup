@@ -45,7 +45,7 @@ class CustomerFilesController < ApplicationController
         puts r
         full_name = r.split('/').last
         components = full_name.split('-')
-        campaign = components[3].to_s
+        campaign = components[4].to_s
         customer.campaings.each do |codecampaing|
           if campaign == codecampaing.campaing_code
             real_routes.push(full_adress: "#{r}", name:"#{full_name}")
@@ -119,7 +119,7 @@ class CustomerFilesController < ApplicationController
     audios_result_no_tuning.each do |r|
       full_name = r.split('/').last
       components = full_name.split('-')
-      campaign = components[3]
+      campaign = components[4]
       myhour = components[2].to_s
       myhour = myhour.slice(0,4)
 
@@ -214,7 +214,7 @@ class CustomerFilesController < ApplicationController
         #puts r
         full_name = r.split('/').last
         components = full_name.split('-')
-        campaign = components[3].to_s
+        campaign = components[4].to_s
         myhour = components[2].to_s
         myhour = myhour.slice(0,4)
         puts myhour
@@ -365,8 +365,8 @@ class CustomerFilesController < ApplicationController
       components = full_name.split('-')
       entreviwer = components[0]
       audio_date = components[1].to_date
-      campaign = components[3].to_s
-      phone_i = components[4].to_s
+      campaign = components[4].to_s
+      phone_i = components[3].to_s
       name = components[5].to_s
 
       case conde_entreviwer
@@ -412,8 +412,8 @@ class CustomerFilesController < ApplicationController
       components = full_name.split('-')
       entreviwer = components[0]
       audio_date = components[1].to_date
-      campaign = components[3].to_s
-      phone_i = components[4].to_s
+      campaign = components[4].to_s
+      phone_i = components[3].to_s
       name = components[5].to_s
 
       case conde_entreviwer

@@ -11,6 +11,9 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /public/uploads
+/public/audios
+/public/backups
+/public/audiosdown
 
 # Ignore all logfiles and tempfiles.
 /log/*

@@ -24,12 +24,12 @@ class CustomerFilesController < ApplicationController
     customer = Customer.find(params[:id]) if !current_customer
     hoy = Date.today
 
-    hace_10_dias = Date.today - 2.days
+    hace_10_dias = Date.today - 4.days
     puts hoy
     puts hace_10_dias
 
     array_dates = []
-    2.times do |i|
+    4.times do |i|
       date = hoy - i.day
       date = "#{date.strftime('%Y''%m')}/#{date.strftime('%Y''%m''%d')}"
       date = date.to_s
@@ -71,6 +71,7 @@ class CustomerFilesController < ApplicationController
   end
 
   def audio_search_files
+    require 'will_paginate/array'
     customer = current_customer if current_customer
     customer = Customer.find(params[:id]) if !current_customer
     conde_entreviwer = "OUT#{params[:conde_entreviwer]}"

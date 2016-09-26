@@ -73,7 +73,9 @@
     <%end%>
   </div>
   <div class="row">
+  <% if with_page %>
   <center> <%= will_paginate @scoped_audios_results, renderer: BootstrapPagination::Rails %> </center>
+  <%end%>
   </div>
 </div>
 </div>

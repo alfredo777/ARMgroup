@@ -25,6 +25,7 @@
       type: 'POST',
       success: function(data) {
           callback(data, null);
+          alert("Formulario enviado correctamente");
       },
       error: function(err) {
           callback(null, err);

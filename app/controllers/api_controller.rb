@@ -19,6 +19,7 @@ class ApiController < ApplicationController
    
     if params[:owner_type] == "Admin"
        toemail = Customer.find(params[:customer_id])
+       toemail = toemail.email
        fromemail = "contacto@research-ss.com"
        #toemail = "alfredo@rockstars.mx"
        @mail = ContactMailer.notify_me(fromemail,toemail,notice).deliver_now

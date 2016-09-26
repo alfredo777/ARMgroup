@@ -9,12 +9,14 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def host_url
+=begin    
     if Rails.env == "Production"
       @h = "http://www.research-ss.com"
     else  
       @h = "http://localhost:3000"
     end
-    @h
+=end
+    @h = "http://www.research-ss.com/"
   end
 
   def customer_act_search(id, relation)

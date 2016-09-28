@@ -162,6 +162,7 @@ class CustomerFilesController < ApplicationController
           timevalidate = false
         end
         if timevalidate
+            puts "Coincidencia encontrada #{myhour} ****** #{hour}"
             if params[:code].empty?
               customer.campaings.each do |codecampaing|
                   if campaign.to_i == codecampaing.campaing_code.to_i
@@ -178,7 +179,7 @@ class CustomerFilesController < ApplicationController
               end
             end
           else
-          puts "Hora no coincide #{myhour}"
+          #puts "Hora no coincide #{myhour}"
           end
 
       end

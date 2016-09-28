@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
       @h = "http://localhost:3000"
     end
 =end
-    @h = "http://www.research-ss.com/"
+    @h = "http://www.research-ss.com"
   end
 
   def customer_act_search(id, relation)

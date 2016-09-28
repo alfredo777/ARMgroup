@@ -342,13 +342,13 @@ class CustomerFilesController < ApplicationController
      end
      t = Time.new
      t = t.to_f
-     name_file = "campana-#{params[:campaign]}c-#{t}-#{Time.now}"
+     name_file = "campana-#{params[:campaign]}c-#{t}.zip"
      zipfile_name = new_folder +"/"+ name_file
       data = eval(params[:data])
       puts zipfile_name
       Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
         data[:acdata].each_with_index do |d, index|
-          if index < 150
+          if index < 90
             adress  = d[:full_adress]
             namex = d[:name]
             puts adress

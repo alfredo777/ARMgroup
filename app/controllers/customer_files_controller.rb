@@ -39,12 +39,10 @@ class CustomerFilesController < ApplicationController
     real_routes = []
     conlection_for_dates = []
     array_dates.each do |araydate|
-      puts araydate
       routeAU = "#{Rails.root}/public/audios/#{araydate}/*"
       audios_result_no_tuning = Dir.glob(routeAU)
       ###### estrayendo audios ######
       audios_result_no_tuning.each do |r|
-        puts r
         full_name = r.split('/').last
         components = full_name.split('-')
         campaign = components[4].to_s

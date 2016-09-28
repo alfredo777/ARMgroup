@@ -285,11 +285,16 @@ class CustomerFilesController < ApplicationController
        
       end
     end
-    
+    arr_real_compose = Array.new
+
+    real_routes[0..150].each do |obj|
+    arr_real_compose << obj
+    end
+ 
     ahoy.track "Busqueda de audios a los audios", title: "Busqueda de audios del #{d1} al #{d2} por #{customer.email} - #{Time.now}", customer:customer.id, campaign: params[:code]
     @scoped_audios_results = result_audios_proccess_no_campaing(audios_result, conde_entreviwer,phone) 
     #puts @scoped_audios_results 
-    @data = real_routes 
+    @data = arr_real_compose 
     @name_file = d2
     t = Time.new
     t = t.to_f
@@ -305,15 +310,16 @@ class CustomerFilesController < ApplicationController
     require 'zip'
     data = eval(params[:data])
     zipfile_name = params[:file_name]
-    puts data
     puts zipfile_name
     name_file = params[:name_file] 
     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
       data[:acdata].each_with_index do |d, index|
-        adress  = d[:full_adress]
-        name = d[:name]
-        if index += 50
-          zipfile.add(name, adress)
+        if index < 50
+          adress  = d[:full_adress]
+          namex = d[:name]
+          puts adress
+          puts namex
+          zipfile.add(namex, adress)
         end
       end
       zipfile.get_output_stream("#{name_file}-#{Time.now}") { |os| os.write "Archivo compreso de #{name_file} descargado #{Time.now}" }
@@ -336,15 +342,19 @@ class CustomerFilesController < ApplicationController
      end
      t = Time.new
      t = t.to_f
-     name_file = "campaña-#{params[:campaign]}c-#{t}-#{Time.now}.zip"
+     name_file = "campana-#{params[:campaign]}c-#{t}-#{Time.now}"
      zipfile_name = new_folder +"/"+ name_file
       data = eval(params[:data])
       puts zipfile_name
       Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
-        data[:acdata].each do |d|
-          adress  = d[:full_adress]
-          name = d[:name]
-          zipfile.add(name, adress)
+        data[:acdata].each_with_index do |d, index|
+          if index < 150
+            adress  = d[:full_adress]
+            namex = d[:name]
+            puts adress
+            puts namex
+            zipfile.add(namex, adress)
+          end
         end
         zipfile.get_output_stream("#{name_file}") { |os| os.write "Archivo compreso de #{name_file} descargado #{Time.now}" }
       end

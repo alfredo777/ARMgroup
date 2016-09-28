@@ -78,6 +78,7 @@ class CustomerFilesController < ApplicationController
     if !params[:hour].nil?
     hour = "#{params[:hour]}#{params[:minute]}"
     
+    ###### cambios de horas #######
     if hour.mb_chars.length == 4
       hour = hour
     else
@@ -92,12 +93,9 @@ class CustomerFilesController < ApplicationController
       else
       hour = "#{hour}0"
       end
-
-
     end
-
     else
-    hour = "000"
+    hour = "0000"
     end
 
     puts "******************>>>>>>>>>#{hour}<<<<<<<<<<<<<****************************"
@@ -138,7 +136,7 @@ class CustomerFilesController < ApplicationController
       myhour = components[2].to_s
       myhour = myhour.slice(0,4)
 
-      if hour == "000"
+      if hour == "0000"
         if params[:code].empty?
           customer.campaings.each do |codecampaing|
             if campaign.to_i == codecampaing.campaing_code.to_i
@@ -243,7 +241,7 @@ class CustomerFilesController < ApplicationController
         myhour = myhour.slice(0,4)
          
 
-        if  hour != "000"
+        if  hour != "0000"
           if myhour.to_i == hour.to_i
             timevalidate = true
             puts "#{myhour} ********** #{hour} "

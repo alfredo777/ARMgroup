@@ -252,6 +252,7 @@ class CustomerFilesController < ApplicationController
                 end
               end
             else
+              puts "comparando #{params[:code]} vs #{campaign}"
               if "#{params[:code]}" == "#{campaign}"
                 real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                 rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")

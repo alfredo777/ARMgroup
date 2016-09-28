@@ -33,7 +33,7 @@
               <%= link_to "Editar", admin_edit_customer_path(id: c.id) %>
             </td>
             <td> <%= link_to "Eliminar", admin_delete_customer_path(id: c.id), data: { confirm: '¿Estas seguro de elminar este cliente?' } %> </td>
-            <td> <%= link_to "Archivos", library_admin_path(c.id) %> </td>
+            <td> <%= link_to "Archivos", library_admin_path(c.id), data: { no_turbolink: true } %> </td>
             <td> <%= link_to "Mensaje", admin_notify_path(customer: c.id) %></td>
             <td> <%= link_to "Campañas", campaings_user_list_admin_path(id: c.id)%></td>
             <td> <%= link_to "Audios", customer_audio_files_path(id: c.id), data: { no_turbolink: true }%></td>

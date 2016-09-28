@@ -309,10 +309,12 @@ class CustomerFilesController < ApplicationController
     puts zipfile_name
     name_file = params[:name_file] 
     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
-      data[:acdata].each do |d|
+      data[:acdata].each_with_index do |d, index|
         adress  = d[:full_adress]
         name = d[:name]
-        zipfile.add(name, adress)
+        if index += 50
+          zipfile.add(name, adress)
+        end
       end
       zipfile.get_output_stream("#{name_file}-#{Time.now}") { |os| os.write "Archivo compreso de #{name_file} descargado #{Time.now}" }
     end

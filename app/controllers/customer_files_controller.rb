@@ -228,15 +228,17 @@ class CustomerFilesController < ApplicationController
         campaign = components[4].to_s
         myhour = components[2].to_s
         myhour = myhour.slice(0,4)
-        puts "#{myhour} ********** #{hour} "
          
 
         if  hour != "000"
-          if myhour.to_s == hour.to_s
+          if myhour.to_i == hour.to_i
             timevalidate = true
+            puts "#{myhour} ********** #{hour} "
+            puts "timevalidate verdadero"
           else
             timevalidate = false
           end
+
           if timevalidate
             if params[:code].empty?
               customer.campaings.each do |codecampaing|

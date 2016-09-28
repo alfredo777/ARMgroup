@@ -205,6 +205,8 @@ class CustomerFilesController < ApplicationController
     if d1 == d2
        d2 = d2 + 1.day
        d1 = d1 - 1.day
+       else
+       d1 = d1 - 1.day
     end
 
     days_into_date = (d2 - d1).to_i

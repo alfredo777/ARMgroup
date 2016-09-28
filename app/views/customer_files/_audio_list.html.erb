@@ -10,7 +10,7 @@
     </div>
     <div class="col-md-2">
       <% if current_customer %>
-      <%= form_tag create_backup_path(campaign: @campaign), remote: true do -%>
+      <%= form_tag create_backup_path(campaign: @campaign), id: "send_backup", remote: true do -%>
       <%= hidden_field_tag 'data', "{'acdata': #{data}}" %>
 
       <button class='btn btn-primary pull-right'>
@@ -18,7 +18,7 @@
       </button>
       <%end%>
       <%else%>
-      <%= form_tag create_backup_path(campaign: @campaign, id: @customer.id), remote: true do -%>
+      <%= form_tag create_backup_path(campaign: @campaign, id: @customer.id), id: "send_backup", remote: true do -%>
       <button class='btn btn-primary pull-right'>
       <%= hidden_field_tag 'data', "{'acdata': #{data}}" %>
 
@@ -33,9 +33,9 @@
       <%= hidden_field_tag 'file_name', file_name %>
       <%= hidden_field_tag 'name_file', name_file %>
       <%= hidden_field_tag 'data', "{'acdata': #{data}}" %>
-      <button class='btn btn-primary pull-left' >
-      Decargar todos los archivos <i class="fa fa-download" aria-hiddenn="true"></i>
-      </button>
+        <button class='btn btn-primary pull-left' >
+        Decargar todos los archivos <i class="fa fa-download" aria-hiddenn="true"></i>
+        </button>
       <%end%>
     </div>
   </div>

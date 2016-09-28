@@ -9,6 +9,11 @@ $(document).ready(function(){
 $('#zip_compress_download').submit(function(){
    return confirm($rMessage);
 });
+
+$('#send_backup').submit(function(){
+   return confirm("Se comenzará a generar la carpeta de archivos debackup esto puede tardar algunos minutos, no se preocupe si ve cambios mientras de genera el proceso.");
+});
+
 });
 
 
@@ -24,7 +29,6 @@ function CalculateAudios(){
    var audiosL = $('.audio-int').length;
    var audioWeight = 1.2 * 3;
    var result = audiosL * audioWeight;
-   console.log(result);
    return result;
 }
 
@@ -62,9 +66,10 @@ function MeasureConnectionSpeed() {
         var speedKbps = (speedBps / 1024).toFixed(2);
         var speedMbps = (speedKbps / 1024).toFixed(2);
         var audiosCall = CalculateAudios();
-        var speedDownloadAudios = (audiosCall/speedMbps).toFixed(2) * 10;
+        var speedDownloadAudios = ((audiosCall/speedMbps).toFixed(2) * 20)/10;
+        var speedDownloadAudios_x = ((audiosCall/speedMbps).toFixed(2) * 10);
         ShowProgressMessage([
-            speedDownloadAudios.toFixed(2) + " Segundos para la descarga"
+          "Estamos preparando la descarga faltan " + speedDownloadAudios.toFixed(2) + " minutos para comenzar la descarga, el tiempo esperado para la descarga es de " + speedDownloadAudios_x.toFixed(2) + " Minutos" 
         ]);
     }
 }

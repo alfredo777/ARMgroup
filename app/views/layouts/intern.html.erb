@@ -31,6 +31,9 @@
       <%end%>
       <%= render partial: '/admin/menu' if current_admin %>
       <%= render partial: '/customer_files/menu' if current_customer %>
+      <marquee width="100%" height="120" align="top" style="background-color: #fff; margin-top:-30px; border-bottom: solid 3px #eee;">
+             <h4><%= image_tag('/images/otroslogos/logo0.png', width: '155px')%> | Divisiones | <%= image_tag('/images/otroslogos/logo1.png', width: '145px')%> División Cuantitativa | <%= image_tag('/images/otroslogos/logo2.png', width: '135px')%> División Cualitativa | <%= image_tag('/images/otroslogos/logo3.png', width: '135px')%> División de Calidad | <%= image_tag('/images/otroslogos/logo4.png', width: '135px')%> División de Operaciones | <%= image_tag('/images/otroslogos/logo5.png', width: '145px')%> Instituto de Investigación | <%= image_tag('/images/otroslogos/logo6.png', width: '145px')%> Fundación</h4>
+      </marquee>
       <div id="loader-ink" style="position:fixed; z-index: 99999; float:right; background:transparent; display: none;"><img src="/gears.gif" width="70px"><b>Procesando ...</b></div>
 
       <script type="text/javascript">
@@ -50,5 +53,7 @@
         <% if current_admin || current_customer %>
       </div>
       <%end%>
+
+
   </body>
 </html>

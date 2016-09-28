@@ -8,8 +8,8 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<%= customers_share_files_path %>"><img src="/images/logo/logo.png" width="150px" /> </a>
-      <%= image_tag(current_customer.logo, height: "60px") if !current_customer.logo.nil?%>
+      <a class="navbar-brand" href="<%= customers_share_files_path %>"><img src="/images/logo/logo.png" width="250px" /> </a>
+      <%= image_tag(current_customer.logo, height: "80px") if !current_customer.logo.nil?%>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <% if current_customer %>
@@ -18,15 +18,17 @@
         <li><%= link_to 'Archivos', customers_share_files_path%></li>
         <li><%= link_to "Audios", customer_audio_files_path, data: { no_turbolink: true }%></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= image_tag(current_customer.avatar, width: "30px") if !current_customer.avatar.nil?%> <%= current_customer.name %> <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= image_tag(current_customer.avatar, width: "50px") if !current_customer.avatar.nil?%> <%= current_customer.name %> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li>
+              <br/>
               <%= link_to customer_notify_path do %>
               <i class="fa fa-comments-o" aria-hidden="true"></i> Notificaciones
               <%end%>
             </li>
             <li role="separator" class="divider"></li>
             <li>
+              <br/>
               <%= link_to destroy_customer_session_path, :method => :delete do %>
               <i class="fa fa-power-off" aria-hidden="true"></i> Salir de ARM
               <%end%>

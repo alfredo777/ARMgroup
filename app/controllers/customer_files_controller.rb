@@ -252,10 +252,11 @@ class CustomerFilesController < ApplicationController
                 end
               end
             else
-              if params[:code].to_i == campaign.to_i
+              if "#{params[:code]}" == "#{campaign}"
                 real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                 rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
                 audios_result.push({url: "#{rinx}"})
+                puts "#{r} - #{full_name} - #{rinx}"
               end
             end
           else

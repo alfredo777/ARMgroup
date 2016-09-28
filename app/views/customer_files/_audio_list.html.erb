@@ -34,7 +34,7 @@
       <%= hidden_field_tag 'name_file', name_file %>
       <%= hidden_field_tag 'data', "{'acdata': #{data}}" %>
         <button class='btn btn-primary pull-left' >
-        Decargar todos los archivos <i class="fa fa-download" aria-hiddenn="true"></i>
+        Decargar muestra de archivos de la busqueda <i class="fa fa-download" aria-hiddenn="true"></i>
         </button>
       <%end%>
     </div>
@@ -90,5 +90,8 @@ $(document).ready(function(){
   setTimeout(function(){
   $('#load-consult').slideToggle('slow');
   },11000);
+  $('#send_backup').submit(function(){
+   return confirm("Se generara un respaldo de hasta 100 archivos de esta busqueda, esto tardará aproximadamente 5 minutos.");
+  });
 });
 </script>

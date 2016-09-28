@@ -10,9 +10,7 @@ $('#zip_compress_download').submit(function(){
    return confirm($rMessage);
 });
 
-$('#send_backup').submit(function(){
-   return confirm("Se comenzará a generar la carpeta de archivos debackup esto puede tardar algunos minutos, no se preocupe si ve cambios mientras de genera el proceso.");
-});
+
 
 });
 

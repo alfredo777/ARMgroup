@@ -349,7 +349,7 @@ class CustomerFilesController < ApplicationController
       puts zipfile_name
       Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
         data[:acdata].each_with_index do |d, index|
-          if index < 90
+          if index < 100
             adress  = d[:full_adress]
             namex = d[:name]
             puts adress

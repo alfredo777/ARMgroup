@@ -82,11 +82,18 @@ class CustomerFilesController < ApplicationController
       hour = hour
     else
       halft = "#{params[:hour]}"
+      minl = "#{params[:minute]}"
       if halft.mb_chars.length != 2
+      minl.mb_chars.length == 2
       hour = "0#{hour}"
+      else
+      hour = "0#{hour}0"
+      end
       else
       hour = "#{hour}0"
       end
+
+
     end
 
     else

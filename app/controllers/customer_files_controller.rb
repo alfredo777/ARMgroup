@@ -243,10 +243,12 @@ class CustomerFilesController < ApplicationController
             if params[:code].empty?
               puts "Ingresando a campañas "
               customer.campaings.each do |codecampaing|
-                puts "Ingresando a campañas"
-                real_routes.push(full_adress: "#{r}", name:"#{full_name}")
-                rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-                audios_result.push({url: "#{rinx}"})
+                if "#{campaign}" == "#{codecampaing.campaing_code}"
+                  puts "Ingresando a campañas"
+                  real_routes.push(full_adress: "#{r}", name:"#{full_name}")
+                  rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
+                  audios_result.push({url: "#{rinx}"})
+                end
               end
             else
               if params[:code].to_i == campaign.to_i

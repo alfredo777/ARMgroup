@@ -24,12 +24,12 @@ class CustomerFilesController < ApplicationController
     customer = Customer.find(params[:id]) if !current_customer
     hoy = Date.today
 
-    hace_10_dias = Date.today - 50.days
+    hace_10_dias = Date.today - 4.days
     puts hoy
     puts hace_10_dias
 
     array_dates = []
-    50.times do |i|
+    4.times do |i|
       date = hoy - i.day
       date = "#{date.strftime('%Y''%m')}/#{date.strftime('%Y''%m''%d')}"
       date = date.to_s

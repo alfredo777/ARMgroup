@@ -244,10 +244,11 @@ class CustomerFilesController < ApplicationController
               puts "Ingresando a campañas "
               customer.campaings.each do |codecampaing|
                 if "#{campaign}" == "#{codecampaing.campaing_code}"
-                  puts "Ingresando a campañas"
+              
                   real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                   rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
                   audios_result.push({url: "#{rinx}"})
+                  puts "#{r} - #{full_name} - #{rinx}"
                 end
               end
             else

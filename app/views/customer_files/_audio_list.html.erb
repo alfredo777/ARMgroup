@@ -43,6 +43,9 @@
 <br/><br/><br/>
 
 <%end%>
+<center>
+<div id="loaderxxx"> <img src="/gears.gif" width="30%"><b>Procesando ...</b> </div>
+</center>
 <div id="load-consult" class="row slidelnDown" style="display:none;">
   <div class="col-md-12">
     <% @scoped_audios_results.each_with_index do |audiox, index|%>
@@ -82,7 +85,10 @@
 <script type="text/javascript">
 $(document).ready(function(){
 setTimeout(function(){
+$('#loaderxxx').slideToggle('slow');
+},17000)
+});
 $('#load-consult').slideToggle('slow');
-},1000)
+},18000)
 });
 </script>

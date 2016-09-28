@@ -419,7 +419,7 @@ class CustomerFilesController < ApplicationController
     end
 
     @result = proces_results.to_a
-
+    puts "#{@result.count} ---- total a enviar "
   end
 
   def result_audios_proccess_no_campaing(audios_result, conde_entreviwer, phone)
@@ -466,7 +466,7 @@ class CustomerFilesController < ApplicationController
     end
 
     @result = proces_results.to_a
-
+    puts "#{@result.count} ---- total a enviar "
   end
 
 

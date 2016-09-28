@@ -230,7 +230,9 @@ class CustomerFilesController < ApplicationController
         campaign = components[4].to_s
         myhour = components[2].to_s
         myhour = myhour.slice(0,4)
-        puts myhour
+        puts "#{myhour} ********** #{hour} "
+         
+
         if  hour != "000"
           if myhour.to_s == hour.to_s
             timevalidate = true

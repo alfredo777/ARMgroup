@@ -283,7 +283,7 @@ class CustomerFilesController < ApplicationController
     
     ahoy.track "Busqueda de audios a los audios", title: "Busqueda de audios del #{d1} al #{d2} por #{customer.email} - #{Time.now}", customer:customer.id, campaign: params[:code]
     @scoped_audios_results = result_audios_proccess_no_campaing(audios_result, conde_entreviwer,phone) 
-    puts @scoped_audios_results 
+    #puts @scoped_audios_results 
     @data = real_routes 
     @name_file = d2
     t = Time.new

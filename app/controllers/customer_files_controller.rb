@@ -232,7 +232,7 @@ class CustomerFilesController < ApplicationController
         myhour = myhour.slice(0,4)
         puts myhour
         if  hour != "000"
-          if myhour == hour
+          if myhour.to_s == hour.to_s
             timevalidate = true
           else
             timevalidate = false

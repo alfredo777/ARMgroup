@@ -24,12 +24,12 @@ class CustomerFilesController < ApplicationController
     customer = Customer.find(params[:id]) if !current_customer
     hoy = Date.today
 
-    hace_10_dias = Date.today - 4.days
+    hace_10_dias = Date.today - 50.days
     puts hoy
     puts hace_10_dias
 
     array_dates = []
-    4.times do |i|
+    50.times do |i|
       date = hoy - i.day
       date = "#{date.strftime('%Y''%m')}/#{date.strftime('%Y''%m''%d')}"
       date = date.to_s
@@ -75,7 +75,7 @@ class CustomerFilesController < ApplicationController
     customer = current_customer if current_customer
     customer = Customer.find(params[:id]) if !current_customer
     conde_entreviwer = "OUT#{params[:conde_entreviwer]}"
-    phone = "9#{params[:phone]}"
+    phone = "#{params[:phone]}"
     @customer = customer
     if !params[:hour].nil?
     hour = "#{params[:hour]}#{params[:minute]}"
@@ -101,7 +101,9 @@ class CustomerFilesController < ApplicationController
     if !params[:todate].empty?
     arr2 = format_second_date.split(',').collect! {|n| n.to_i}
     end
-    if params[:todate].empty?
+
+
+    if params[:todate].empty? 
     format_date = Date.new(arr[2],arr[0],arr[1])
     year = arr[2].to_s
     month = arr[0]
@@ -190,10 +192,18 @@ class CustomerFilesController < ApplicationController
     ######  filtrado por dos fechas #######
     d1 = Date.new(arr[2],arr[0],arr[1])
     d2 = Date.new(arr2[2],arr2[0],arr2[1])
+
+    if d1 == d2
+       d2 = d2 + 1.day
+       d1 = d1 - 1.day
+    end
+
     days_into_date = (d2 - d1).to_i
     puts days_into_date
     puts d1
     puts d2
+
+
 
     array_dates = []
 

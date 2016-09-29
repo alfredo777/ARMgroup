@@ -194,13 +194,13 @@ class CustomerFilesController < ApplicationController
     
     if params[:code].empty?
       @scoped_audios_results = result_audios_proccess_no_campaing(audios_result, conde_entreviwer,phone)  
-      @data = real_routes 
+      @data = @scoped_audios_results 
       @multi_download_file_name = multi_download_name 
       @name_file = format_date
       @campaign = "all"
     else
     @scoped_audios_results = result_audios_proccess(audios_result,params[:code], conde_entreviwer, phone)  
-    @data = real_routes 
+    @data = @scoped_audios_results 
     @multi_download_file_name = multi_download_name 
     @name_file = format_date
     @campaign = params[:code]
@@ -306,17 +306,18 @@ class CustomerFilesController < ApplicationController
        
       end
     end
-    arr_real_compose = Array.new
-
-    real_routes[0..150].each do |obj|
-    arr_real_compose << obj
-    end
+    
  
     ahoy.track "Busqueda de audios a los audios", title: "Busqueda de audios del #{d1} al #{d2} por #{customer.email} - #{Time.now}", customer:customer.id, campaign: params[:code]
     @scoped_audios_results = result_audios_proccess_no_campaing(audios_result, conde_entreviwer,phone) 
+    
+    #arr_real_compose = Array.new
+    #@scoped_audios_results[0..150].each do |obj|
+    #arr_real_compose << obj
+    #end
     #puts @scoped_audios_results 
     #@scoped_audios_results =  @scoped_audios_results.paginate(:page => params[:page], :per_page => 150)
-    @data = arr_real_compose 
+    @data = @scoped_audios_results 
     @name_file = d2
     t = Time.new
     t = t.to_f

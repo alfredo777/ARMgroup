@@ -427,7 +427,7 @@ class CustomerFilesController < ApplicationController
       #audios_result.push({url: "#{rinx}", full_adress: "#{rpure}", name:"#{full_name}"})
       
       url = au[:url]
-      full_adress = url.gsub!("#{host_url}","#{Rails.root}/public")
+      full_adress = "#{url}".gsub!¡("http://www.research-ss.com","#{Rails.root}/public")
       to_file = {
         full_adress: au[:full_adress],
         name: au[:name]
@@ -487,7 +487,7 @@ class CustomerFilesController < ApplicationController
     proces_results = []
     audios_result.each do |au|
       url = au[:url]
-      full_adress = url.gsub!("#{host_url}","#{Rails.root}/public")
+      full_adress = "#{url}".gsub!("http://www.research-ss.com","#{Rails.root}/public")
       to_file = {
         full_adress: au[:full_adress],
         name: au[:name]

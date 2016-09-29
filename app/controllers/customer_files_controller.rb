@@ -347,7 +347,7 @@ class CustomerFilesController < ApplicationController
     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
       data[:acdata].each_with_index do |d, index|
         if index < 50
-          adress  = d[:url]
+          adress  = d[:full_adress]
           namex = d[:name]
           puts adress
           puts namex
@@ -381,7 +381,7 @@ class CustomerFilesController < ApplicationController
       Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
         data[:acdata].each_with_index do |d, index|
           if index < 100
-            adress  = d[:url]
+            adress  = d[:full_adress]
             namex = d[:name]
             puts adress
             puts namex
@@ -425,8 +425,10 @@ class CustomerFilesController < ApplicationController
     proces_results = []
     audios_result.each do |au|
       #audios_result.push({url: "#{rinx}", full_adress: "#{rpure}", name:"#{full_name}"})
-
+      
       url = au[:url]
+      full_adress = "#{au[:full_adress]}",
+      full_adress = full_adress.gsub!("#{host_url}","#{Rails.root}/public")
       to_file = {
         full_adress: au[:full_adress],
         name: au[:name]
@@ -465,6 +467,7 @@ class CustomerFilesController < ApplicationController
         if ent && pho
         proces_results.push({
           url: url,
+          full_adress: full_adress,
           to_file: to_file,
           full_name: full_name,
           name: name,
@@ -485,6 +488,8 @@ class CustomerFilesController < ApplicationController
     proces_results = []
     audios_result.each do |au|
       url = au[:url]
+      full_adress = "#{au[:full_adress]}",
+      full_adress = full_adress.gsub!("#{host_url}","#{Rails.root}/public")
       to_file = {
         full_adress: au[:full_adress],
         name: au[:name]
@@ -524,6 +529,7 @@ class CustomerFilesController < ApplicationController
       if ent && pho
       proces_results.push({
         url: url,
+        full_adress: full_adress,
         to_file: to_file,
         full_name: full_name,
         name: name,

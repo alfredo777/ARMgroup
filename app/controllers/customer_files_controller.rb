@@ -73,7 +73,12 @@ class CustomerFilesController < ApplicationController
     customer = current_customer if current_customer
     customer = Customer.find(params[:id]) if !current_customer
     conde_entreviwer = "OUT#{params[:conde_entreviwer]}"
-    phone = "9#{params[:phone]}"
+    if params[:phone]
+      phone = "#{params[:phone]}"
+      else
+      phone = "9"
+    end
+    puts "**************** telefono buscado #{phone}"
     @customer = customer
     if !params[:hour].nil?
     hour = "#{params[:hour]}#{params[:minute]}"

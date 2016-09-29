@@ -417,10 +417,10 @@ class CustomerFilesController < ApplicationController
   def result_audios_proccess(audios_result, campaign_code, conde_entreviwer, phone)
     proces_results = []
     audios_result.each do |au|
-      #audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
+      #audios_result.push({url: "#{rinx}", full_adress: "#{rpure}", name:"#{full_name}"})
 
       url = au[:url]
-      full_call = au[:full_call]
+      full_adress = au[:full_adress]
       named = au[:name]
       full_name = au[:url].split('/').last
       components = full_name.split('-')
@@ -456,7 +456,7 @@ class CustomerFilesController < ApplicationController
         if ent && pho
         proces_results.push({
           url: url,
-          full_call: full_call,
+          full_adress: full_adress,
           named: named,
           full_name: full_name,
           name: name,
@@ -477,7 +477,7 @@ class CustomerFilesController < ApplicationController
     proces_results = []
     audios_result.each do |au|
       url = au[:url]
-      full_call = au[:full_call]
+      full_adress = au[:full_adress]
       named = au[:name]
       full_name = au[:url].split('/').last
       components = full_name.split('-')
@@ -514,7 +514,7 @@ class CustomerFilesController < ApplicationController
       if ent && pho
       proces_results.push({
         url: url,
-        full_call: full_call,
+        full_adress: full_adress,
         named: named,
         full_name: full_name,
         name: name,

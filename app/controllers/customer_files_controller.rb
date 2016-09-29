@@ -50,7 +50,7 @@ class CustomerFilesController < ApplicationController
           if campaign == codecampaing.campaing_code
             real_routes.push(full_adress: "#{r}", name:"#{full_name}")
             rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-            audios_result.push({url: "#{rinx}"})
+            audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name})
           end
         end
       end
@@ -148,14 +148,14 @@ class CustomerFilesController < ApplicationController
               puts "**********************parte 1"
               real_routes.push(full_adress: "#{r}", name:"#{full_name}")
               rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-              audios_result.push({url: "#{rinx}"})
+              audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
             end
           end 
         else
           if "#{campaign}" == "#{params[:code]}"
             real_routes.push(full_adress: "#{r}", name:"#{full_name}")
             rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-            audios_result.push({url: "#{rinx}"})
+            audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
           end
         end
       else
@@ -173,7 +173,7 @@ class CustomerFilesController < ApplicationController
                   if "#{campaign}" == "#{codecampaing.campaing_code}"
                     real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                     rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-                    audios_result.push({url: "#{rinx}"})
+                    audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
                   end
               end 
             else
@@ -181,7 +181,7 @@ class CustomerFilesController < ApplicationController
               if "#{campaign}" == "#{params[:code]}"
                 real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                 rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-                audios_result.push({url: "#{rinx}"})
+                audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
               end
             end
           else
@@ -268,7 +268,7 @@ class CustomerFilesController < ApplicationController
               
                   real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                   rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-                  audios_result.push({url: "#{rinx}"})
+                  audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
                   puts "#{r} - #{full_name} - #{rinx}"
                 end
               end
@@ -277,7 +277,7 @@ class CustomerFilesController < ApplicationController
               if "#{params[:code]}" == "#{campaign}"
                 real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                 rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-                audios_result.push({url: "#{rinx}"})
+                audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
                 puts "#{r} - #{full_name} - #{rinx}"
               end
             end
@@ -290,7 +290,7 @@ class CustomerFilesController < ApplicationController
               if "#{campaign}" == "#{codecampaing.campaing_code}"
                 real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                 rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-                audios_result.push({url: "#{rinx}"})
+                audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
               end
             end
           else
@@ -298,7 +298,7 @@ class CustomerFilesController < ApplicationController
             if "#{params[:code]}" == "#{campaign}"
               real_routes.push(full_adress: "#{r}", name:"#{full_name}")
               rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-              audios_result.push({url: "#{rinx}"})
+              audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
             end
            
           end

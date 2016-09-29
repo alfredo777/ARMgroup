@@ -432,6 +432,8 @@ class CustomerFilesController < ApplicationController
         ent = false
       end
 
+      puts "#{ent}********** Entrevistador"
+
       case phone 
       when "9"
         pho = true
@@ -440,6 +442,9 @@ class CustomerFilesController < ApplicationController
       when !phone_i && !'9'
         pho = false
       end
+
+      puts "#{pho}********** Teléfono"
+
       if campaign_code.to_s == campaign 
         if ent && pho
         proces_results.push({
@@ -480,6 +485,8 @@ class CustomerFilesController < ApplicationController
         ent = false
       end
 
+      puts "#{ent}********** Entrevistador"
+
 
       case phone 
       when "9"
@@ -489,6 +496,9 @@ class CustomerFilesController < ApplicationController
       when !phone_i && !'9'
         pho = false
       end
+
+      puts "#{pho}********** Teléfono"
+
 
       if ent && pho
       proces_results.push({

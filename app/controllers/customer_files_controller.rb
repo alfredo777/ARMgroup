@@ -347,8 +347,8 @@ class CustomerFilesController < ApplicationController
     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
       data[:acdata].each_with_index do |d, index|
         if index < 50
-          adress  = d[:full_adress]
-          namex = d[:named]
+          adress  = d[:url]
+          namex = d[:name]
           puts adress
           puts namex
           zipfile.add(namex, adress)
@@ -381,8 +381,8 @@ class CustomerFilesController < ApplicationController
       Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
         data[:acdata].each_with_index do |d, index|
           if index < 100
-            adress  = d[:full_adress]
-            namex = d[:named]
+            adress  = d[:url]
+            namex = d[:name]
             puts adress
             puts namex
             zipfile.add(namex, adress)

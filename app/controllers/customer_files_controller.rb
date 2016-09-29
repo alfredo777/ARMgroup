@@ -317,7 +317,11 @@ class CustomerFilesController < ApplicationController
       end
     end
     
- 
+    if params[:code].empty?
+      @campaign = 'all'
+    else
+      @campaign = params[:code]
+    end
     ahoy.track "Busqueda de audios a los audios", title: "Busqueda de audios del #{d1} al #{d2} por #{customer.email} - #{Time.now}", customer:customer.id, campaign: params[:code]
     @scoped_audios_results = result_audios_proccess_no_campaing(audios_result, conde_entreviwer,phone) 
     #puts @scoped_audios_results 

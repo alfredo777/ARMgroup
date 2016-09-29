@@ -140,6 +140,7 @@ class CustomerFilesController < ApplicationController
       campaign = components[4].to_s
       myhour = components[2].to_s
       myhour = myhour.slice(0,4)
+      rpure = r
 
       if hour == "0000"
         if params[:code].empty?
@@ -148,14 +149,14 @@ class CustomerFilesController < ApplicationController
               puts "**********************parte 1"
               real_routes.push(full_adress: "#{r}", name:"#{full_name}")
               rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-              audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
+              audios_result.push({url: "#{rinx}", full_adress: "#{rpure}", name:"#{full_name}"})
             end
           end 
         else
           if "#{campaign}" == "#{params[:code]}"
             real_routes.push(full_adress: "#{r}", name:"#{full_name}")
             rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-            audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
+            audios_result.push({url: "#{rinx}", full_adress: "#{rpure}", name:"#{full_name}"})
           end
         end
       else
@@ -173,7 +174,7 @@ class CustomerFilesController < ApplicationController
                   if "#{campaign}" == "#{codecampaing.campaing_code}"
                     real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                     rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-                    audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
+                    audios_result.push({url: "#{rinx}", full_adress: "#{rpure}", name:"#{full_name}"})
                   end
               end 
             else
@@ -181,7 +182,7 @@ class CustomerFilesController < ApplicationController
               if "#{campaign}" == "#{params[:code]}"
                 real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                 rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-                audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
+                audios_result.push({url: "#{rinx}", full_adress: "#{rpure}", name:"#{full_name}"})
               end
             end
           else
@@ -249,6 +250,7 @@ class CustomerFilesController < ApplicationController
         campaign = components[4].to_s
         myhour = components[2].to_s
         myhour = myhour.slice(0,4)
+        rpure = r
          
 
         if  hour != "0000"
@@ -268,7 +270,7 @@ class CustomerFilesController < ApplicationController
               
                   real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                   rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-                  audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
+                  audios_result.push({url: "#{rinx}", full_adress: "#{rpure}", name:"#{full_name}"})
                   puts "#{r} - #{full_name} - #{rinx}"
                 end
               end
@@ -277,7 +279,7 @@ class CustomerFilesController < ApplicationController
               if "#{params[:code]}" == "#{campaign}"
                 real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                 rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-                audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
+                audios_result.push({url: "#{rinx}", full_adress: "#{rpure}", name:"#{full_name}"})
                 puts "#{r} - #{full_name} - #{rinx}"
               end
             end
@@ -290,7 +292,7 @@ class CustomerFilesController < ApplicationController
               if "#{campaign}" == "#{codecampaing.campaing_code}"
                 real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                 rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-                audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
+                audios_result.push({url: "#{rinx}", full_adress: "#{rpure}", name:"#{full_name}"})
               end
             end
           else
@@ -298,7 +300,7 @@ class CustomerFilesController < ApplicationController
             if "#{params[:code]}" == "#{campaign}"
               real_routes.push(full_adress: "#{r}", name:"#{full_name}")
               rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-              audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
+              audios_result.push({url: "#{rinx}", full_adress: "#{rpure}", name:"#{full_name}"})
             end
            
           end

@@ -468,7 +468,7 @@ class CustomerFilesController < ApplicationController
           to_file: to_file,
           full_name: full_name,
           name: name,
-          date: audio_date,
+          date: audio_date.to_s,
           campaign: campaign,
           components: components
         })
@@ -527,7 +527,7 @@ class CustomerFilesController < ApplicationController
         to_file: to_file,
         full_name: full_name,
         name: name,
-        date: audio_date,
+        date: audio_date.to_s,
         campaign: campaign,
         components: components
       })

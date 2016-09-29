@@ -73,7 +73,7 @@ class CustomerFilesController < ApplicationController
     customer = current_customer if current_customer
     customer = Customer.find(params[:id]) if !current_customer
     conde_entreviwer = "OUT#{params[:conde_entreviwer]}"
-    if params[:phone]
+    if params[:phone].present?
       phone = "#{params[:phone]}"
       else
       phone = "9"

@@ -485,7 +485,7 @@ class CustomerFilesController < ApplicationController
         ent = false
       end
 
-      puts "b- #{ent}********** Entrevistador ********* #{conde_entreviwer}"
+      puts "b- #{ent}********** Entrevistador ********* #{conde_entreviwer} == #{entreviwer}"
 
 
       case phone 
@@ -497,7 +497,7 @@ class CustomerFilesController < ApplicationController
         pho = false
       end
 
-      puts "b- #{pho}********** Teléfono *********** #{phone}"
+      puts "b- #{pho}********** Teléfono *********** #{phone} == #{phone_i}"
 
 
       if ent && pho

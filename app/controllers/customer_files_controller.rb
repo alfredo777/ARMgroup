@@ -137,14 +137,14 @@ class CustomerFilesController < ApplicationController
     audios_result_no_tuning.each do |r|
       full_name = r.split('/').last
       components = full_name.split('-')
-      campaign = components[4]
+      campaign = components[4].to_s
       myhour = components[2].to_s
       myhour = myhour.slice(0,4)
 
       if hour == "0000"
         if params[:code].empty?
           customer.campaings.each do |codecampaing|
-            if campaign.to_i == codecampaing.campaing_code.to_i
+            if "#{campaign}" == "#{codecampaing.campaing_code}"
               puts "**********************parte 1"
               real_routes.push(full_adress: "#{r}", name:"#{full_name}")
               rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
@@ -152,7 +152,7 @@ class CustomerFilesController < ApplicationController
             end
           end 
         else
-          if campaign.to_i == params[:code].to_i
+          if "#{campaign}" == "#{params[:code]}"
             real_routes.push(full_adress: "#{r}", name:"#{full_name}")
             rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
             audios_result.push({url: "#{rinx}"})
@@ -167,15 +167,18 @@ class CustomerFilesController < ApplicationController
         if timevalidate
             puts "Coincidencia encontrada #{myhour} ****** #{hour}"
             if params[:code].empty?
+              puts "sin campaña"
+
               customer.campaings.each do |codecampaing|
-                  if campaign.to_i == codecampaing.campaing_code.to_i
+                  if "#{campaign}" == "#{codecampaing.campaing_code}"
                     real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                     rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
                     audios_result.push({url: "#{rinx}"})
                   end
               end 
             else
-              if campaign.to_i == params[:code].to_i
+              puts "con campaña"
+              if "#{campaign}" == "#{params[:code]}"
                 real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                 rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
                 audios_result.push({url: "#{rinx}"})
@@ -284,7 +287,7 @@ class CustomerFilesController < ApplicationController
         else
           if params[:code].empty?
             customer.campaings.each do |codecampaing|
-              if campaign == codecampaing.campaing_code
+              if "#{campaign}" == "#{codecampaing.campaing_code}"
                 real_routes.push(full_adress: "#{r}", name:"#{full_name}")
                 rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
                 audios_result.push({url: "#{rinx}"})
@@ -292,7 +295,7 @@ class CustomerFilesController < ApplicationController
             end
           else
           puts "tipo n ********************** date"
-            if params[:code].to_i == campaign.to_i
+            if "#{params[:code]}" == "#{campaign}"
               real_routes.push(full_adress: "#{r}", name:"#{full_name}")
               rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
               audios_result.push({url: "#{rinx}"})

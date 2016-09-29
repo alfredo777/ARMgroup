@@ -432,7 +432,7 @@ class CustomerFilesController < ApplicationController
         ent = false
       end
 
-      puts "#{ent}********** Entrevistador"
+      puts "a-  #{ent}********** Entrevistador ********* #{conde_entreviwer}"
 
       case phone 
       when "9"
@@ -443,7 +443,7 @@ class CustomerFilesController < ApplicationController
         pho = false
       end
 
-      puts "#{pho}********** Teléfono"
+      puts "a- #{pho}********** Teléfono *********** #{phone}"
 
       if campaign_code.to_s == campaign 
         if ent && pho
@@ -485,7 +485,7 @@ class CustomerFilesController < ApplicationController
         ent = false
       end
 
-      puts "#{ent}********** Entrevistador"
+      puts "b- #{ent}********** Entrevistador ********* #{conde_entreviwer}"
 
 
       case phone 
@@ -497,7 +497,7 @@ class CustomerFilesController < ApplicationController
         pho = false
       end
 
-      puts "#{pho}********** Teléfono"
+      puts "b- #{pho}********** Teléfono *********** #{phone}"
 
 
       if ent && pho

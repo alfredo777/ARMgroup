@@ -50,7 +50,7 @@ class CustomerFilesController < ApplicationController
           if campaign == codecampaing.campaing_code
             real_routes.push(full_adress: "#{r}", name:"#{full_name}")
             rinx = r.gsub!("#{Rails.root}/public", "#{host_url}")
-            audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name})
+            audios_result.push({url: "#{rinx}", full_call: "#{r}", name:"#{full_name}"})
           end
         end
       end

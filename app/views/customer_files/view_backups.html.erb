@@ -1,3 +1,6 @@
+<% content_for(:body_attributes) do %>
+    data-no-turbolink="true"
+<% end %>
 <h1>Respaldos de busquedas</h1>
 <%= link_to "Regresar a los audios", customer_audio_files_path, data: { no_turbolink: true }, class: "btn btn-info"%>
 <% if @data != 0 %>

@@ -353,7 +353,7 @@ class CustomerFilesController < ApplicationController
       data[:acdata].each_with_index do |d, index|
         if index < 50
           adress  = d[:full_adress]
-          namex = d[:name]
+          namex = d[:full_name]
           puts adress
           puts namex
           zipfile.add(namex, adress)
@@ -387,7 +387,7 @@ class CustomerFilesController < ApplicationController
         data[:acdata].each_with_index do |d, index|
           if index < 100
             adress  = d[:full_adress]
-            namex = d[:name]
+            namex = d[:full_name]
             puts adress
             puts namex
             zipfile.add(namex, adress)

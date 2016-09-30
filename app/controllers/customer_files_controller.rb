@@ -58,7 +58,8 @@ class CustomerFilesController < ApplicationController
     ahoy.track "Ingreso a los audios", title: "Se ha ingresado a los audios por #{customer.email} - #{Time.now}", customer:customer.id, campaign: params[:code]
     conde_entreviwer = "OUT"
     phone = "9"
-    @scoped_audios_results = result_audios_proccess_no_campaing(audios_result, conde_entreviwer, phone) 
+    @scoped_audios_results = result_audios_proccess_no_campaing(audios_result, conde_entreviwer, phone)
+    @total_audrios  = @scoped_audios_results.count
     @scoped_audios_results = @scoped_audios_results.paginate(:page => params[:page], :per_page => 50)
     @data = real_routes 
     @multi_download_file_name = "" 

@@ -3,11 +3,15 @@ class SharedFile < ActiveRecord::Base
   mount_uploader :url, ShareFileUploader
 
   def file_image
+    if !self.name.nil?
     term = self.name.split('.').last
     puts term
     urlx = "#{Rails.root}/public/icon-files/#{term}.png"
     if File.exist?(urlx)
       @img = "/icon-files/#{term}.png"
+    else
+      @img = "/icon-files/single.png"
+    end
     else
       @img = "/icon-files/single.png"
     end

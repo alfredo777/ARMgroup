@@ -13,11 +13,11 @@
         <b>De la fecha</b>
         <%= text_field_tag 'date', '', "data-provide": 'datepicker', placeholder: "Selecciona una Fecha", class: "form-control ", required: true%><br/>
         <div id="advanced-op" style="display:none;">
-          <b>A la fecha</b>
+          <b>A la fecha (opcional)</b>
           <%= text_field_tag 'todate', '', "data-provide": 'datepicker', placeholder: "Selecciona una Fecha Límite", class: "form-control"%><br/>
           <div class="row">
           <div class="col-md-6">
-            <b>Selecciona una hora</b>
+            <b>Selecciona una hora (opcional)</b>
             <select id="hour" name="hour" class="form-control">
               <% 24.times do  |i|%>
               <%= content_tag(:option, i, value: i) %>
@@ -25,7 +25,7 @@
             </select>
           </div>
           <div class="col-md-6">
-            <b>Selecciona un minuto</b>
+            <b>Selecciona un minuto (opcional)</b>
             <select id="minute" name="minute" class="form-control">
               <% 61.times do  |i|%>
               <%if "#{i}".mb_chars.length == 2%>
@@ -45,14 +45,14 @@
 
           <div class="panel-footer">
             <b>Opciones esclusivas de administrador</b><br/><br/>
-            <b>Ingresa un código encuestador</b><br/>
+            <b>Ingresa un código encuestador (opcional)</b><br/>
             <%= text_field_tag 'conde_entreviwer', '', placeholder: "Código de la persona que levanto la entrevista", class: "form-control"%><br/>
-            <b>Ingresa un teléfono</b><br/>
+            <b>Ingresa un teléfono (opcional)</b><br/>
             <%= text_field_tag 'phone', '', placeholder: "Linea a buscar", class: "form-control"%><br/><br/>
           </div>
           </div>
         </div>
-        <b>Selecciona una campaña</b>
+        <b>Selecciona una campaña (opcional)</b>
         <%= select_tag "code", options_from_collection_for_select(@customer.campaings, "campaing_code", "campaing_title"), class: "form-control", include_blank: "Todas" %><br/>
 
       </div>

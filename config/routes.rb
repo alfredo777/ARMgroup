@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'reporteador/index'
+
+  get 'reporteador/view_base', as: :base
+
   get 'customer_files/shared', as: "customers_share_files"
 
   get 'customer_files/open_file', as: "open_file"

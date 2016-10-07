@@ -48,4 +48,6 @@ gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails', :git
 gem 'rubyzip'
 gem 'bootstrap-select-rails'
 gem "hash_to_hidden_fields"
+gem "nokogiri"
+gem 'groupdate'
 #gem 'rails-simple-search'

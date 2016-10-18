@@ -196,21 +196,21 @@ class CustomerFilesController < ApplicationController
     
     if params[:code].empty?
       @scoped_audios_results = result_audios_proccess_no_campaing(audios_result, conde_entreviwer,phone)  
-      arr_real_compose = Array.new
-      @scoped_audios_results[0..150].each do |obj|
-      arr_real_compose << obj
-      end
-      @data = arr_real_compose 
+      #arr_real_compose = Array.new
+      #@scoped_audios_results[0..150].each do |obj|
+      #arr_real_compose << obj
+      #end
+      @data = @scoped_audios_results 
       @multi_download_file_name = multi_download_name 
       @name_file = format_date
       @campaign = "all"
     else
     @scoped_audios_results = result_audios_proccess(audios_result,params[:code], conde_entreviwer, phone)  
-    arr_real_compose = Array.new
-    @scoped_audios_results[0..150].each do |obj|
-    arr_real_compose << obj
-    end
-    @data = arr_real_compose 
+    #arr_real_compose = Array.new
+    #@scoped_audios_results[0..150].each do |obj|
+    #arr_real_compose << obj
+    #end
+    @data = @scoped_audios_results 
     @multi_download_file_name = multi_download_name 
     @name_file = format_date
     @campaign = params[:code]
@@ -327,11 +327,12 @@ class CustomerFilesController < ApplicationController
     @scoped_audios_results = result_audios_proccess_no_campaing(audios_result, conde_entreviwer,phone) 
     #puts @scoped_audios_results 
     #@scoped_audios_results =  @scoped_audios_results.paginate(:page => params[:page], :per_page => 150)
-    arr_real_compose = Array.new
-    @scoped_audios_results[0..150].each do |obj|
-    arr_real_compose << obj
-    end
-    @data = arr_real_compose 
+    #arr_real_compose = Array.new
+    #@scoped_audios_results[0..150].each do |obj|
+    #arr_real_compose << obj
+    #end
+    #@data = arr_real_compose 
+    @data = @scoped_audios_results
     @name_file = d2
     t = Time.new
     t = t.to_f
@@ -385,7 +386,7 @@ class CustomerFilesController < ApplicationController
       puts zipfile_name
       Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
         data[:acdata].each_with_index do |d, index|
-          if index < 100
+          if index < 1000000000000
             adress  = d[:full_adress]
             namex = d[:full_name]
             puts adress
@@ -397,6 +398,9 @@ class CustomerFilesController < ApplicationController
       end
       rinx = zipfile_name.gsub!("#{Rails.root}/public", "#{host_url}")
       ahoy.track "Backup zip File", title: "Se ha respaldado #{name_file}-#{Time.now} por #{customer.email} - #{Time.now}", customer:customer.id, archivo: rinx
+      
+      file = "#{host_url}/public/backups/#{customer.id}/#{name_file}"
+      render json: {url: file}
   end
 
   def view_backups
@@ -415,11 +419,9 @@ class CustomerFilesController < ApplicationController
   end
 
   def delete_backup
-
     FileUtils.rm params[:real_path]
     flash[:notice] = "Se ha eliminado correctamente el respaldo"
     redirect_to :back
-    
   end
 
   def notify

@@ -26,13 +26,13 @@
       <%= form_tag create_backup_path(campaign: @campaign), id: "send_backup" do -%>
       <%= hidden_field_tag 'data', "{'acdata': #{data}}" %>
 
-      <button class='btn btn-primary pull-right'>
+      <button class='btn btn-primary pull-right' id="button-respaldo">
       Generar Respaldo <i class="fa fa-hdd-o" aria-hidden="true"></i>
       </button>
       <%end%>
       <%else%>
       <%= form_tag create_backup_path(campaign: @campaign, id: @customer.id), id: "send_backup", remote: true do -%>
-      <button class='btn btn-primary pull-right'>
+      <button class='btn btn-primary pull-right' id="button-respaldo">
       <%= hidden_field_tag 'data', "{'acdata': #{data}}" %>
 
       Generar Respaldo <i class="fa fa-hdd-o" aria-hidden="true"></i>
@@ -63,7 +63,8 @@
           var nodelatNODE =  $(this).data('url');
           var url = $form.attr('action');
           var formData = new FormData( $form[0] );
-          $('#progressin').show();
+          $('#button-respaldo').prop('disabled', true);
+          $('#button-respaldo').html('Respaldando ...');
           submitFormFinal (url, formData, function(data, err) {
             if(err){ 
               var insertionNode = insertData(formdata,'notsend',myDataBase,Schema,false);
@@ -77,17 +78,7 @@
         
       });
       function submitFormFinal(url, formData, callback) {
-        $.ajax({
-            xhr: function() {
-            var xhr = new window.XMLHttpRequest();
-            xhr.addEventListener('progress', function(e) {
-                if (e.lengthComputable) {
-                    $('#progresbar').css('width', '' + (100 * e.loaded / e.total) + '%');
-                    $('#progresbar').html((100 * e.loaded / e.total) + '%');
-                }
-            });
-            return xhr;
-            }, 
+        $.ajax({ 
             url: url,
             data: formData,
             processData: false,

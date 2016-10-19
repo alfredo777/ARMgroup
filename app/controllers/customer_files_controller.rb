@@ -399,7 +399,7 @@ class CustomerFilesController < ApplicationController
       rinx = zipfile_name.gsub!("#{Rails.root}/public", "#{host_url}")
       ahoy.track "Backup zip File", title: "Se ha respaldado #{name_file}-#{Time.now} por #{customer.email} - #{Time.now}", customer:customer.id, archivo: rinx
       
-      file = "#{host_url}/public/backups/#{customer.id}/#{name_file}"
+      file = "#{host_url}/backups/#{customer.id}/#{name_file}"
       render json: {url: file}
   end
 

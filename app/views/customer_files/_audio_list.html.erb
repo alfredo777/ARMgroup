@@ -1,6 +1,17 @@
 <% if with_options %>
 <div class="row">
+   <div class="col-md-5" id="progressin" style="display:none;">
+      Progreso de generación de respaldo.
+      <div class="bs-example" data-example-id="animated-progress-bar">
+       <div class="progress">
+        <div id="progresbar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">0% completado</div>
+       </div>
+      </div>
+     
+      <br/><br/><br/>
+    </div>
   <div class="col-lg-12">
+
     <div class="col-md-1">
       <% if current_customer %>
       <%= link_to "Regresar", customer_audio_files_path, data: { no_turbolink: true }, class: "btn btn-default"%>
@@ -8,25 +19,28 @@
       <%= link_to "Regresar", customer_audio_files_path(id: @customer.id), data: { no_turbolink: true }, class: "btn btn-default"%>
       <%end%>
     </div>
+
     <div class="col-md-2">
+      <div id="descargatotal">
       <% if current_customer %>
-      <%= form_tag create_backup_path(campaign: @campaign), id: "send_backup", remote: true do -%>
+      <%= form_tag create_backup_path(campaign: @campaign), id: "send_backup" do -%>
       <%= hidden_field_tag 'data', "{'acdata': #{data}}" %>
 
-      <button class='btn btn-primary pull-right'>
+      <button class='btn btn-primary pull-right' id="button-respaldo">
       Generar Respaldo <i class="fa fa-hdd-o" aria-hidden="true"></i>
       </button>
       <%end%>
       <%else%>
       <%= form_tag create_backup_path(campaign: @campaign, id: @customer.id), id: "send_backup", remote: true do -%>
-      <button class='btn btn-primary pull-right'>
+      <button class='btn btn-primary pull-right' id="button-respaldo">
       <%= hidden_field_tag 'data', "{'acdata': #{data}}" %>
 
       Generar Respaldo <i class="fa fa-hdd-o" aria-hidden="true"></i>
       </button>
       <%end%>
       <%end%>
-      
+      </div>
+
     </div>
     <div class="col-md-3">
       <%= form_tag zip_compress_download_path, id:"zip_compress_download", method: :post  do -%>
@@ -41,6 +55,45 @@
   </div>
 </div>
 <br/><br/><br/>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#send_backup").submit(function(){
+          
+          var $form = $(this);
+          var nodelatNODE =  $(this).data('url');
+          var url = $form.attr('action');
+          var formData = new FormData( $form[0] );
+          $('#button-respaldo').prop('disabled', true);
+          $('#button-respaldo').html('Respaldando ...');
+          submitFormFinal (url, formData, function(data, err) {
+            if(err){ 
+              var insertionNode = insertData(formdata,'notsend',myDataBase,Schema,false);
+              return alert("El formulario no pudo ser enviado, se ha respaldado en la memoria interna.");
+
+            }else{
+              console.log("Exito al enviar formulario ****************");
+            }
+          });
+          return false;
+        
+      });
+      function submitFormFinal(url, formData, callback) {
+        $.ajax({ 
+            url: url,
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function(data) {
+              $("#descargatotal").html('<a href="'+data.url+'" class="btn btn-success" download>Descargar respaldo</a>');
+            },
+            error: function(err) {
+                callback(null, err);
+            }
+        });
+      };
+  });
+</script>
 
 <%end%>
 <center>
@@ -91,7 +144,7 @@ $(document).ready(function(){
   $('#load-consult').slideToggle('slow');
   },11000);
   $('#send_backup').submit(function(){
-   return confirm("Se generara un respaldo de hasta 100 archivos de esta busqueda, esto tardará aproximadamente 5 minutos.");
+   return confirm("Se generara un respaldo de hasta 10000 archivos de esta busqueda, esto tardará aproximadamente entre 5 y 15 minutos.");
   });
 });
 </script>

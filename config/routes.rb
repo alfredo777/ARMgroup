@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   get 'reporteador/index'
 
   get 'reporteador/view_base', as: :base
@@ -84,7 +85,9 @@ Rails.application.routes.draw do
   get '/admins/sign_out' => 'devise/sessions#destroy'
   end
 
+  resources :work_schemas
 
+  post '/work_schemas/new'
 
   authenticate :admins do
     resources :publications, only: [:new, :create, :edit, :update, :destroy]

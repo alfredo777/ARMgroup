@@ -50,4 +50,7 @@ gem 'bootstrap-select-rails'
 gem "hash_to_hidden_fields"
 gem "nokogiri"
 gem 'groupdate'
+gem "cocoon"
+gem "auto_strip_attributes", "~> 2.1"
+
 #gem 'rails-simple-search'

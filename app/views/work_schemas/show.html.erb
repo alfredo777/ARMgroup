@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+<h1>Esquema de trabajo - <%= @work_schema.name %> </h1>
+<div class="row">
+<% @work_schema.table_works.each do |table|%>
+<div class="col-md-6" style="height: 250px; overflow:auto;">
+  <h2><%= table.alias %></h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <% table.colum_in_table_works.each do |head|%>
+        <th><%= head.alias %> <%= head.head_ahead %></th>
+        <%end%>
+      </tr>
+    </thead>
+    <tbody>
+      <% @hashx.each_with_index do |hxx, index| %>
+      <tr>
+        <td><b><%=index + 1%></b></td>
+        <% first_i = index + 1%>
+        <% table.colum_in_table_works.each do |head| %>
+        <td> <%= hxx[head.head_ahead]%> </td>
+        <%end%>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+</div>
+<%end%>
+</div>
+<%= link_to 'Edit', edit_work_schema_path(@work_schema) %> |
+<%= link_to 'Back', work_schemas_path %>

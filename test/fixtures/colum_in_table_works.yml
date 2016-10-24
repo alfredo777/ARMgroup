@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  table_work_id: 1
+  register_in_data_base: MyString
+  priority: false
+  alias: MyString
+
+two:
+  table_work_id: 1
+  register_in_data_base: MyString
+  priority: false
+  alias: MyString

@@ -1,0 +1,29 @@
+<div class="nested-fields  panel panel-default">
+
+  <div class="panel-head">
+    <%= link_to_remove_association f  do %>
+     <div class="btn btn-secondary pull-right">X</div>
+    <%end%>
+  </div>
+  <div class="panel-body">
+    <label>Nombre del registro en la base</label>
+    <%= f.select(:register_in_data_base, @heads.split(',').map { |value| [ value.gsub('"', ""), value.gsub('"', "") ] },{},{class:"form-control pull-left"}) %><br/><br/>
+    <label>Selecciona si la tabla es prioritaria <%= f.check_box :priority, class:"form-control pull-left" %></label><br/><br/>
+    <label>Agrega una lias al registro para que lo vea el cliente</label>
+    <%= f.text_field :alias, class:"form-control" %>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+      <fieldset>
+        <%= f.fields_for :colum_in_table_works do |colum_in_table_work| %>
+        <%= render  'colum_in_table_work_fields', f: colum_in_table_work %>
+        <%end%>
+        <div class="panel-body">
+        <%= link_to_add_association 'Agregar columna de la tabla', f, :colum_in_table_works, class: "btn btn-primary pull-right" %><br/><br/><br/>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>

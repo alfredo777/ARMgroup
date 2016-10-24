@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909021256) do
+ActiveRecord::Schema.define(version: 20161014164341) do
 
   create_table "actions", force: :cascade do |t|
     t.string  "action"
@@ -67,6 +67,20 @@ ActiveRecord::Schema.define(version: 20160909021256) do
   add_index "campaings", ["campaing_code"], name: "index_campaings_on_campaing_code"
   add_index "campaings", ["customer_id"], name: "index_campaings_on_customer_id"
 
+  create_table "colum_in_table_works", force: :cascade do |t|
+    t.integer  "table_work_id"
+    t.string   "register_in_data_base"
+    t.boolean  "priority"
+    t.string   "alias"
+    t.boolean  "stringt"
+    t.boolean  "integert"
+    t.boolean  "booleant"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "colum_in_table_works", ["table_work_id"], name: "index_colum_in_table_works_on_table_work_id"
+
   create_table "customers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -114,6 +128,17 @@ ActiveRecord::Schema.define(version: 20160909021256) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "register_in_colum_table_works", force: :cascade do |t|
+    t.string   "value_string"
+    t.float    "value_numeric_no_integer"
+    t.integer  "value_integer"
+    t.integer  "colum_in_table_work_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "register_in_colum_table_works", ["colum_in_table_work_id"], name: "index_register_in_colum_table_works_on_colum_in_table_work_id"
+
   create_table "shared_files", force: :cascade do |t|
     t.string   "url"
     t.string   "name"
@@ -126,6 +151,17 @@ ActiveRecord::Schema.define(version: 20160909021256) do
 
   add_index "shared_files", ["fileable_id"], name: "index_shared_files_on_fileable_id"
   add_index "shared_files", ["fileable_type"], name: "index_shared_files_on_fileable_type"
+
+  create_table "table_works", force: :cascade do |t|
+    t.integer  "work_schema_id"
+    t.string   "register_in_data_base"
+    t.boolean  "priority"
+    t.string   "alias"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "table_works", ["work_schema_id"], name: "index_table_works_on_work_schema_id"
 
   create_table "visits", force: :cascade do |t|
     t.string   "visit_token"
@@ -158,5 +194,16 @@ ActiveRecord::Schema.define(version: 20160909021256) do
 
   add_index "visits", ["user_id"], name: "index_visits_on_user_id"
   add_index "visits", ["visit_token"], name: "index_visits_on_visit_token", unique: true
+
+  create_table "work_schemas", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "customer_id"
+    t.integer  "campaing_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "work_schemas", ["campaing_id"], name: "index_work_schemas_on_campaing_id"
+  add_index "work_schemas", ["customer_id"], name: "index_work_schemas_on_customer_id"
 
 end

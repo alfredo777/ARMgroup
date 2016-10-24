@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  value_string: MyString
+  value_numeric_no_integer: 1.5
+  value_integer: 1
+  belongs_to: 
+
+two:
+  value_string: MyString
+  value_numeric_no_integer: 1.5
+  value_integer: 1
+  belongs_to: 

@@ -34,6 +34,7 @@
 //= require bootstrap-select
 //= require bootstrap/alert
 //= require bootstrap/dropdown
+//= require cocoon
 
 $(document).ready(function(){
   $('a').click(function(){

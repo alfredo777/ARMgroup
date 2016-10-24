@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Work Schemas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Customer</th>
+      <th>Campaing</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @work_schemas.each do |work_schema| %>
+      <tr>
+        <td><%= work_schema.name %></td>
+        <td><%= work_schema.customer_id %></td>
+        <td><%= work_schema.campaing_id %></td>
+        <td><%= link_to 'Show', work_schema %></td>
+        <td><%= link_to 'Edit', edit_work_schema_path(work_schema) %></td>
+        <td><%= link_to 'Destroy', work_schema, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Work schema', new_work_schema_path %>

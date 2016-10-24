@@ -1,0 +1,116 @@
+<script type="text/javascript" src="/js/highcharts/highcharts.js"></script>
+<h1>Registros totales de la base <%= @hashx.count %></h1>
+<div class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="col-md-1" style="margin-top: 5px;">
+      <b>Filtro</b>
+      <select id="selctee" class="form-control">
+        <option value="filter"> <i class="fa fa-filter" aria-hidden="true"></i> Todas</option>
+        <% @heads.each_with_index do |head, index| %>
+        <option value="<%=(index + 1) * 10%>"><%= head %></option>
+        <%end%>
+        <option value="filter">Todas</option>
+      </select>
+    </div>
+    <%= form_tag "/work_schemas/new" do -%>
+    <%= hidden_field_tag "hash_base", @hashx %>
+    <%= hidden_field_tag "heads", @head_array %>
+    <%= submit_tag 'Enviar', class: "btn btn-info"%>
+    <%end%>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="table-responsive" style="height:400px;">
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th> #ID </th>
+            <% @heads.each_with_index do |head, index| %>
+            <th class="<%=(index + 1) * 10%> filter"><%=head%></th>
+            <%end%>
+          </tr>
+        </thead>
+        <tbody>
+          <% @hashx.each_with_index do |h, index| %>
+          <tr>
+            <td><b><%=index + 1%></b></td>
+            <% first_i = index + 1%>
+            <% @heads.each_with_index do |head,index| %>
+            <td class="<%=(index + 1) * 10%> <%=first_i%> filter"> <%= h["#{head}"]%> </td>
+            <%end%>
+          </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div id="chart" data-sch="<%=@group%>"></div>
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+$('#selctee').change(function(){
+$('.filter').hide();
+var Cvalue = $(this).find("option:selected").attr('value');
+$('.'+Cvalue).show();
+});
+});
+</script>
+<script type="text/javascript">
+$(function () {
+var datad = $('#chart').data('sch');
+console.log(datad);
+$('#chart').highcharts({
+chart: {
+type: 'column'
+},
+title: {
+text: 'Agrupamiento por fechas de registros'
+},
+subtitle: {
+text: 'Recursos: ARMgroup'
+},
+xAxis: {
+type: 'category',
+labels: {
+rotation: -45,
+style: {
+fontSize: '13px',
+fontFamily: 'Verdana, sans-serif'
+}
+}
+},
+yAxis: {
+min: 0,
+title: {
+text: 'Número de Regristros'
+}
+},
+legend: {
+enabled: false
+},
+tooltip: {
+pointFormat: 'Registros: <b>{point.y:.1f} día</b>'
+},
+series: [{
+name: 'Regristros',
+data: datad,
+dataLabels: {
+enabled: true,
+rotation: -90,
+color: '#FFFFFF',
+align: 'right',
+format: '{point.y:.1f}', // one decimal
+y: 10, // 10 pixels down from the top
+style: {
+fontSize: '13px',
+fontFamily: 'Verdana, sans-serif'
+}
+}
+}]
+});
+});
+</script>

@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class ShareFileUploader < CarrierWave::Uploader::Base
+  
 
   storage :file
   # storage :fog

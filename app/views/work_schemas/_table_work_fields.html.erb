@@ -7,7 +7,7 @@
   </div>
   <div class="panel-body">
     <label>Nombre del registro en la base</label>
-    <%= f.select(:register_in_data_base, @heads.split(',').map { |value| [ value.gsub('"', ""), value.gsub('"', "") ] },{},{class:"form-control pull-left"}) %><br/><br/>
+    <%= f.select(:register_in_data_base, @heads.split(',').map { |value| [ value, value ] },{},{class:"form-control pull-left"}) %><br/><br/>
     <label>Selecciona si la tabla es prioritaria <%= f.check_box :priority, class:"form-control pull-left" %></label><br/><br/>
     <label>Agrega una lias al registro para que lo vea el cliente</label>
     <%= f.text_field :alias, class:"form-control" %>

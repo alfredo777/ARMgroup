@@ -31,6 +31,8 @@ class ApiController < ApplicationController
     redirect_to :back
   end
 
+  
+
   def create_action
     action = Action.new
     action.action = params[:act]

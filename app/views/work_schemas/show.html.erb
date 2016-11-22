@@ -1,32 +1,85 @@
 <p id="notice"><%= notice %></p>
 <h1>Esquema de trabajo - <%= @work_schema.name %> </h1>
-<div class="row">
-<% @work_schema.table_works.each do |table|%>
-<div class="col-md-6" style="height: 250px; overflow:auto;">
-  <h2><%= table.alias %></h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <% table.colum_in_table_works.each do |head|%>
-        <th><%= head.alias %> <%= head.head_ahead %></th>
-        <%end%>
-      </tr>
-    </thead>
-    <tbody>
-      <% @hashx.each_with_index do |hxx, index| %>
-      <tr>
-        <td><b><%=index + 1%></b></td>
-        <% first_i = index + 1%>
-        <% table.colum_in_table_works.each do |head| %>
-        <td> <%= hxx[head.head_ahead]%> </td>
-        <%end%>
-      </tr>
-      <%end%>
-    </tbody>
-  </table>
+<div class="col-md-3">
+  <ul class="nav nav-pills nav-stacked">
+    <% @work_schema.table_works.each_with_index do |table, index|%>
+    <% if  index== 0 %>
+    <li role="presentation" class="active tav" id="tab_<%=index%>" style="cursor:pointer;"><a onclick="seeDiv(<%=index%>)" > <%= truncate(table.alias, length: 17) %></a></li>
+    <%else%>
+    <li role="presentation" class="tav" id="tab_<%=index%>" style="cursor:pointer;"><a onclick="seeDiv(<%=index%>)"> <%= truncate(table.alias, length: 17) %></a></li>
+    <%end%>
+    <%end%>
+  </ul>
 </div>
-<%end%>
-</div>
-<%= link_to 'Edit', edit_work_schema_path(@work_schema) %> |
-<%= link_to 'Back', work_schemas_path %>
+<% @work_schema.table_works.each_with_index do |table,index|%>
+<% if index == 0 %>
+<div class="col-md-9 inspirate"  id="super_<%=index%>">
+  <%else%>
+  <div class="col-md-9 inspirate" style="display:none;" id="super_<%=index%>">
+    </style>
+    <%end%>
+    <h4><%= table.alias %></h4>
+    <div class="table-responsive"  style="height: 400px; overflow: auto;">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th width="40px">#</th>
+            <% table.colum_in_table_works.each do |head|%>
+            <th><%= head.alias %></th>
+            <%end%>
+          </tr>
+        </thead>
+        <tbody>
+          <% @hashx.each_with_index do |hxx, index| %>
+          <tr>
+            <td><b><%=index + 1%></b></td>
+            <% first_i = index + 1%>
+            <% table.colum_in_table_works.each do |head| %>
+            <td> <%= hxx[head.head_ahead]%> </td>
+            <%end%>
+          </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div><br/><br/>
+    <h4>Agrupando datos por porcentajes de cada variable</h4>
+    <div class="table-responsive"  style="height: 400px; overflow: auto;">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <% agrouped_table(table, @hashx)[:heads].each do |parseh| %>
+            <th> <%= parseh %></th>
+            <%end%>
+          </tr>
+        </thead>
+        <tbody>
+          <% agrouped_table(table, @hashx)[:data].each do |data| %>
+          <tr>
+            <% agrouped_table(table, @hashx)[:heads].each_with_index do |parseh, index| %>
+            <% if parseh != "" %>
+            <% if index != 0 %>
+            <td><%= (data[parseh].to_f * 100).round(5)%>%</td>
+            <%else%>
+            <td><%= data[parseh] %></td>
+            <%end%>
+            <%else%>
+            <td>null</td>
+            <%end%>
+            <%end%>
+          </tr>
+        </tbody>
+        <%end%>
+      </table>
+    </div>
+  </div>
+  <%end%>
+  <script  type="text/javascript" charset="utf-8" >
+  function seeDiv(id){
+  $('.inspirate').hide();
+  $('.tav').removeClass('active');
+  $('#tab_'+id).addClass('active');
+  $('#super_'+id).show();
+  }
+  </script>
+  <%= link_to 'Edit', edit_work_schema_path(@work_schema) %> |
+  <%= link_to 'Back', work_schemas_path %>

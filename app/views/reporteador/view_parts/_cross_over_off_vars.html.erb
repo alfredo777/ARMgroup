@@ -1,0 +1,156 @@
+<% series = [] %>
+<div class="container">
+	<h1>Cruce de variables</h1>
+	<% random_x = SecureRandom.hex(10)%>
+	<div class="col-md-12">
+		<div id="tablex-<%=random_x%>" style="height: 500px; width: 70%;"></div>
+	</div>
+	<div class="col-md-12" style="background: #fff; padding: 10px;">
+		<div id="sliders-<%=random_x%>" style="background: #eee; padding: 10px; margin-top: -30px;">
+			<table>
+				<tr>
+					<td>Angulo ∂ </td>
+					<td><input id="alpha" type="range" min="0" max="45" value="15"/> <span id="alpha-value-<%=random_x%>" class="value"></span></td>
+				</tr>
+				<tr>
+					<td>Angulo ß </td>
+					<td><input id="beta" type="range" min="-45" max="45" value="15"/> <span id="beta-value-<%=random_x%>" class="value"></span></td>
+				</tr>
+				<tr>
+					<td>Prfundidad Ω </td>
+					<td><input id="depth" type="range" min="20" max="100" value="50"/> <span id="depth-value-<%=random_x%>" class="value"></span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<br/><br/>
+	<%#= @x %>
+	<%#= @y %>
+	<%#= @table %><br/><br/>
+
+	<div class="col-lg-12">
+
+		<div class="table-responsive">
+			<table class="table table-bordered">
+				<caption>Tabla obtenida del proceso de cruzar las dos variables</caption>
+				<thead>
+					<tr><th>Variable (filas) <%= filas[0]%></th><th colspan="<%= x.size %>">Variable (columna) <%= columnas[0]%></th></tr>
+					<tr><th>Valores</th>
+					<% x.each do |x| %>
+					<th><%= x %></th>
+					<%end%>
+				</tr>
+			</thead>
+			<tbody>
+				<% y.each do |y| %>
+				<% ha = {} %>
+				<tr>
+					<td><%=y %></td>
+					<% values = [] %>
+					
+					<% x.each do |x| %>
+					<% table.each do |t| %>
+					<% if y == t["rowvin"] && x == t["colvin"] %>
+					<td class="<%=x%>"> <%= t["q"]%></td>
+					<% values.push(t["q"])%>
+					<%end%>
+					<%end%>
+					<%end%>
+					<% ha["name"] = y %>
+					<% ha["data"] = values %>
+					<% ha["stack"] = y %>
+					<% series.push(ha) %>
+				</tr>
+				<%end%>
+				<tr>
+					<td>Total</td>
+					<% x.each do |x| %>
+					<% nx = 0 %>
+					<% table.each do |t| %>
+					<% if t["colvin"] == x && t['q'] != nil %>
+					<% nx = nx + t["q"]%>
+					<%end%>
+					<%end%>
+					<td><%=nx%></td>
+					<% end %>
+				</tr>
+				<tr>
+					<td>Porcentaje</td>
+					<% rdx = 0 %>
+					<% x.each do |x| %>
+					<% nx = 0 %>
+					<% table.each do |t| %>
+					<% if t["colvin"] == x && t['q'] != nil %>
+					<% nx = nx + t["q"]%>
+					<%end%>
+					<%end%>
+					<td><%=((nx.to_f / @n.to_f) * 100 ).round(2)%>% <% rdx = rdx + ((nx.to_f / @n.to_f) * 100 ).round(4) %> </td>
+					<% end %>
+					<td ><%=rdx%>%</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
+<script>
+var langVarbles = "<%= @x.to_json %>";
+var serieData = "<%= series.to_json %>";
+var variables = JSON.parse(langVarbles.replace(/&quot;/g,'"'));
+var seriesARF = JSON.parse(serieData.replace(/&quot;/g,'"'));
+console.log(serieData);
+console.log(variables);
+console.log(seriesARF);
+$(function () {
+var width = $(window).width() * .70;
+
+var chart = Highcharts.chart('tablex-<%=random_x%>', {
+chart: {
+type: 'column',
+options3d: {
+enabled: true,
+alpha: 15,
+beta: 15,
+viewDistance: 25,
+depth: 40,
+}
+},
+title: {
+text: 'Cruce de variables <%= @columnas[0]%> / <%= @filas[0]%>'
+},
+xAxis: {
+categories: variables
+},
+yAxis: {
+allowDecimals: false,
+min: 0,
+title: {
+text: 'N'
+}
+},
+tooltip: {
+headerFormat: '<b>Fila {point.key}</b><br>',
+pointFormat: '<span style="color:{series.color}">\u25CF</span>Columna {series.name} : {point.stackTotal} agrupado'
+},
+plotOptions: {
+column: {
+stacking: 'normal',
+depth: 40
+}
+},
+series: seriesARF
+});
+function showValues() {
+$('#alpha-value-<%=random_x%>').html(chart.options.chart.options3d.alpha);
+$('#beta-value-<%=random_x%>').html(chart.options.chart.options3d.beta);
+$('#depth-value-<%=random_x%>').html(chart.options.chart.options3d.depth);
+}
+// Activate the sliders
+$('#sliders-<%=random_x%> input').on('input change', function () {
+chart.options.chart.options3d[this.id] = this.value;
+showValues();
+chart.redraw(false);
+});
+showValues();
+});
+</script>

@@ -1,116 +1,79 @@
+<% content_for(:body_attributes) do %>
+data-no-turbolink="true"
+<% end %>
+<% content_for(:header) do %>
 <script type="text/javascript" src="/js/highcharts/highcharts.js"></script>
-<h1>Registros totales de la base <%= @hashx.count %></h1>
-<div class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="col-md-1" style="margin-top: 5px;">
-      <b>Filtro</b>
-      <select id="selctee" class="form-control">
-        <option value="filter"> <i class="fa fa-filter" aria-hidden="true"></i> Todas</option>
-        <% @heads.each_with_index do |head, index| %>
-        <option value="<%=(index + 1) * 10%>"><%= head %></option>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<% end %>
+<% @idx =  params[:id] %>
+<% @camp = params[:campaing] %>
+<%= render partial: "/reporteador/view_parts/left_menu_functions", locals: {work_schema: @work_schema, id: @idx, heads: @heads, campaing: @camp, table_in: @table_in}%>
+<div class="col-md-9">
+  <%= render partial: "/reporteador/view_parts/count_view", locals: {campaing: @camp, heads: @heads, hashx: @hashx } %>
+  <div class="col-lg-12" style="padding: 30px;">
+    <% @work_schema.table_works.each_with_index do |table,index|%>
+    <div class="col-md-12 inspirate" style="display:none;" id="super_<%=index%>">
+      <% unless dinamic_counter_view(params[:campaing],"super_content_chart_#{index}") %>
+      <div id="hid_init_count_table_index_<%=index%>">
+        <%= link_to 'Agregar Gráfico', add_view_access_path(campaing: params[:campaing], indx: "super_content_chart_#{index}", proccessid: "hid_init_count_table_index_#{index}"), remote: true, class: "btn btn-info" %>
+      </div>
+      <%end%>
+      <h4><%= table.alias %></h4>
+      <div id="super_chart_<%=index%>" data-sch="<%= agrouped_table(table, @hashx)[:array_chart_1] %>" data-cat="<%= agrouped_table(table, @hashx)[:heads] %>"></div>
+      <div class="col-lg-12 ">
+        <%= render partial: "/reporteador/view_parts/full_table", locals: {hashx: @hashx, table: table, displ: true} %>
+        <h4>Agrupación de datos por porcentajes de cada variable</h4>
+        <% if table.wordcloud %>
+        <%= render partial: '/reporteador/view_parts/wordcloud_proces', locals: {hashx: @hashx, table: table, displ: false, index: index}  %>
+        <%= render partial: '/reporteador/view_parts/wordcloud_table', locals: {hashx: @hashx, table: table, displ: false, index: index}  %>
+        <%else%>
+        <%= render partial: '/reporteador/view_parts/single_table_chart', locals: {hashx: @hashx, table: table, displ: false, index: index}  %>
+        <br/><br/>
+        <%= render partial: '/reporteador/view_parts/advances_table_renamed', locals: {hashx: @hashx, table: table, displ: false, index: index, n: @n}  %>
         <%end%>
-        <option value="filter">Todas</option>
-      </select>
+      </div>
     </div>
-    <%= form_tag "/work_schemas/new" do -%>
-    <%= hidden_field_tag "hash_base", @hashx %>
-    <%= hidden_field_tag "heads", @head_array %>
-    <%= submit_tag 'Enviar', class: "btn btn-info"%>
     <%end%>
+    <script  type="text/javascript" charset="utf-8" >
+    function seeDiv(id){
+    $('.inspirate').hide();
+    $('#agroup').hide();
+    $('.tav').removeClass('active');
+    $('#tab_'+id).addClass('active');
+    $('#super_'+id).show();
+    }
+    </script>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-6">
-    <div class="table-responsive" style="height:400px;">
-      <table class="table table-condensed">
-        <thead>
-          <tr>
-            <th> #ID </th>
-            <% @heads.each_with_index do |head, index| %>
-            <th class="<%=(index + 1) * 10%> filter"><%=head%></th>
-            <%end%>
-          </tr>
-        </thead>
-        <tbody>
-          <% @hashx.each_with_index do |h, index| %>
-          <tr>
-            <td><b><%=index + 1%></b></td>
-            <% first_i = index + 1%>
-            <% @heads.each_with_index do |head,index| %>
-            <td class="<%=(index + 1) * 10%> <%=first_i%> filter"> <%= h["#{head}"]%> </td>
-            <%end%>
-          </tr>
-          <%end%>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div id="chart" data-sch="<%=@group%>"></div>
-  </div>
 </div>
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
+$('#clicked-un-var').click(function(){
+$('#areaagroup').slideToggle('slow');
+});
+$('#clicked-un-var-2').click(function(){
+$('#areaagroupxx').slideToggle('slow');
+});
+$('#agroupbymult').change(function(){
+var Cvalue = $(this).find("option:selected").attr('value');
+$('#agroupbymultbut').attr('data-added',Cvalue);
+})
+$('#agroupbymultbut').click(function(){
+var atrigbut = $(this).attr('data-added');
+var cont = $('#texttt').html();
+if(cont == ''){
+var totale  =  atrigbut;
+}else{
+var totale  = cont + ',' + atrigbut;
+}
+$('#texttt').html(totale);
+});
 $('#selctee').change(function(){
 $('.filter').hide();
 var Cvalue = $(this).find("option:selected").attr('value');
 $('.'+Cvalue).show();
-});
-});
-</script>
-<script type="text/javascript">
-$(function () {
-var datad = $('#chart').data('sch');
-console.log(datad);
-$('#chart').highcharts({
-chart: {
-type: 'column'
-},
-title: {
-text: 'Agrupamiento por fechas de registros'
-},
-subtitle: {
-text: 'Recursos: ARMgroup'
-},
-xAxis: {
-type: 'category',
-labels: {
-rotation: -45,
-style: {
-fontSize: '13px',
-fontFamily: 'Verdana, sans-serif'
-}
-}
-},
-yAxis: {
-min: 0,
-title: {
-text: 'Número de Regristros'
-}
-},
-legend: {
-enabled: false
-},
-tooltip: {
-pointFormat: 'Registros: <b>{point.y:.1f} día</b>'
-},
-series: [{
-name: 'Regristros',
-data: datad,
-dataLabels: {
-enabled: true,
-rotation: -90,
-color: '#FFFFFF',
-align: 'right',
-format: '{point.y:.1f}', // one decimal
-y: 10, // 10 pixels down from the top
-style: {
-fontSize: '13px',
-fontFamily: 'Verdana, sans-serif'
-}
-}
-}]
 });
 });
 </script>

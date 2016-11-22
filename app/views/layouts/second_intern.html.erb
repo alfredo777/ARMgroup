@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="shortcut icon" type="image/png" href="/images/logo/favicon.png"/>
+    <title>ARMgroup | Agencia lider en investigación de mercados.</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application' %>
+    <script type="text/javascript" src="/javascripts/bootstrap.js"></script>
+    <%= yield(:header) %>
+
+    <%= csrf_meta_tags %>
+  </head>
+  <% unless current_admin || current_customer %>
+  <body style="background: url('/images/backparallax/18.jpg'); background-size:100% 100%; background-repeat: no-repeat; min-height:800px;">
+    <%else%>
+    <body 
+      <% if content_for?(:body_attributes) %>
+        <%= yield(:body_attributes) %> 
+      <% end %>>
+      
+      <% if !flash[:notice].nil? %>
+      <div class="alert alert-info alert-dismissible" id="alert">
+      <%= flash[:notice] %>
+      <script type="text/javascript">$(document).ready(function(){
+          setTimeout(function(){
+            $('#alert').hide();
+          },3000);
+        });</script>
+      </div>
+      
+      <%end%>
+      <%= render partial: '/admin/menu' if current_admin %>
+      <%= render partial: '/customer_files/menu' if current_customer %>
+      <div id="loader-ink" style="position:fixed; z-index: 99999; float:right; background:transparent; display: none;"><img src="/gears.gif" width="70px"><b>Procesando ...</b></div>
+
+      <script type="text/javascript">
+        $.ajaxSetup({
+            beforeSend: function() {
+                $('#loader-ink').show();
+            },
+            complete: function() {
+                $('#loader-ink').hide();
+            }
+        });
+      </script>
+
+      <div class="container" style="width:90%; padding: 20px; position: absolute;">
+        <%end%>
+        <div id="contentin">
+        <%= yield %>
+        </div>
+        <div id="portrait-notice">
+          <center>
+          <h4>Para poder visualizar de manera optima los gráficos es necesario que ponga su celular orizontalmente y refresque la pantalla.</h4>
+          <a href="javascript:location.reload(true)" class="btn btn-primary">Recargar la página</a>
+
+          <%= image_tag('landscape.png', width: '100%') %>
+          </center>
+        </div>
+        <% if current_admin || current_customer %>
+      </div>
+      <%end%>
+
+      <script>
+        if (window.matchMedia("(orientation: portrait)").matches) {
+          console.log('portrait');
+          $('#contentin').hide();
+          $('#portrait-notice').show();
+        }
+
+        if (window.matchMedia("(orientation: landscape)").matches) {
+           console.log('landscape');
+           $('#contentin').show();
+           $('#portrait-notice').hide();
+
+        }
+      </script>
+
+
+  </body>
+</html>

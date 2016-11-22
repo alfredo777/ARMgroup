@@ -1,0 +1,33 @@
+<% content_for(:header) do %>
+<script type="text/javascript" src="/js/highcharts/highcharts.js"></script>
+<% end %>
+<div class="container">
+<% params_to_send = {:agroupby => params[:agroupby], :date => params[:date], :id => params[:id]} %>
+<div id="remove_function">
+<%= link_to 'Agregar Función', add_view_access_path(campaing: @campaing.id, indx: "#{current_path_info}" , proccessid: "remove_function", function: true, params_to_send: params_to_send), remote: true, class: "btn btn-info" %>
+</div>
+<%= link_to "Regresar a la vista de la base", base_path(id: @name_t.id, campaing: @campaing.id), class: "btn btn-warning" %>
+<%= render partial: '/reporteador/table_by_agroup', :locals => {data:  @group, variable: @variable, chart_data: @chart_data} %>
+</div>
+
+<div class="row">
+	<div class="col-md-2">
+	</div>
+	<div class="col-md-5">
+		<table class="table">
+			<caption>Calculos de la variable</caption>
+			<thead>
+				<tr>
+					<th>Media</th>
+					<th>Mediana</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= media(@group, @n) %></td>
+					<td><%= mediana(@group, @n) %></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

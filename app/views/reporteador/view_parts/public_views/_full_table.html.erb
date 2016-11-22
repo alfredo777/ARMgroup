@@ -1,0 +1,27 @@
+<div class="table-responsive"  style="height: 400px; overflow: auto; <%= "display:none;" if displ %>">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th width="40px">#</th>
+        <% table.colum_in_table_works.each do |head|%>
+        <th><%= head.alias %></th>
+        <%end%>
+      </tr>
+    </thead>
+    <tbody>
+      <% hashx.each_with_index do |hxx, index| %>
+      <tr>
+        <td><b><%=index + 1%></b></td>
+        <% first_i = index + 1%>
+        <% table.colum_in_table_works.each do |head| %>
+        <% if hxx[head.head_ahead] != "" %>
+        <td> <%= hxx[head.head_ahead]%> </td>
+        <%else%>
+        <td> Null </td>
+        <%end%>
+        <%end%>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+</div><br/><br/>

@@ -16,12 +16,8 @@
       <%= f.text_field :name, class:"form-control" %>
     </div>
     <div class="field">
-      <%= f.label :customer_id %><br>
-      <%= f.number_field :customer_id, class:"form-control" %>
-    </div>
-    <div class="field">
       <%= f.label :campaing_id %><br>
-      <%= f.number_field :campaing_id, class:"form-control" %>
+      <%= f.number_field :campaing_id, value: params[:campaing], class:"form-control" %>
     </div>
     <br/><br/>
     <div class="col-lg-12">

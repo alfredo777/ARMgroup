@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161014164341) do
+ActiveRecord::Schema.define(version: 20161122195607) do
 
   create_table "actions", force: :cascade do |t|
     t.string  "action"
@@ -129,15 +129,36 @@ ActiveRecord::Schema.define(version: 20161014164341) do
   end
 
   create_table "register_in_colum_table_works", force: :cascade do |t|
-    t.string   "value_string"
+    t.text     "value_string",             limit: 4294967295
     t.float    "value_numeric_no_integer"
     t.integer  "value_integer"
     t.integer  "colum_in_table_work_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
   end
 
   add_index "register_in_colum_table_works", ["colum_in_table_work_id"], name: "index_register_in_colum_table_works_on_colum_in_table_work_id"
+
+  create_table "report_dinamic_views", force: :cascade do |t|
+    t.integer  "campaing_id"
+    t.integer  "position"
+    t.string   "function_or_index"
+    t.text     "html_content"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "function",          default: false
+    t.text     "legend"
+  end
+
+  create_table "request_base_to_reports", force: :cascade do |t|
+    t.text     "base_in_text", limit: 4294967295
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "campaing_id"
+    t.string   "csv_adress"
+  end
+
+  add_index "request_base_to_reports", ["campaing_id"], name: "index_request_base_to_reports_on_campaing_id"
 
   create_table "shared_files", force: :cascade do |t|
     t.string   "url"
@@ -157,8 +178,13 @@ ActiveRecord::Schema.define(version: 20161014164341) do
     t.string   "register_in_data_base"
     t.boolean  "priority"
     t.string   "alias"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "wordcloud",             default: false
+    t.boolean  "response_code",         default: false
+    t.boolean  "others",                default: false
+    t.text     "response_codes"
+    t.text     "wordcloud_words"
   end
 
   add_index "table_works", ["work_schema_id"], name: "index_table_works_on_work_schema_id"
@@ -199,11 +225,13 @@ ActiveRecord::Schema.define(version: 20161014164341) do
     t.string   "name"
     t.integer  "customer_id"
     t.integer  "campaing_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "request_base_to_report_id"
   end
 
   add_index "work_schemas", ["campaing_id"], name: "index_work_schemas_on_campaing_id"
   add_index "work_schemas", ["customer_id"], name: "index_work_schemas_on_customer_id"
+  add_index "work_schemas", ["request_base_to_report_id"], name: "index_work_schemas_on_request_base_to_report_id"
 
 end

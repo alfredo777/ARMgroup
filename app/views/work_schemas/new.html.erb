@@ -1,5 +1,6 @@
-<h1>Nuevo esquema de trabajo para la base de datos</h1>
+<%= link_to 'Generar esquema mediante JSON', json_schema_path(id: params[:id], campaing: params[:campaing]), class: "btn btn-primary pull-right"%>
 
+<h1>Nuevo esquema de trabajo para la base de datos</h1>
 <%= render 'form' %>
 
 <%#= link_to 'Back', work_schemas_path %>

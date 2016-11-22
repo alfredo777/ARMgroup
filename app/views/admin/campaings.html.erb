@@ -9,13 +9,20 @@
         <tr>
           <th>Titulo de la campaña</th>
           <th>Código</th>
-          <th>Opcciones</th>
+          <th colspan="3">Opcciones</th>
         </tr>
         <%  @campaing.each_with_index do |campaing, index| %>
         <tr>
           <td><%= campaing.campaing_title %></td>
           <td><%= campaing.campaing_code %></td>
           <th> <%= link_to "Eliminar", delete_campaing_path(id: campaing.id), data: { confirm: '¿Estas seguro de elminar esta Campaña?' } %></th>
+          <% if campaing.request_base_to_reports.count == 0 %>
+          <th> <%= link_to "Preparar una base de datos", load_db_path(campaing.id) %></th>
+          <%else%>
+           <th> <%= link_to 'Ver la base', base_path(id: campaing.request_base_to_reports.last.id, campaing: campaing.id), data: { no_turbolink: true } %></th>
+          <%end%>
+          <th> <%= link_to "Preparar una esquema de trabajo", '#' %></th>
+
         </tr>
         <%end%>
       </table>

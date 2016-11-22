@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
   
-  get 'reporteador/index'
-
-  get 'reporteador/view_base', as: :base
-
   get 'customer_files/shared', as: "customers_share_files"
 
   get 'customer_files/open_file', as: "open_file"
@@ -89,6 +85,42 @@ Rails.application.routes.draw do
 
   post '/work_schemas/new'
 
+  get '/work_schemas/json_schema/:id', to: "work_schemas#json_schema", as: :json_schema
+
+  get '/work_schemas/json_schema_create', to: "work_schemas#json_schema_create", as: :json_schema_create
+
+  post '/work_schemas/json_schema_create', to: "work_schemas#json_schema_create"
+
+  get 'reporteador/index'
+
+  get 'reporteador/view_base', as: :base
+  post 'reporteador/view_base'
+
+  get 'admins/campaings/:id/load_base', to: 'reporteador#load_base', as: :load_db
+
+  get 'reporteador/upload_base', as: :upload_base
+  post 'reporteador/upload_base'
+
+  get 'reporteador/agroup_var_in_my_table', as: :agroup_var_in_my_table
+  post 'reporteador/agroup_var_in_my_table'
+
+  get 'reporteador/agroup_two_or_mor_vars_in_my_table', as: :agroup_two_or_mor_vars_in_my_table
+  post 'reporteador/agroup_two_or_mor_vars_in_my_table'
+
+  get 'reporteador/crossover_of_variables', as: :crossover_of_variables
+  post 'reporteador/crossover_of_variables'
+
+  get 'reporteador/add_view_access', as: :add_view_access
+  post 'reporteador/add_view_access'
+
+  get 'reporteador/public_view', as: :public_view
+ 
+  get 'reporteador/delete_view_acces', as: :delete_view_acces
+  post 'reporteador/delete_view_acces'
+
+  get 'reporteador/add_text_view_acces', as: :add_text_view_acces
+  post 'reporteador/add_text_view_acces'
+  
   authenticate :admins do
     resources :publications, only: [:new, :create, :edit, :update, :destroy]
   end

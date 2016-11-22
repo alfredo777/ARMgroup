@@ -1,0 +1,185 @@
+<%= form_tag agroup_var_in_my_table_path do -%>
+<div class="modal fade" id="clicked-un-var" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Agrupar una variable</h4>
+      </div>
+      <div class="modal-body">
+        <p>Selecciona la variable que deseas agrupar</p>
+        <br/><br/>
+        <div class="col-md-4">
+          <select id="selcteedrag" class="form-control" style="height:52px;" name="agroupby">
+            <option value="filter">Filtro</option>
+            <% heads.each_with_index do |head, index| %>
+            <option value="<%= head %>"><%= head %></option>
+            <%end%>
+            <option value="filter">Todas</option>
+          </select>
+        </div>
+        <h4>Función: ∫ 1..n if n E ƒ(n)</h4>
+        <br/><br/><br/>
+        <%= hidden_field_tag 'date', false %>
+        <%= hidden_field_tag 'id', id %>
+        <br/><br/>
+        <br/><br/>
+      </div>
+      <div class="modal-footer">
+        <%= submit_tag 'Agrupar elementos en la variable', class: "btn btn-info", style:"height:52px;" %>
+        <button type="button" class="btn btn-default" data-dismiss="modal" style="height:52px;">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<%end%>
+<div class="modal fade" id="clicked-un-var-2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Agrupar mas de una variable</h4>
+      </div>
+      <div class="modal-body" style="height:400px;">
+        <br/><br/>
+        <div class="col-md-6">
+          <select id="agroupbymult" class="form-control" style="height:52px;" name="agroupbymult">
+            <option value="filter">Filtro</option>
+            <% heads.each_with_index do |head, index| %>
+            <option value="<%= head %>"><%= head %></option>
+            <%end%>
+            <option value="filter">Todas</option>
+          </select><br/><br/>
+          <div class="btn btn-info" data-added="" id="agroupbymultbut">Agregar esta variable</div><br/><br/>
+        </div>
+        <div class="col-md-6">
+          <%= form_tag agroup_two_or_mor_vars_in_my_table_path do -%>
+          <textarea name="vars" class="form-control" id="texttt" ></textarea>
+          <%= hidden_field_tag 'date', false %>
+          <%= hidden_field_tag 'id', id %><br/><br/>
+          <%= submit_tag 'Enviar', class: "btn btn-info" %><br/><br/>
+          <%end%>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" style="height:52px;">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="clicked-un-var-3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Cruces de variables</h4>
+      </div>
+      <div class="modal-body" style="height:400px;">
+        <br/><br/>
+        <div class="col-md-5">
+          <label>Selecciona una variable</label>
+          <div style="height:300px; overflow: auto;">
+            <% heads.each_with_index do |head, index| %>
+            <%
+            headx = head.gsub(' ', '_')
+            headx = headx.gsub('(', '_')
+            headx = headx.gsub(')', '_')
+            headx = headx.gsub('/', '_')
+            headx = headx.gsub('[', '_')
+            headx = headx.gsub('}]', '_')
+            headx = headx.gsub('{', '_')
+            %>
+            <%= label_tag :variable_to_croisse, :for => "variable_to_croisse_#{headx}", class: "btn btn-default col-lg-12"  do  %>
+            <%= radio_button_tag 'variable_to_croisse',head%> <%= head %>
+            <%end%><br/>
+            <%end%>
+          </div>
+          <br/><br/>
+        </div>
+        <div class="col-md-2">
+          <div class="btn btn-info" data-added="" id="calfil" style="width:100%;" >fil ></div><br/><br/>
+          <div class="btn btn-info" data-added="" id="calcol" style="width:100%;" >col ></div><br/><br/>
+          <script>
+          $(document).ready(function(){
+          $('#calcol').click(function(){
+          var inputval = $('input[name=variable_to_croisse]:checked').val();
+          $('#textttcol').html(inputval);
+          
+          });
+          $('#calfil').click(function(){
+          var inputval = $('input[name=variable_to_croisse]:checked').val();
+          $('#textttfil').html(inputval);
+          
+          });
+          });
+          </script>
+        </div>
+        <div class="col-md-5">
+          <%= form_tag crossover_of_variables_path do -%>
+          <label>Fila</label>
+          <textarea name="rows" class="form-control" id="textttfil" ></textarea>
+          <label>Columna</label>
+          <textarea name="cols" class="form-control" id="textttcol" ></textarea>
+          <%= hidden_field_tag 'date', false %>
+          <%= hidden_field_tag 'id', id %><br/><br/>
+          <%= submit_tag 'Enviar', class: "btn btn-info" %><br/><br/>
+          <%end%>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" style="height:52px;">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div  class="container containerx">
+  <div class="col-md-3" style="" id="docmenu">
+    <h4>Menú de Funciones</h4>
+    <ul class="nav navbar-nav pull-right">
+      <li class="tav col-lg-12">
+        <%= link_to "/work_schemas/new?id=#{table_in.id}&campaing=#{campaing}" do -%>
+        <i class="fa fa-sitemap" aria-hidden="true"></i> Esquema
+        <%end%>
+      </li>
+      <li class="tav col-lg-12">
+        <%= link_to '#',  "data-toggle": "modal", "data-target": "#clicked-un-var" do -%>
+        ∑<i class="fa fa-cog" aria-hidden="true"></i> Agrupar sobre una variable
+        <%end%>
+      </li>
+      <li class="tav col-lg-12">
+        <%= link_to '#',  "data-toggle": "modal", "data-target": "#clicked-un-var-2"  do -%>
+        ∑<i class="fa fa-cogs" aria-hidden="true"></i> Agrupar dos variables
+        <%end%>
+      </li>
+      <li class="tav col-lg-12">
+        <%= link_to '#',  "data-toggle": "modal", "data-target": "#clicked-un-var-3" do -%>
+        <i class="fa fa-object-group" aria-hidden="true"></i> Cruce de variables
+        <%end%>
+      </li>
+      <li class="tav col-lg-12">
+        <%= link_to public_view_path(campaing: campaing, id: id), data: { no_turbolink: true } do %>
+        <i class="fa fa-eye" aria-hidden="true"></i> Vista final
+        <%end%>
+      </li>
+    </ul>
+    <h4>Menú de tablas</h4>
+    <ul class="nav navbar-nav pull-right">
+      <li class="tav col-lg-12""><a style="cursor:pointer;" onclick="callINDEX();" ><i class="fa fa-home" aria-hidden="true" ></i> Vista inicial</a> </li>
+      <script>
+      function callINDEX(){
+      $('#agroup').show();
+      $('.inspirate').hide();
+      }
+      </script>
+      <% work_schema.table_works.each_with_index do |table, index|%>
+      <% if  index== 0 %>
+      <li role="presentation" class="active tav col-lg-12" id="tab_<%=index%>" style="cursor:pointer;"><a onclick="seeDiv(<%=index%>)" ><i class="fa fa-table" aria-hidden="true"></i> <%= truncate(table.alias, length: 27) %></a></li>
+      <%else%>
+      <li role="presentation" class="tav col-lg-12" id="tab_<%=index%>" style="cursor:pointer;"><a onclick="seeDiv(<%=index%>)"><i class="fa fa-table" aria-hidden="true"></i> <%= truncate(table.alias, length: 27) %></a></li>
+      <%end%>
+      <%end%>
+    </ul>
+  </div>
+  <script>
+  $(document).ready(function(){
+  var hhh = $(document).height();
+  $('#docmenu').height(hhh);
+  });
+  </script>

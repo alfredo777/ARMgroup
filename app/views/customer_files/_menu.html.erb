@@ -9,7 +9,7 @@
       <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="<%= customers_share_files_path %>"><img src="/images/logo/logo.png" width="250px" /> </a>
-      <%= image_tag(current_customer.logo, height: "80px") if !current_customer.logo.nil?%>
+      <%= image_tag(current_customer.logo, height: "80px", style: "padding:9px;") if !current_customer.logo.nil?%>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <% if current_customer %>
@@ -26,6 +26,19 @@
               <i class="fa fa-comments-o" aria-hidden="true"></i> Notificaciones
               <%end%>
             </li>
+             <% current_customer.campaings.each_with_index do |campaing, index| %>
+              <li>
+                <% if campaing.request_base_to_reports.count == 0 %>
+                <a onclick="alert('La campaña aún no es habilidata')">
+                <i class="fa fa-flag-checkered" aria-hidden="true"></i> <%= campaing.campaing_title %>
+                </a>
+                <%else%>
+                <%= link_to public_view_path(id: campaing.request_base_to_reports.last.id, campaing: campaing.id), data: { no_turbolink: true } do %>
+                <i class="fa fa-flag-checkered" aria-hidden="true"></i> <%= campaing.campaing_title %>
+                <%end%>
+                <%end%>
+              </li>
+             <%end%>
             <li role="separator" class="divider"></li>
             <li>
               <br/>

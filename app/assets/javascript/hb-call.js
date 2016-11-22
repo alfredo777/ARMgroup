@@ -12,6 +12,11 @@ function loadTPLAPI(jsonn, datax,tpln, divloadtpl){
    });
 }
 
+function loadChart(chart,id_to){
+  getloadChart(chart,id_to,function(output, err) {
+  });    
+}
+
 function getTemplate(name, context, callback) {
   $.ajax({
     url: '/tpl/' + name + '.html',
@@ -35,6 +40,24 @@ function getasJSONAPI(json_file, datax ,callback){
     cache: true,
     success: function (data) {
       callback(data, null);
+    },
+    error: function(err) {
+      callback(null, err);
+    }
+  });
+}
+
+function getloadChart(chart,id_to,callback){
+  $.ajax({
+    url: '/tpl/charts/' +chart+".html",
+    cache: true,
+    success: function (data) {
+      var context = {id: id_to};
+      console.log(context);
+      var tpl = Handlebars.compile(data);
+      output = tpl(context);
+      $("#load_"+id_to).html(output);
+
     },
     error: function(err) {
       callback(null, err);

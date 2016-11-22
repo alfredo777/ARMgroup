@@ -1,0 +1,9 @@
+<div class="container">
+	<h1>Cargando esquema por JSON</h1>
+	<%= form_tag json_schema_create_path, multipart: true do -%>
+	  <%= file_field_tag 'file' %><br/><br/>
+	  <%= hidden_field_tag 'campaing', params[:campaing] %><br/><br/>
+
+	  <%= submit_tag 'Cargar', class: "btn btn-primary" %>
+	<%end%>
+</div>

@@ -1,0 +1,112 @@
+<div id="agroup">
+  <div class="row" style="padding: 30px;">
+    <div id="init-count-table">
+      <% unless dinamic_counter_view(campaing,"init-count-table") %>
+      <div id="hid_init_count_table">
+        <%= link_to 'Agregar Gráfico', add_view_access_path(campaing: campaing, indx: "init-count-table", proccessid: 'hid_init_count_table'), remote: true, class: "btn btn-info" %>
+      </div>
+      <%end%>
+      <div class="col-md-12">
+        <div id="chart" data-sch="<%=@group%>"></div>
+      </div>
+      <h1>Registros totales de la base <%= hashx.count %> <i class="fa fa-users" aria-hidden="true"></i></h1>
+      <div class="col-md-3">
+        <select id="selctee" class="form-control " style="height:52px;">
+          <option value="filter">Filtro</option>
+          <% @heads.each_with_index do |head, index| %>
+          <option value="<%=(index + 1) * 10%>"><%= head %></option>
+          <%end%>
+          <option value="filter">Todas</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="table-responsive" style="height:400px;">
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th> #ID </th>
+              <% heads.each_with_index do |head, index| %>
+              <th class="<%=(index + 1) * 10%> filter"><%=head%></th>
+              <%end%>
+            </tr>
+          </thead>
+          <tbody>
+            <% hashx.each_with_index do |h, index| %>
+            <tr>
+              <td><b><%=index + 1%></b></td>
+              <% first_i = index + 1%>
+              <% @heads.each_with_index do |head,index| %>
+              <td class="<%=(index + 1) * 10%> <%=first_i%> filter"> <%= h["#{head}"]%> </td>
+              <%end%>
+            </tr>
+            <%end%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+$(function () {
+var datad = $('#chart').data('sch');
+console.log(datad);
+$('#chart').highcharts({
+chart: {
+zoomType: 'x',
+},
+title: {
+text: 'Captura de registros por fechas'
+},
+subtitle: {
+text: document.ontouchstart === undefined ?
+'Da click y arrastra para hacer zoom' : 'Da click en la gráfica para hacer zoom'
+},
+xAxis: {
+type: 'date',
+title: {
+text: 'Dias'
+}
+},
+yAxis: {
+title: {
+text: 'Cantidad'
+}
+},
+legend: {
+enabled: false
+},
+plotOptions: {
+area: {
+fillColor: {
+linearGradient: {
+x1: 0,
+y1: 0,
+x2: 0,
+y2: 1
+},
+stops: [
+[0, Highcharts.getOptions().colors[0]],
+[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+]
+},
+marker: {
+radius: 2
+},
+lineWidth: 1,
+states: {
+hover: {
+lineWidth: 1
+}
+},
+threshold: null
+}
+},
+series: [{
+type: 'area',
+name: 'Capturas',
+data: datad
+}]
+});
+});
+</script>

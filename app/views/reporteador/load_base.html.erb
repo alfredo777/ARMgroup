@@ -1,0 +1,19 @@
+<div class="container">
+	<div class="row">
+	  <div class="col-md-3"></div>
+	  <div class="col-md-6 panel panel-primary" style="background: #eee;">
+	  <center>
+	  	<%= form_tag upload_base_path, multipart: true do -%></br></br></br>
+	  		<h3>Cargar una base de datos en csv.</h3>
+	  		<%= image_tag('/icon-files/csv.png') %></br></br></br>
+	  		<%= hidden_field_tag 'campaing', params[:id]%>
+	  		<%= file_field_tag 'file', class: 'btn btn-default' %></br></br>
+	  		<%= submit_tag 'Cargar Base', class: 'btn btn-primary' %></br></br>
+	  		<blockquote>
+	  			<p>El formato de importación en CSV con cabezales separado por '; (punto y coma)' </p>
+	  		</blockquote>
+	  	<%end%>
+	  </center>
+	  </div>
+	</div>
+</div>

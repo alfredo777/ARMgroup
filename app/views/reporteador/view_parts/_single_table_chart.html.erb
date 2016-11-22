@@ -1,0 +1,44 @@
+<div id='<%="super_content_chart_#{index}"%>'>
+  <div id="load_chart_table_<%=index%>" style="width:60%;"></div>
+</div>
+
+<div class="table-responsive"  style="max-height: 250px; overflow: auto;">
+  <table class="table table-condensed" style="border: #fff;" >
+    <thead>
+      <tr>
+        <% agrouped_table(table, hashx)[:heads].each_with_index do |parseh, index| %>
+        <% if index > 0 %>
+        <% if parseh != "" %>
+        <th> <%= parseh %></th>
+        <%else%>
+        <th>Null</th>
+        <%end%>
+        <%else%>
+        <th></th>
+        <%end%>
+        <%end%>
+      </tr>
+    </thead>
+    <tbody>
+      <% agrouped_table(table, hashx)[:data].each do |data| %>
+      <tr>
+        <% agrouped_table(table, hashx)[:heads].each_with_index do |parseh, index| %>
+        <% if parseh != "" %>
+        <% if index != 0 %>
+        <td><%= (data[parseh].to_f*100).round(5)%></td>
+        <%else%>
+        <td><%= data[parseh] %></td>
+        <%end%>
+        <%else%>
+        <% if data[parseh] != 1.0 %>
+        <td><%= (data[parseh].to_f*100).round(5)%></td>
+        <%else%>
+        <td></td>
+        <%end%>
+        <%end%>
+        <%end%>
+      </tr>
+    </tbody>
+    <%end%>
+  </table>
+</div>

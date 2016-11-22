@@ -1,0 +1,79 @@
+<div id="agroup">
+  <div class="row" style="padding: 30px;">
+    <div id="init-count-table">
+      <div >
+      <h1>Registros totales de la base <%= hashx.count %> <i class="fa fa-users" aria-hidden="true"></i></h1>
+      </div>
+      <div class="col-md-12">
+        <div id="chart" style="width: 100%;" data-sch="<%=@group%>"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+$(function () {
+var calculus = $(window).width() * 0.70;
+console.log(calculus);
+var datad = $('#chart').data('sch');
+console.log(datad);
+$('#chart').highcharts({
+chart: {
+zoomType: 'x',
+margin: 0,
+width: calculus
+},
+title: {
+text: 'Captura de registros por fechas'
+},
+subtitle: {
+text: document.ontouchstart === undefined ?
+'Da click y arrastra para hacer zoom' : 'Da click en la gráfica para hacer zoom'
+},
+xAxis: {
+type: 'date',
+title: {
+text: 'Dias'
+}
+},
+yAxis: {
+title: {
+text: 'Cantidad'
+}
+},
+legend: {
+enabled: false
+},
+plotOptions: {
+area: {
+fillColor: {
+linearGradient: {
+x1: 0,
+y1: 0,
+x2: 0,
+y2: 1
+},
+stops: [
+[0, Highcharts.getOptions().colors[0]],
+[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+]
+},
+marker: {
+radius: 2
+},
+lineWidth: 1,
+states: {
+hover: {
+lineWidth: 1
+}
+},
+threshold: null
+}
+},
+series: [{
+type: 'area',
+name: 'Capturas',
+data: datad
+}]
+});
+});
+</script>

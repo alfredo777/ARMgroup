@@ -1,0 +1,146 @@
+<div class="container"> 
+  <div class="row">
+    <h1>Reporte de dos o mas variables</h1>
+    <h3>Combinaciones encontradas <%= data[:combinations].count %></h3>
+    <%#= data %>
+    <% random_x = SecureRandom.hex(10)%>
+
+    <div id="init-chart-<%=random_x%>"></div>
+    <div class="col-md-6">
+      <div style="height:400px; overflow:auto;" >
+      <table class="table">
+        <% sum_porcento = 0.0 %>
+        <caption>Combinaciones entre las variables</caption>
+        <thead>
+          <tr>
+            <% @variables.each do |v| %>
+            <th><%= v %></th>
+            <%end%>
+            <th>Q</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% data[:combinations].each do |data| %>
+          <tr>
+            <% @variables.each do |v| %>
+            <td><%= data["#{v}"] %></td>
+            <%end%>
+            <td><%= data["k"] %></td>
+            <td>
+              <% po = ((data["k"].to_f / @n.to_f) * 100).round(2) %>
+              <% if po > 15 %>
+              <p style="color:#FFCE29;"><%= po %>%  </p>
+              <%else%>
+              <p style="color:#A6D8FF;"><%= po %>%  </p>
+              <%end%>
+            <% sum_porcento = sum_porcento + po %></td>
+          </tr>
+          <%end%>
+          <tr>
+            <td>Total % </td>
+            <td><%= sum_porcento %> %</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <% heads = [] %>
+      <% series = [] %>
+
+      <% data[:series].each_with_index do |serie, index| %>
+      <% content = [] %>
+      <% conthead = [] %>
+      <% hs = serie[:heads].sort %>
+
+      <table class="table">
+
+        <caption>Tabla de datos sobre variable <%= @variables[index] %></caption>
+        <thead>
+          <tr>
+            <% hs.each do |hh| %>
+            <% conthead.push("#{@variables[index]}_#{hh}")%>
+            <% heads.push(hh) %>
+            <th><%= hh%></th>
+            <%end%>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <% serie[:hash].each do |s| %>
+              <% hs.each do |hh| %>
+                <% if s[0].to_i == hh.to_i %>
+                  <% content.push((s[1].to_f * 100).round(2)) %>
+
+                  <td><%= (s[1].to_f * 100).round(2) %> %</td>
+
+                <%end%>
+              <%end%>
+            <%end%>
+          </tr>
+        </tbody>
+      </table>
+      <% seriex = {"name":"#{@variables[index]}", "data": content} 
+        series.push(seriex)
+      %>
+      <% heads.push(conthead) %>
+      <%end%>
+      
+      <script>
+        $(function () {
+            var langVarbles = "<%= heads.to_json %>";
+            var serieData = "<%= series.to_json %>";
+            var variables = JSON.parse(langVarbles.replace(/&quot;/g,'"'));
+            var seriesARF = JSON.parse(serieData.replace(/&quot;/g,'"'));
+            var width = $(window).width() * .70;
+
+  
+            Highcharts.chart("init-chart-<%=random_x%>", {
+                chart: {
+                    type: 'areaspline',
+                    width: width
+                },
+                title: {
+                    text: 'Grafica de porcentaje de las variables'
+                },
+                subtitle: {
+                    text: 'ARMgroup'
+                },
+                xAxis: {
+                    categories: variables,
+                    tickmarkPlacement: 'on',
+                    title: {
+                        enabled: false
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Porcentaje'
+                    }
+                },
+                tooltip: {
+                    shared: true,
+                    valueSuffix: '% Porciento'
+                },
+                plotOptions: {
+                    area: {
+                        stacking: 'percent',
+                        lineColor: '#ffffff',
+                        lineWidth: 1,
+                        marker: {
+                            lineWidth: 1,
+                            lineColor: '#ffffff'
+                        }
+                    }
+                },
+                series: seriesARF
+            });
+          });
+          function getJSonObject(value) {
+              return $.parseJSON(value.replace(/&quot;/ig, '"'));
+          }
+        </script>
+    </div>
+  </div>
+</div>

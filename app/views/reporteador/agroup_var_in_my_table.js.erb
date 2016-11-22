@@ -1,0 +1,1 @@
+$("#<%=@to_id%>").html("<%= escape_javascript render(:partial => '/reporteador/table_by_agroup', :locals => {data:  @group, variable: @variable, chart_data: @chart_data}) %>");

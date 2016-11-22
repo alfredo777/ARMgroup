@@ -1,0 +1,21 @@
+<div class="col-lg-12">
+  <div id="table_advanced_id_<%=index%>" style="display: none;">
+    <table class="table table-bordered">
+      <caption>Tabla sobre contenido</caption>
+      <thead>
+        <tr>
+          <th>Palabra</th>
+          <th>n</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%  names_by_code(table.wordcloud_words, table.register_in_data_base, @hashx).each do |d| %>
+        <tr>
+          <td><%= d[:text]%></td>
+          <td><%= d[:weight] %></td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>

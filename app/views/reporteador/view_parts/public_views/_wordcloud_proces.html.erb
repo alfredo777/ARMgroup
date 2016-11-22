@@ -1,0 +1,49 @@
+<div class="col-lg-12">
+    <div class="col-lg-12">
+	  <a onclick='$("#table_advanced_id_<%=index%>").slideToggle("slow")' class="btn btn-default">Tabla <i class="fa fa-table" aria-hidden="true"></i></a>
+	</div>
+	<div class="col-lg-12 bs-example dinsin" style="background:#000;" >
+		<div id='<%="super_content_chart_#{index}"%>' style="width:100%;">
+			<div id="words_chart_<%=index%>" ></div>
+		</div>
+	</div>
+	<style>
+	.bs-example {
+	background:#eee !important;
+	}
+	#words_chart_<%=index%> {
+	margin:0 auto;
+	width:80%;
+	max-width:2000px;
+	height:450px;
+	}
+	#words_chart_<%=index%> span {
+	text-shadow: 0px 1px 1px #fff;
+	}
+	</style>
+	<script>
+	$(document).ready(function(){
+	var wordsx = "<%=  names_by_code(table.wordcloud_words, table.register_in_data_base, @hashx).to_json %>";
+	var words = JSON.parse(wordsx.replace(/&quot;/g,'"'));
+
+	var calculus = $(window).width() * 0.75;
+	var calculus2 = $(window).height() * 0.70;
+	$('.dinsin').width(calculus);
+	$('#words_chart_<%=index%>').jQCloud(words, {
+	width:  calculus,
+	height: calculus2,
+	autoResize: true,
+	removeOverflowing: true,
+	steps: 10,
+	delay: 3,
+	afterCloudRender: this,
+	classPattern: null,
+	colors: ["#91D18B", "#48B73E", "#21F20D", "#0DF288", "#13D078", "#C539E1", "#9310AE", "#651376", "#D64CC6", "#E517CD"],
+	fontSize: {
+	from: 0.1,
+	to: 0.02
+	}
+	});
+	});
+	</script>
+</div>

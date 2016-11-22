@@ -14,17 +14,24 @@ class WorkSchemasController < ApplicationController
   # GET /work_schemas/1
   # GET /work_schemas/1.json
   def show
-    name_table = "UNEFONPREPAGOCOMP1-cvx.csv"
-    table = read_table(name_table)
+    shchemas = @work_schema.campaing.request_base_to_reports.last
+    puts shchemas 
+    name_table = shchemas 
+    @table_in = name_table
+    table = eval(name_table.base_in_text)
     @hashx = table[:data]
     @heads = table[:heads]
   end
 
   # GET /work_schemas/new
   def new
-    heads = params[:heads].remove('[')
-    heads = heads.remove(']')
-    @heads = heads
+
+    name_table = RequestBaseToReport.find(params[:id])
+    @table_in = name_table
+    table = eval(name_table.base_in_text)
+    hashx = table[:data]
+    heads = table[:heads]
+    @heads = head_clean(heads)
 
     @base  =  params[:hash_base];
     @work_schema = WorkSchema.new
@@ -32,6 +39,44 @@ class WorkSchemasController < ApplicationController
 
   # GET /work_schemas/1/edit
   def edit
+  end
+
+  def json_schema
+    @work_schema = WorkSchema.new
+  end
+
+  def json_schema_create
+    @json = params[:file]
+    file = File.read("#{@json.path}")
+    data_hash = JSON.parse(file)
+    questions = data_hash["questions"]
+    nameS = "SCHEMA-" + SecureRandom.hex(10)
+    @schema = WorkSchema.create(name: nameS, campaing_id: params[:campaing])
+    puts nameS
+    questions.each do |question|
+      
+      quest_var = question["variable"]
+      quest_tag = question["tag"]
+      quest_wordcloud = question["wordcloud"]
+      quest_response_code = question["response_code"]
+      quest_others = question["others"]
+      quest_response_codes = question["response_codes"]
+      quest_wordcloud_words = question["wordcloud_words"]
+
+      @table_work = TableWork.create(work_schema_id: @schema.id , register_in_data_base: quest_var, alias: quest_tag, wordcloud: quest_wordcloud, response_code: quest_response_code, others: quest_others, response_codes: quest_response_codes, wordcloud_words: quest_wordcloud_words )
+      puts quest_tag
+      puts quest_var
+      question["questions_dependent"].each do |qu|
+         add_var = qu["variable"]
+         puts add_var
+
+        @column = ColumInTableWork.create(table_work_id: @table_work.id , register_in_data_base: add_var, alias: add_var)
+      end
+
+    end
+
+
+    redirect_to @schema
   end
 
   # POST /work_schemas

@@ -1,0 +1,45 @@
+<% @report_parts.each_with_index do |rdx, index| %>
+<% if rdx.function %>
+<div class="col-lg-12 page" style="display: none;" id="chart_position_indx_<%=index%>">
+   <br/><br/>
+	<%= link_to 'Eliminar Gráfico', delete_view_acces_path(camping: rdx.campaing_id, indx: rdx.function_or_index), class: "btn btn-warning", data: {confirm: "¿Estas seguro de eliminar esta gráfica?"} if current_admin %><br/><br/>
+
+	<% if text_xx_counter_view(rdx.campaing_id, rdx.function_or_index).nil? %>
+	<% if current_admin %>
+	<%= form_tag add_text_view_acces_path do -%>
+	  <%= hidden_field_tag 'camping', rdx.campaing_id%>
+	  <%= hidden_field_tag 'indx', rdx.function_or_index%>
+	  <%= text_area_tag 'text', '' ,class: "form-control", placeholder: "Agregar una descripcción de la diapositiva" %><br/>
+	  <%= submit_tag "Guardar", class: "btn btn-primary" %>
+	<%end%>
+	<%end%>
+	<%else%>
+	<div class="row">
+	  <blockquote style="text-align: justify;">
+	    <h3>Descripcción</h3>
+	  	<p><%= text_xx_counter_view(rdx.campaing_id, rdx.function_or_index) %></p>
+	  </blockquote>
+	</div>
+	<%end%>
+	<div id="position_indx_<%=index%>" class="col-lg-12">
+		<script type="text/javascript">
+		var params =  eval(<%= (rdx.html_content.as_json).html_safe %>);
+		params["to_id"] = "position_indx_<%=index%>";
+		params["js"] = true;
+		console.log(params);
+			$.ajax({
+		url: '<%= rdx.function_or_index %>',
+		type: 'GET',
+		data: params,
+		contentType: 'application/js; charset=utf-8',
+		success: function (response) {
+		},
+		error: function () {
+		//your error code
+		}
+		});
+		</script>
+	</div>
+</div>
+<%end%>
+<%end%>

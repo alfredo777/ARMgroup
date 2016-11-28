@@ -1,6 +1,8 @@
 class ReporteadorController < ApplicationController
   layout "internreporteador"
+  #caches_page :public_view
 
+  #caches_page :show
   def index
   end
 
@@ -89,8 +91,18 @@ class ReporteadorController < ApplicationController
 
     @campaing = Campaing.find(params[:campaing])
     @work_schema = @campaing.work_schemas.last
-
-    render layout: "second_intern"
+    @post = "lol"
+    respond_to do |format|
+      format.html { render layout: "second_intern" }
+      #format.pdf  { 
+       # html = render_to_string(:layout => false , :action => "public_view", :formats => :html)
+       # kit = PDFKit.new(html)
+        #kit.stylesheets << "#{Rails.root}/public/stylesheets/application.scss"
+       # send_data(kit.to_pdf, :filename => "ARM informe #{@campaing.campaing_title}.pdf",
+        #  :type => 'application/pdf', :disposition => 'inline')        
+        #return
+       #}
+    end
 
   end
 

@@ -4,12 +4,13 @@ var id = "{{id}}";
 $(function () {
     var calculus = $(window).width() * 0.70;
     console.log(calculus);
-    Highcharts.chart("load_{{id}}", {
+
+    var chart = Highcharts.chart("load_{{id}}", {
         data: {
             table: "{{id}}"
         },
         chart: {
-            type: 'column',
+            type: 'line',
             width: calculus
         },
         title: {
@@ -28,5 +29,64 @@ $(function () {
             }
         }
     });
+
+$('#act_area_{{id}}').click(function(){
+    chart.update({
+        chart: {
+            inverted: false,
+            polar: true
+        },
+        plotOptions: {
+            series: {
+                pointStart: 0,
+                pointInterval: 45
+            },
+            column: {
+                pointPadding: 0,
+                groupPadding: 0
+            }
+        }
+    });
 });
+
+$('#bar_{{id}}').click(function(){
+    chart.update({
+        chart: {
+            inverted: true,
+            polar: false,
+            type: "column"
+        },
+        plotOptions: {
+            column: {
+                stacking: 'percent'
+            }
+        },
+        subtitle: {
+            text: 'Columna Invertida'
+        }
+   });
+});
+$('#line_{{id}}').click(function(){
+  chart.update({
+      chart: {
+        inverted: false,
+        type: 'column'
+      },
+      plotOptions: {
+            column: {
+                stacking: 'normal',
+                dataLabels: {
+                    enabled: true,
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                }
+            }
+        },
+        subtitle: {
+            text: 'Area Invertida'
+        }
+  });
+});
+
+});
+
 </script>

@@ -51,4 +51,8 @@ gem "nokogiri"
 gem 'groupdate'
 gem "cocoon"
 gem "auto_strip_attributes", "~> 2.1"
+#gem "pdfkit"
+#gem 'wkhtmltopdf-binary', '~> 0.9.9.3'
+#gem 'actionpack-page_caching'
+#gem 'actionpack-action_caching'
 #gem 'rails-simple-search'

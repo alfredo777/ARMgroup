@@ -38,6 +38,7 @@
 //= require cocoon
 
 
+
 $(document).ready(function(){
   $('a').click(function(){
     var hreF = $(this).attr('href');

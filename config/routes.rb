@@ -114,7 +114,7 @@ Rails.application.routes.draw do
   post 'reporteador/add_view_access'
 
   get 'reporteador/public_view', as: :public_view
- 
+  post 'reporteador/public_view'
   get 'reporteador/delete_view_acces', as: :delete_view_acces
   post 'reporteador/delete_view_acces'
 

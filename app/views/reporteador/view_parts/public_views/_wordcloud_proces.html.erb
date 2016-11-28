@@ -4,7 +4,7 @@
 	</div>
 	<div class="col-lg-12 bs-example dinsin" style="background:#000;" >
 		<div id='<%="super_content_chart_#{index}"%>' style="width:100%;">
-			<div id="words_chart_<%=index%>" ></div>
+			<div id="words_chart_<%=index%>" class="can"></div>
 		</div>
 	</div>
 	<style>
@@ -29,21 +29,26 @@
 	var calculus = $(window).width() * 0.75;
 	var calculus2 = $(window).height() * 0.70;
 	$('.dinsin').width(calculus);
-	$('#words_chart_<%=index%>').jQCloud(words, {
-	width:  calculus,
-	height: calculus2,
-	autoResize: true,
-	removeOverflowing: true,
-	steps: 10,
-	delay: 3,
-	afterCloudRender: this,
-	classPattern: null,
-	colors: ["#91D18B", "#48B73E", "#21F20D", "#0DF288", "#13D078", "#C539E1", "#9310AE", "#651376", "#D64CC6", "#E517CD"],
-	fontSize: {
-	from: 0.1,
-	to: 0.02
-	}
-	});
+		$('#words_chart_<%=index%>').jQCloud(
+			words, {
+				width:  calculus,
+				height: calculus2,
+				autoResize: true,
+				removeOverflowing: true,
+				steps: 10,
+				delay: 3,
+				afterCloudRender: this,
+				classPattern: null,
+				colors: ["#91D18B", "#48B73E", "#21F20D", "#0DF288", "#13D078", "#C539E1", "#9310AE", "#651376", "#D64CC6", "#E517CD"],
+				fontSize: {
+				from: 0.1,
+				to: 0.02
+			}
+		});
+
+		
+
+	
 	});
 	</script>
 </div>

@@ -1,9 +1,27 @@
 <div class="container"> 
+  <% random_x = SecureRandom.hex(10)%>
+  <div class="btn-group">
+    <a class="btn btn-default" id="act_area_init-chart-<%=random_x%>">
+    <i class="fa fa-th" aria-hidden="true"></i> Agrupar
+    </a>
+    <a class="btn btn-default" id="bar_init-chart-<%=random_x%>" >
+    <i class="fa fa-area-chart" aria-hidden="true"></i> Apilar <i class="fa fa-stack-exchange" aria-hidden="true"></i>
+
+ 
+    </a>
+    <a class="btn btn-default" id="line_init-chart-<%=random_x%>">
+    <i class="fa fa-line-chart" aria-hidden="true"></i> Lineal
+    </a>
+  </div>
+
+  <div class="row">
+  
+
+  </div>
   <div class="row">
     <h1>Reporte de dos o mas variables</h1>
     <h3>Combinaciones encontradas <%= data[:combinations].count %></h3>
     <%#= data %>
-    <% random_x = SecureRandom.hex(10)%>
 
     <div id="init-chart-<%=random_x%>"></div>
     <div class="col-md-6">
@@ -96,7 +114,7 @@
             var width = $(window).width() * .70;
 
   
-            Highcharts.chart("init-chart-<%=random_x%>", {
+            var chart = Highcharts.chart("init-chart-<%=random_x%>", {
                 chart: {
                     type: 'areaspline',
                     width: width
@@ -135,6 +153,72 @@
                     }
                 },
                 series: seriesARF
+            });
+
+            $('#act_area_init-chart-<%=random_x%>').click(function(){
+                chart.update({
+                    chart: {
+                        inverted: false,
+                        polar: true,
+                        type: 'area'
+
+                    },
+                    plotOptions: {
+                        area: {
+                            stacking: 'percent',
+                            lineColor: '#ffffff',
+                            lineWidth: 1,
+                            marker: {
+                                lineWidth: 1,
+                                lineColor: '#ffffff'
+                            }
+                        }
+                    }
+                });
+            });
+
+            $('#bar_init-chart-<%=random_x%>').click(function(){
+                chart.update({
+                    chart: {
+                        inverted: false,
+                        polar: false,
+                        type: "area"
+                    },
+                    plotOptions: {
+                        area: {
+                            stacking: 'normal',
+                            lineColor: '#666666',
+                            lineWidth: 1,
+                            marker: {
+                                lineWidth: 1,
+                                lineColor: '#666666'
+                            }
+                        }
+                    },
+                    subtitle: {
+                        text: 'Area Invertida'
+                    }
+               });
+            });
+            $('#line_init-chart-<%=random_x%>').click(function(){
+              chart.update({
+                  chart: {
+                    inverted: false,
+                    type: 'line'
+                  },
+                  plotOptions: {
+                        column: {
+                            stacking: 'normal',
+                            dataLabels: {
+                                enabled: true,
+                                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                            }
+                        }
+                    },
+                    subtitle: {
+                        text: 'Area Invertida'
+                    }
+              });
             });
           });
           function getJSonObject(value) {

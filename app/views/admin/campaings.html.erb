@@ -21,7 +21,10 @@
           <%else%>
            <th> <%= link_to 'Ver la base', base_path(id: campaing.request_base_to_reports.last.id, campaing: campaing.id), data: { no_turbolink: true } %></th>
           <%end%>
-          <th> <%= link_to "Preparar una esquema de trabajo", '#' %></th>
+          <th>
+
+          <%= link_to 'Preparar una esquema de trabajo', json_schema_path(id: campaing.request_base_to_reports.last.id, campaing: campaing.id)%></th>
+
 
         </tr>
         <%end%>

@@ -80,7 +80,14 @@
             <% hs.each do |hh| %>
             <% conthead.push("#{@variables[index]}_#{hh}")%>
             <% heads.push(hh) %>
-            <th><%= hh%></th>
+            <% head = find_var_text_prototype(campaing, @variables[index], hh) %>
+            <th>
+            <% if head != hh %>
+             <%=  head  %> - <%= hh %> 
+            <%else%>
+             <%= hh %>
+            <%end%>
+            </th>
             <%end%>
           </tr>
         </thead>

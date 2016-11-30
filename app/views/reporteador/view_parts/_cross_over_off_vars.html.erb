@@ -37,7 +37,7 @@
 					<tr><th>Variable (filas) <%= filas[0]%></th><th colspan="<%= x.size %>">Variable (columna) <%= columnas[0]%></th></tr>
 					<tr><th>Valores</th>
 					<% x.each do |x| %>
-					<th><%= x %></th>
+					<th><%=  find_var_text_prototype(campaing, columnas[0], x)%></th>
 					<%end%>
 				</tr>
 			</thead>
@@ -45,7 +45,7 @@
 				<% y.each do |y| %>
 				<% ha = {} %>
 				<tr>
-					<td><%=y %></td>
+					<td><%= find_var_text_prototype(campaing, filas[0], y) %></td>
 					<% values = [] %>
 					
 					<% x.each do |x| %>
@@ -56,7 +56,7 @@
 					<%end%>
 					<%end%>
 					<%end%>
-					<% ha["name"] = y %>
+					<% ha["name"] = find_var_text_prototype(campaing, filas[0], y) %>
 					<% ha["data"] = values %>
 					<% ha["stack"] = y %>
 					<% series.push(ha) %>

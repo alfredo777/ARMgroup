@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   helper_method :dinamic_counter_view
   helper_method :current_path_info
   helper_method :text_xx_counter_view
+  helper_method :find_var_text_prototype
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def host_url
@@ -117,6 +118,29 @@ class ApplicationController < ActionController::Base
       false
     end
 
+  end
+
+  def find_var_text_prototype(campaing, vary,token)
+    schema = campaing.work_schemas.last
+    codex = []
+    schema.table_works.each do |table|
+       table.colum_in_table_works.each do |column|
+         if column.register_in_data_base == vary
+           codes = eval(table.response_codes)
+           codes.each do |code|
+            if code["code"].to_i == token.to_i
+              valorem = code["value"]
+              codex.push(valorem)
+            end
+           end
+         end
+       end
+    end
+    if codex.length != 0
+      @code = codex[0]
+      else
+      @code = token
+    end
   end
 
   def text_xx_counter_view(camping,indx)

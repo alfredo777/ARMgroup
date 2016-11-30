@@ -7,7 +7,7 @@
 <%= link_to 'Agregar Función', add_view_access_path(campaing: @campaing.id, indx: "#{current_path_info}" , proccessid: "remove_function", function: true, params_to_send: params_to_send), remote: true, class: "btn btn-info" %>
 </div>
 <%= link_to "Regresar a la vista de la base", base_path(id: @name_t.id, campaing: @campaing.id), class: "btn btn-warning" %>
-<%= render partial: '/reporteador/table_by_agroup', :locals => {data:  @group, variable: @variable, chart_data: @chart_data} %>
+<%= render partial: '/reporteador/table_by_agroup', :locals => {data:  @group, variable: @variable, chart_data: @chart_data, campaing: @campaing} %>
 </div>
 
 <div class="row">

@@ -12,4 +12,4 @@
 <%= link_to "Regresar a la vista de la base", base_path(id: @name_t.id, campaing: @campaing.id), class: "btn btn-warning" %>
 </div>
 
-<%= render partial: "/reporteador/view_parts/cross_over_off_vars", locals: {x: @x, y: @y, table: @table, filas: @filas, columnas: @columnas} %>
+<%= render partial: "/reporteador/view_parts/cross_over_off_vars", locals: {x: @x, y: @y, table: @table, filas: @filas, columnas: @columnas, campaing: @campaing} %>

@@ -7,7 +7,7 @@
 				<thead>
 					<tr>
 						<% data[:arrayIN].each do |d| %>
-						<th><%= d[0] %></th>
+						<th><%= find_var_text_prototype(campaing, variable, d[0])   %></th>
 						<%end%>
 					</tr>
 				</thead>
@@ -20,8 +20,11 @@
 				</tbody>
 			</table>
 		</div>
+		<% @data_cf = eval(chart_data).each do |lx|%>
+		  <% lx[:name] = find_var_text_prototype(campaing, variable, lx[:name]) %> 
+		<%end%>
 		<div class="col-md-6"> 
-			<div id="chart-pie-<%=random_x%>" data-target="<%=chart_data%>"></div>
+			<div id="chart-pie-<%=random_x%>" data-target="<%= @data_cf.to_json %>"></div>
 		</div>
 	</div>
 </div>

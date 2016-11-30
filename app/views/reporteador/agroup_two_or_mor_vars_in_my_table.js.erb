@@ -1,1 +1,1 @@
-$("#<%=@to_id%>").html("<%= escape_javascript render(:partial => '/reporteador/view_parts/agroup_two_or_mor_vars_in_my_table', :locals => {data:  @data}) %>");
+$("#<%=@to_id%>").html("<%= escape_javascript render(:partial => '/reporteador/view_parts/agroup_two_or_mor_vars_in_my_table', :locals => {data:  @data, campaing: @campaing}) %>");

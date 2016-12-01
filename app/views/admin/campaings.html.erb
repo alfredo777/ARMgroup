@@ -22,8 +22,9 @@
            <th> <%= link_to 'Ver la base', base_path(id: campaing.request_base_to_reports.last.id, campaing: campaing.id), data: { no_turbolink: true } %></th>
           <%end%>
           <th>
-
+          <% campaing.request_base_to_reports.count != 0 %>
           <%= link_to 'Preparar una esquema de trabajo', json_schema_path(id: campaing.request_base_to_reports.last.id, campaing: campaing.id)%></th>
+          <%end%>
 
 
         </tr>

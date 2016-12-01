@@ -22,7 +22,7 @@ data-no-turbolink="true"
 			<div id="anttt" class="col-md-2 btn btn-default"><i class="fa fa-arrow-left" aria-hidden="true"></i> Anterior</div>
 			<div id="nexttt" class="col-md-2 btn btn-default">Siguiente <i class="fa fa-arrow-right" aria-hidden="true"></i> </div>
 			<a id="format-print" class="btn btn-default pull-right"> <i class="fa fa-cloud-download" aria-hidden="true"></i> Descargar <i class="fa fa-file-pdf-o" aria-hidden="true"></i> o <i class="fa fa-print" aria-hidden="true"></i></a>
-
+			<div class="btn btn-default" onclick="$('#charts-pp').slideToggle();">Seleccionar Grafico</div>
 			</div>
 		</div>
 
@@ -105,8 +105,18 @@ data-no-turbolink="true"
 			</script>
 		</div>
 	</div>
+	<div class="col-md-3 pull-right" id="charts-pp" style="position:fixed; overflow-y: auto; background: #000; height:700px; padding: 10px; display:none;">
+	  <% 24.times do |t| %>
+	   <a style="margin-top: 5px; margin-bottom: 5px;" id="grafico-<%=t+1%>" class="charted">
+	   <img src="/charts/<%=t+1%>.png" alt="imagen-grafica-<%=t+1%>" width="100%;">
+	   </a>
+	  <%end%>
+	</div>
 </div>
+
 </div>
+
+
 <script type="text/javascript">
     $("#format-print").click(function(){
 
@@ -135,6 +145,8 @@ data-no-turbolink="true"
 			var idx = $(this).attr('id');
 			$('#anttt').attr("disabled", true);
 			$('#nexttt').attr('data-current',idx);
+			var chart_id = $('#'+idx+' .chart').attr('id');
+			$('.charted').attr('data-chart', chart_id);
 		}
 		    
 		});
@@ -152,6 +164,8 @@ data-no-turbolink="true"
 		$(next).show();
 		$('#nexttt').attr('data-current', id);
 		$('#anttt').attr('data-current', id);
+		var chart_id = $('#'+id+' .chart').attr('id');
+	    $('.charted').attr('data-chart', chart_id);
 		var element = $('.can').attr('id');
 			html2canvas($('#'+element), {
 			 onrendered: function(canvas) {

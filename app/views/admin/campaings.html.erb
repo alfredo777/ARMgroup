@@ -24,6 +24,8 @@
           <th>
           <% if campaing.request_base_to_reports.count != 0 %>
           <%= link_to 'Preparar una esquema de trabajo', json_schema_path(id: campaing.request_base_to_reports.last.id, campaing: campaing.id)%></th>
+          <%else%>
+          <span>Es necesario que primero cargue una base de datos</span>
           <%end%>
 
 

@@ -126,11 +126,13 @@ class ApplicationController < ActionController::Base
     schema.table_works.each do |table|
        table.colum_in_table_works.each do |column|
          if column.register_in_data_base == vary
+           if table.response_codes.nil?
            codes = eval(table.response_codes)
            codes.each do |code|
             if code["code"].to_i == token.to_i
               valorem = code["value"]
               codex.push(valorem)
+            end
             end
            end
          end

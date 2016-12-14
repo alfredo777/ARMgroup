@@ -1,0 +1,1 @@
+$("#dinamic-load").html("<%= escape_javascript render(:partial => '/reporteador/reporter_table', :locals => {idx: @table.id,n: @n,hashx: @hashx, table: @table, campaing: @campaing}) %>");

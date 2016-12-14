@@ -10,6 +10,53 @@
 <%= render partial: '/reporteador/table_by_agroup', :locals => {data:  @group, variable: @variable, chart_data: @chart_data, campaing: @campaing} %>
 </div>
 
+
+<div class="row">
+
+<%if params[:group] %>
+   <div class="col-md-2">
+	</div>
+	<div class="col-md-5">
+   <table class="table">
+   	<caption>Tabla de agrupados</caption>
+   	<thead>
+   		<tr>  
+   		    <% texted = [] %>
+   			<% @group[:arrayIN].each_with_index do |d,index| %>
+   			  <% variation = find_var_text_prototype(@campaing, @variable, d[0]) %>
+   			  <% indx = index + 1 %>
+   			  <% if multiple_off?(indx,params[:group]) == true %>
+   			    <% texted.push(variation) %>
+   			    <th><%= "#{texted}" %> </th>
+   			    <% texted.clear %>
+   			    <%else%>
+   			    <% texted.push(variation) %>
+   			  <%end%>
+			<%end%>
+   		</tr>
+   	</thead>
+   	<tbody>
+   		<tr>
+   			<tr>
+   			    <% valorem = 0 %>
+				<% @group[:arrayIN].each_with_index do |d, index| %>
+	   			  <% indx = index + 1 %>
+	   			  <% if multiple_off?(indx,params[:group]) == true %>
+	   			    <% valorem = valorem + d[1] %>
+	   			    <th><%= (valorem * 100).round(2) %>% </th>
+	   			    <% valorem = 0 %>
+	   			    <%else%>
+	   			    <% valorem = valorem + d[1] %>
+	   			   <%end%>
+				<%end%>
+			</tr>
+   		</tr>
+   	</tbody>
+   </table>
+   </div>
+<%end%>
+</div>
+
 <div class="row">
 	<div class="col-md-2">
 	</div>

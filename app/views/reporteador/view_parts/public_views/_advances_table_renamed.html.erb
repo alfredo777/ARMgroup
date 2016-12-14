@@ -86,9 +86,264 @@
         <%end%>
         
       </table>
+      <%= dinamic_counter_view(campaing,"super_content_chart_#{index}") %>
       <script>
       $(function () {
-      loadChart('bar-inverse','chart_table_<%=index%>');
+
+      var calculus = $(window).width() * 0.70;
+      console.log(calculus);
+
+
+      var chart = Highcharts.chart("load_chart_table_<%=index%>", {
+          data: {
+              table: "chart_table_<%=index%>"
+          },
+          chart: {
+              type: 'column',
+              width: calculus
+          },
+          title: {
+              text: 'Extraida de la tabla'
+          },
+          yAxis: {
+              allowDecimals: false,
+              title: {
+                  text: 'Units'
+              }
+          },
+          tooltip: {
+              formatter: function () {
+                  return '<b>' + this.series.name + '</b><br/>' +
+                      this.point.y + '% ' + this.point.name.toLowerCase();
+              }
+          }
+      });
+
+       <% if dinamic_counter_view(campaing,"super_content_chart_#{index}" ) %>
+        if('<%= dinamic_counter_chart(campaing,"super_content_chart_#{index}") %>' == 'column'){
+            chart.update({
+                chart: {
+                    inverted: false,
+                    polar: false,
+                    type: "column"
+                },
+                plotOptions: {
+                    area: {
+                        stacking: 'normal',
+                        lineColor: '#666666',
+                        lineWidth: 1,
+                        marker: {
+                            lineWidth: 1,
+                            lineColor: '#666666'
+                        }
+                    }
+                },
+                subtitle: {
+                    text: 'ARMgroup'
+                }
+            });
+            $('#graficos').hide();
+            $('#chart_type').val('column');
+
+        }
+        if('<%= dinamic_counter_chart(campaing,"super_content_chart_#{index}") %>' == 'columninverted'){
+
+            chart.update({
+                chart: {
+                    inverted: true,
+                    polar: false,
+                    type: "column"
+                },
+                plotOptions: {
+                    area: {
+                        stacking: 'normal',
+                        lineColor: '#666666',
+                        lineWidth: 1,
+                        marker: {
+                            lineWidth: 1,
+                            lineColor: '#666666'
+                        }
+                    }
+                },
+                subtitle: {
+                    text: 'ARMgroup'
+                }
+            });
+            $('#graficos').hide();
+            $('#chart_type').val('columninverted');
+
+
+        }
+
+
+        if('<%= dinamic_counter_chart(campaing,"super_content_chart_#{index}") %>' == 'line'){
+
+            chart.update({
+                chart: {
+                    inverted: false,
+                    polar: false,
+                    type: "line"
+                },
+                plotOptions: {
+                    area: {
+                        stacking: 'normal',
+                        lineColor: '#666666',
+                        lineWidth: 1,
+                        marker: {
+                            lineWidth: 1,
+                            lineColor: '#666666'
+                        }
+                    }
+                },
+                subtitle: {
+                    text: 'ARMgroup'
+                }
+            });
+            $('#graficos').hide();
+            $('#chart_type').val('line');
+
+
+        }
+
+        if('<%= dinamic_counter_chart(campaing,"super_content_chart_#{index}") %>' == 'pie'){
+
+            chart.update({
+                chart: {
+                    inverted: false,
+                    polar: false,
+                    type: "pie"
+                },
+                plotOptions: {
+                    area: {
+                        stacking: 'normal',
+                        lineColor: '#666666',
+                        lineWidth: 1,
+                        marker: {
+                            lineWidth: 1,
+                            lineColor: '#666666'
+                        }
+                    }
+                },
+                subtitle: {
+                    text: 'ARMgroup'
+                }
+            });
+            $('#graficos').hide();
+            $('#chart_type').val('pie');
+
+
+        }
+
+        if('<%= dinamic_counter_chart(campaing,"super_content_chart_#{index}") %>' == 'area'){
+
+            chart.update({
+                chart: {
+                    inverted: false,
+                    polar: false,
+                    type: "area"
+                },
+                plotOptions: {
+                    area: {
+                        stacking: 'normal',
+                        lineColor: '#666666',
+                        lineWidth: 1,
+                        marker: {
+                            lineWidth: 1,
+                            lineColor: '#666666'
+                        }
+                    }
+                },
+                subtitle: {
+                    text: 'ARMgroup'
+                }
+            });
+            $('#graficos').hide();
+            $('#chart_type').val('area');
+
+
+        }
+
+        if('<%= dinamic_counter_chart(campaing,"super_content_chart_#{index}") %>' == 'spider'){
+
+            chart.update({
+                chart: {
+                    inverted: false,
+                    polar: true,
+                    type: "line"
+                },
+                yAxis: {
+                    gridLineInterpolation: 'polygon',
+                    lineWidth: 0,
+                    min: 0
+                },
+                pane: {
+                    size: '80%'
+                },
+                subtitle: {
+                    text: 'ARMgroup'
+                }
+            });
+            $('#graficos').hide();
+            $('#chart_type').val('spider');
+
+
+        }
+
+        if('<%= dinamic_counter_chart(campaing,"super_content_chart_#{index}") %>' == 'stakedarea'){
+
+            chart.update({
+                chart: {
+                    inverted: false,
+                    polar: false,
+                    type: "area"
+                },
+                subtitle: {
+                    text: 'ARMgroup'
+                },
+
+                plotOptions: {
+                    area: {
+                        stacking: 'normal',
+                        lineColor: '#666666',
+                        lineWidth: 1,
+                        marker: {
+                            lineWidth: 1,
+                            lineColor: '#666666'
+                        }
+                    }
+                }
+            });
+            $('#graficos').hide();
+            $('#chart_type').val('stakedarea');
+
+
+        }
+
+
+
+        if('<%= dinamic_counter_chart(campaing,"super_content_chart_#{index}") %>' == 'invertedarea'){
+
+            chart.update({
+                chart: {
+                    type: "area",
+                    inverted: true
+                },
+                subtitle: {
+                    text: 'ARMgroup'
+                },
+
+                plotOptions: {
+                    area: {
+                        fillOpacity: 0.5
+                    }
+                }
+            });
+            $('#graficos').hide();
+            $('#chart_type').val('inverted');
+
+        }
+
+        <%end%>
       
       });
       </script>

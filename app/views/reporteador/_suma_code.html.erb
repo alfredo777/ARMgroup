@@ -1,236 +1,82 @@
-<% content_for(:body_attributes) do %>
-data-no-turbolink="true"
-<% end %>
-
-
-<div class="container"> 
-  <% random_x = SecureRandom.hex(10)%>
-  <br/><br/>
-  <div class="btn-group">
-    <% if param_add %>
-    <% params_to_send = {:vars => vars, :id => id} %>
+<div class="row">
+<div class="col-lg-12">
+<% random_x = SecureRandom.hex(10)%>
+<% if param_add %>
+    <% params_to_send = {:id => id, agroupby: group_by, codigos: @codigos} %>
+    <br/><br/><br/>
     <%= link_to 'Agregar Función', add_view_access_path(campaing: @campaing.id, indx: "#{current_path_info}" , proccessid: "remove_function", function: true, params_to_send: params_to_send), remote: true, class: "btn btn-info", id: "remove_function" %>
-    <%= form_tag add_chart_view_acces_path, remote: true do -%>
-      <%= hidden_field_tag 'chart_type', '', id: "chart_type" %>
-      <%= hidden_field_tag 'chart_type_id', '', id: "chart_type_id" %>
-      <div id="savechart" style="display:none;">
-      <%= submit_tag 'Guarda Gráfico', class: 'btn btn-default' %>
-      </div>
-      <div class="btn btn-default" id="primary-chart"><i class="fa fa-pie-chart" aria-hidden="true"></i></div>
-    </div>
-    <%end%>
-
-    <%end%>
-
-
-
-
-  </div>
-  <br/><br/>
-
-  <ul class="nav nav-tabs col-md-11">
-  <li role="presentation" class="active lotab"><a onclick="showTab('uno-<%=random_x%>')">Agrupado inicial</a></li>
-  <li role="presentation" class="lotab"><a onclick="showTab('dos-<%=random_x%>')">Agrupado total</a></li>
-  <li role="presentation" class="lotab"><a onclick="showTab('tres-<%=random_x%>')">Combinaciones</a></li>
-  </ul>
-
-  <div class="row" >
-    <div class="col-lg-11">
-    <h1>Reporte de dos o mas variables</h1>
-    <h3>Combinaciones encontradas <%= data[:combinations].count %></h3>
-    </div>
-    <%#= data %>
-    <div id="uno-<%=random_x%>" class="tb">
-      <div id="init-chart-<%=random_x%>"></div>
-    
-      <div class="col-md-11" >
-        <% heads = [] %>
-        <% series_line = [] %>
-        <% series_bar = [] %>
-
-        <% serie_arx = [] %>
-
-        <% data[:series].each_with_index do |serie, index| %>
-        <% content = [] %>
-        <% conthead = [] %>
-        
-        <div class="row">
-        <% sing_rerie = [] %>
-        <div class="col-md-6">
-        <div class="table-responsive" >
-        <table id="table-data-var-<%=index%>-<%=random_x%>" class="table table-bordered"
-         data-toggle="table"
-         data-sort-name="porcent"
-         data-sort-order="desc"
-        >
-          <caption>Tabla de datos sobre variable <%= @variables[index] %></caption>
-          <thead>
-            <tr>
-             <td
-             data-field="code" 
-             data-sortable="true"
-             >Codigo</td>
-             <td 
-             data-field="porcent" 
-             data-sortable="true"
-             >%</td>
-            </tr>
-          </thead>
-          <tbody>
-              <% totalx = 0 %>
-              <% hs = serie[:heads].sort %>
-              <% hs.each do |hh| %>
-              <% serie[:hash].each do |s| %>
-
-                  <% if s[0].to_i == hh.to_i %>
-                    <% conthead.push("#{@variables[index]}_#{hh}")%>
-                    <% heads.push(hh) %>
-                    <% head = find_var_text_prototype(campaing, @variables[index], hh) %>
-                    <% content.push((s[1].to_f * 100).round(2)) %>
-                    <tr>
-                    <td>
-                    <% if head != hh %>
-                     <%=  head  %> - <%= hh %> 
-                    <%else%>
-                     <%= hh %>
-                    <%end%>
-                    </td>
-                    <td><%= (s[1].to_f * 100).round(2) %>%</td>
-                    <% totalx = totalx + (s[1].to_f * 100).round(4)%>
-                    <% sing_rerie.push({name: hh, y: (s[1].to_f * 100).round(2)}) %>
-                    </tr>
-                    <% serie_arx.push([hh, s[1]])%>
-                  <%end%>
-                <%end%>
-              <%end%>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td>Total</td>
-              <td><%= totalx.round(4) %>%</td>
-            </tr>
-          </tfoot>
-        </table>
+        <%= form_tag add_chart_view_acces_path, remote: true do -%>
+          <%= hidden_field_tag 'chart_type', '', id: "chart_type" %>
+          <%= hidden_field_tag 'chart_type_id', '', id: "chart_type_id" %>
+          <div id="savechart" style="display:none;">
+          <%= submit_tag 'Guarda Gráfico', class: 'btn btn-default' %>
+          </div>
+          <div class="btn btn-default" id="primary-chart"><i class="fa fa-pie-chart" aria-hidden="true"></i></div>
         </div>
-        </div>
-
-        <div class="col-md-6">
-          <br/><br/>
-          <div id="table-chart-<%=index%>-<%=random_x%>" ></div>
-          <script>
-            $(function () {
-              var serie = "<%= sing_rerie.to_json %>";
-              var seri_x = JSON.parse(serie.replace(/&quot;/g,'"'));
-
-              Highcharts.getOptions().plotOptions.pie.colors = (function () {
-                  var colors = [],
-                      base = Highcharts.getOptions().colors[0],
-                      i;
-
-                  for (i = 0; i < 15; i += 1) {
-                      // Start out with a darkened base color (negative brighten), and end
-                      // up with a much brighter color
-                      colors.push(Highcharts.Color(base).brighten((i - 3) / 7).get());
-                  }
-                  return colors;
-              }());
-
-              // Build the chart
-              Highcharts.chart('table-chart-<%=index%>-<%=random_x%>', {
-                  chart: {
-                      plotBackgroundColor: null,
-                      plotBorderWidth: null,
-                      plotShadow: false,
-                      type: 'pie',
-                      width: 450
-                  },
-                  title: {
-                      text: 'Gráfico de la serie <%= "#{@variables[index]}" %>'
-                  },
-                  tooltip: {
-                      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                  },
-                  plotOptions: {
-                      pie: {
-                          allowPointSelect: true,
-                          cursor: 'pointer',
-                          dataLabels: {
-                              enabled: true,
-                              format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                              style: {
-                                  color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                              }
-                          }
-                      }
-                  },
-                  series: [{
-                      name: '<%= "#{@variables[index]}" %>',
-                      data: seri_x
-                  }]
-              });
-          });
-          </script>
-        </div>
-
-
-        <% seriex = {"name":"#{@variables[index]}", "data": content} 
-           seriexx = {"name":"#{@variables[index]}", "data": content, "type": 'column'} 
-          series_line.push(seriex)
-          series_bar.push(seriexx)
-        %>
-        
-        </div>
-        <% heads.push(conthead) %>
         <%end%>
-<script>
-$(function() {
-    var langVarbles = "<%= heads.to_json %>";
-    var serieDataLine = "<%= series_line.to_json %>";
-    var serieDataColumn = "<%= series_bar.to_json %>";
-    var variables = JSON.parse(langVarbles.replace(/&quot;/g, '"'));
-    var seriesARF = JSON.parse(serieDataLine.replace(/&quot;/g, '"'));
-    var seriesARFX = JSON.parse(serieDataColumn.replace(/&quot;/g, '"'));
-    var width = $(window).width() * .70;
+    <%end%>
+</div>
+<div class="col-md-6">
+<table class="table table-bodered">
+	<caption>Resultados sobre la variable <%= variable %></caption>
+	<thead>
+		<tr>
+			<th>Etiqueta</th>
+			<th>Total</th>
+		</tr>
+	</thead>
+	<tbody>
+	    <% datachart.each do |dt| %>
+		<tr>
+			<td><%= dt[:name]%></td>
+		    <td><%= dt[:y]%></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+</div>
+<div class="col-md-6">
+<div id="suma-<%= variable %>-<%=random_x%>"></div>
+<script  type="text/javascript">
+$(function () {
+	var serieDataColumn = "<%= datachart.to_json %>";
+	var datax = JSON.parse(serieDataColumn.replace(/&quot;/g,'"'));
 
-    var chart = Highcharts.chart("init-chart-<%=random_x%>", {
-        chart: {
-            type: 'areaspline',
-            width: width
-        },
-        title: {
-            text: 'Grafica de porcentaje de las variables'
-        },
-        subtitle: {
-            text: 'ARMgroup'
-        },
-        xAxis: {
-            categories: variables,
-            tickmarkPlacement: 'on',
+        // Build the chart
+        var chart = Highcharts.chart('suma-<%= variable %>-<%=random_x%>', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
             title: {
-                enabled: false
-            }
-        },
-        yAxis: {
-            title: {
-                text: 'Porcentaje'
-            }
-        },
-        tooltip: {
-            shared: true,
-            valueSuffix: '% Porciento'
-        },
-        plotOptions: {
-            area: {
-                stacking: 'percent',
-                lineColor: '#ffffff',
-                lineWidth: 1,
-                marker: {
-                    lineWidth: 1,
-                    lineColor: '#ffffff'
+                text: 'Suma de codigos de la variable <%= variable %>'
+            },
+            tooltip: {
+                shared: true,
+                valueSuffix: ''
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
                 }
-            }
-        },
-        series: seriesARF
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: datax
+            }]
+        });
+
+    $('#primary-chart').click(function() {
+        $('.charted').attr('data-chart', chart);
+        $('#graficos').show();
     });
 
 
@@ -676,111 +522,8 @@ $(function() {
     }
 
     <%end%>
-
-
-    $('#primary-chart').click(function() {
-        $('.charted').attr('data-chart', chart);
-        $('#graficos').show();
-    });
-
 });
-
-function getJSonObject(value) {
-    return $.parseJSON(value.replace(/&quot;/ig, '"'));
-}
 </script>
-      </div>
-    </div>
-
-    <div id="dos-<%=random_x%>" class="tb" style="display:none;">
-      <div class="col-lg-11">
-        <% @grouped_all = serie_arx.group_by(&:first).map {
-          |k,v| [k, v.map(&:last).inject(:+)]
-        } %>
-        <div class="table-responsive" >
-        <table class="table table-bordered">
-          <caption>Gráfico de acumulados</caption>
-          <thead>
-            <tr>
-              <th>Código</th>
-              <th> Acumulado de las variables </th>
-            </tr>
-          </thead>
-          <tbody>
-            <% tt = 0 %>
-            <% @grouped_all.each do |dd| %>
-            <tr>
-              <td><%= dd[0] %></td>
-              <td><%= (dd[1] * n).round %></td>
-              <% tt = tt + (dd[1] * n).round %>
-            </tr>
-            <%end%>
-            <tr>
-              <td>TOTALES</td>
-              <td><%= tt %></td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
-      </div>
-    </div>
-    <div id="tres-<%=random_x%>" class="tb" style="display:none;">
-
-    <div class="col-md-11">
-      <div style="height:400px; overflow:auto;" >
-      <div class="table-responsive" >
-      <table class="table table-bordered">
-        <% sum_porcento = 0.0 %>
-        <caption>Combinaciones entre las variables</caption>
-        <thead>
-          <tr>
-            <% @variables.each do |v| %>
-            <th><%= v %></th>
-            <%end%>
-            <th>Q</th>
-            <th>%</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% data[:combinations].each do |data| %>
-          <tr>
-            <% @variables.each do |v| %>
-            <td><%= data["#{v}"] %></td>
-            <%end%>
-            <td><%= data["k"] %></td>
-            <td>
-              <% po = ((data["k"].to_f / @n.to_f) * 100).round(2) %>
-              <% if po > 15 %>
-              <p style="color:#FFCE29;"><%= po %>%  </p>
-              <%else%>
-              <p style="color:#A6D8FF;"><%= po %>%  </p>
-              <%end%>
-            <% sum_porcento = sum_porcento + po %></td>
-          </tr>
-          <%end%>
-          <tr>
-            <td>Total % </td>
-            <td><%= sum_porcento %> %</td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
-      </div>
-    </div>
-
-    </div>
-  </div>
 </div>
-<script type="text/javascript">
-  function showTab(id){
-    $('.tb').hide();
-    $('#'+id).show();
-  }
-  $('.lotab').click(function(){
-    $('.lotab').removeClass('active');
-    $(this).addClass('active');
-  });
-</script>
-<script>
-    
-</script>
+</div>
+

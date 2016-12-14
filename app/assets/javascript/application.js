@@ -35,7 +35,9 @@
 //= require bootstrap-select
 //= require bootstrap/alert
 //= require bootstrap/dropdown
+//= require bootstrap-table
 //= require cocoon
+//= require jscharts
 
 
 

@@ -1,0 +1,71 @@
+<div class="row">
+<div class="col-lg-12">
+<% random_x = SecureRandom.hex(10)%>
+<% if param_add %>
+    <% params_to_send = {:id => id, agroupby: group_by, codigos: @codigos} %>
+    <br/><br/><br/>
+    <%= link_to 'Agregar Función', add_view_access_path(campaing: @campaing.id, indx: "#{current_path_info}" , proccessid: "remove_function", function: true, params_to_send: params_to_send), remote: true, class: "btn btn-info", id: "remove_function" %>
+    <%end%>
+</div>
+<div class="col-md-6">
+<table class="table table-bodered">
+	<caption>Resultados sobre la variable <%= variable %></caption>
+	<thead>
+		<tr>
+			<th>Etiqueta</th>
+			<th>Total</th>
+		</tr>
+	</thead>
+	<tbody>
+	    <% datachart.each do |dt| %>
+		<tr>
+			<td><%= dt[:name]%></td>
+		    <td><%= dt[:y]%></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+</div>
+<div class="col-md-6">
+<div id="suma-<%= variable %>-<%=random_x%>"></div>
+<script  type="text/javascript">
+$(function () {
+	var serieDataColumn = "<%= datachart.to_json %>";
+	var datax = JSON.parse(serieDataColumn.replace(/&quot;/g,'"'));
+    $(document).ready(function () {
+
+        // Build the chart
+        Highcharts.chart('suma-<%= variable %>-<%=random_x%>', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Resta de codigos de la variable <%= variable %>'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: datax
+            }]
+        });
+    });
+});
+</script>
+</div>
+</div>

@@ -26,7 +26,6 @@ class ReporteadorController < ApplicationController
      end
 
      redirect_to :back
-
   end
 
   def add_view_access
@@ -66,6 +65,16 @@ class ReporteadorController < ApplicationController
     redirect_to :back
   end
 
+  def add_chart_view_acces
+    @report = ReportDinamicView.find(params[:chart_type_id])
+    @report.type_chart = params[:chart_type]
+    @report.save
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
   def public_view
     require "csv"
     @report_parts = ReportDinamicView.where(campaing_id: params[:campaing])
@@ -103,7 +112,6 @@ class ReporteadorController < ApplicationController
         #return
        #}
     end
-
   end
 
   def view_base
@@ -133,6 +141,21 @@ class ReporteadorController < ApplicationController
 
   end
 
+  def reporter_table
+    @campaing = Campaing.find(params[:campaing])
+    @work_schema = @campaing.work_schemas.last
+    name_table = RequestBaseToReport.find(params[:id])
+    table = eval(name_table.base_in_text)
+    @hashx = table[:data]
+    @index = SecureRandom.hex(100)
+    @n = @hashx.count
+    @campaing = name_table.campaing
+    @table = TableWork.find(params[:table])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def agroup_var_in_my_table
     name_table = RequestBaseToReport.find(params[:id])
     table = eval(name_table.base_in_text)
@@ -143,6 +166,8 @@ class ReporteadorController < ApplicationController
     @to_id = params[:to_id]
     @campaing = name_table.campaing
     @name_t = name_table
+    @id = params[:id]
+    @param_add = params[:param_add]
 
 
     @n = @hashx.count
@@ -167,6 +192,204 @@ class ReporteadorController < ApplicationController
     end
   end
 
+  def promedio
+    require 'descriptive_statistics'
+    name_table = RequestBaseToReport.find(params[:id])
+    table = eval(name_table.base_in_text)
+    @hashx = table[:data]
+    @group = agrop_by_function(@hashx, params[:agroupby], params[:date], true) 
+    @variable = params[:agroupby]
+    hash_chart = @group[:arrayIN]
+    @to_id = params[:to_id]
+    @campaing = name_table.campaing
+    @name_t = name_table
+    @n = @hashx.count
+
+    array_chart = []
+
+    #hash_chart.each do |aa|
+     # array_chart.push({name:aa[0],y:(aa[1].to_f * 100).round(2)})
+    #end
+
+    @hashx.each do |hh|
+     array_chart.push(hh["#{@variable}"].to_i)
+    end
+
+    @promedio = array_chart.mean
+
+
+    @chart_data = array_chart.to_json
+
+    respond_to do |format|
+      unless params.has_key?(:js) 
+      format.html
+      else
+      format.js
+      end
+    end
+  end
+
+  def desviacion_standar
+    require 'descriptive_statistics'
+    name_table = RequestBaseToReport.find(params[:id])
+    table = eval(name_table.base_in_text)
+    @hashx = table[:data]
+    @group = agrop_by_function(@hashx, params[:agroupby], params[:date], true) 
+    @variable = params[:agroupby]
+    hash_chart = @group[:arrayIN]
+    @to_id = params[:to_id]
+    @campaing = name_table.campaing
+    @name_t = name_table
+    @n = @hashx.count
+
+    array_chart = []
+
+    #hash_chart.each do |aa|
+     # array_chart.push({name:aa[0],y:(aa[1].to_f * 100).round(2)})
+    #end
+
+    @hashx.each do |hh|
+     array_chart.push(hh["#{@variable}"].to_i)
+    end
+
+    @desviacion_standar = array_chart.standard_deviation
+
+
+    @chart_data = array_chart.to_json
+
+    respond_to do |format|
+      unless params.has_key?(:js) 
+      format.html
+      else
+      format.js
+      end
+    end
+  end
+
+  def estadistica
+    require 'descriptive_statistics'
+    name_table = RequestBaseToReport.find(params[:id])
+    table = eval(name_table.base_in_text)
+    @hashx = table[:data]
+    @group = agrop_by_function(@hashx, params[:agroupby], params[:date], true) 
+    @variable = params[:agroupby]
+    hash_chart = @group[:arrayIN]
+    @to_id = params[:to_id]
+    @campaing = name_table.campaing
+    @name_t = name_table
+    @n = @hashx.count
+    @param_add = params[:param_add]
+    @id = params[:id]
+
+    array_chart = []
+
+    #hash_chart.each do |aa|
+     # array_chart.push({name:aa[0],y:(aa[1].to_f * 100).round(2)})
+    #end
+
+    @hashx.each do |hh|
+     array_chart.push(hh["#{@variable}"].to_i)
+    end
+
+    @estadisticas = array_chart.descriptive_statistics
+
+
+    @chart_data = array_chart.to_json
+
+    respond_to do |format|
+      unless params.has_key?(:js) 
+      format.html
+      else
+      format.js
+      end
+    end
+  end
+
+  def suma_code
+    require 'descriptive_statistics'
+    name_table = RequestBaseToReport.find(params[:id])
+    table = eval(name_table.base_in_text)
+    @hashx = table[:data]
+    @group = agrop_by_function(@hashx, params[:agroupby], params[:date], true) 
+    @variable = params[:agroupby]
+    hash_chart = @group[:arrayIN]
+    @to_id = params[:to_id]
+    @campaing = name_table.campaing
+    @name_t = name_table
+    @id = params[:id]
+    @group_by = params[:agroupby]
+    @codigos = params[:codigos]
+    @param_add = params[:param_add]
+
+    @n = @hashx.count
+
+    array_chart = []
+
+    hash_chart.each do |aa|
+      array_chart.push({name:aa[0],y:(aa[1].to_f * 100).round(2)})
+    end
+
+    @chart_data = array_chart.to_json
+
+    puts @group
+
+    codes = params[:codigos].split(',')
+
+    name_codes = ""
+
+
+
+    puts codes
+    tosum = []
+    toother = []
+    codes.each do |c|
+      if name_codes != ""
+      name_codes = name_codes + "+" + "#{c}"
+      else
+      name_codes = name_codes + "#{c}"
+      end
+      @group[:arrayINX].each do |ar|
+        if ar[0].to_i == c.to_i
+          tosum.push(ar[1])
+        end
+      end
+    end
+
+    @group[:arrayINX].each do |ar|
+      toother.push(ar[1])
+    end
+
+    puts "#{tosum}"
+    toother = toother.sum
+    @total = tosum.sum
+    @resto = toother - @total
+
+    puts @total
+    puts @resto
+    @datachart = [
+      {name: "#{name_codes.to_s}",  y: @total},
+      {name: "resto", y: @resto}
+    ]
+   
+    @datachartx = [
+      [name: "#{name_codes.to_s}",  y: @total],
+      [name: "resto", y: @resto]
+    ]
+
+
+    respond_to do |format|
+      unless params.has_key?(:js) 
+      format.html
+      else
+      format.js
+      end
+    end
+  end
+
+  def resta_code
+
+  end
+
   def agroup_two_or_mor_vars_in_my_table
     name_table = RequestBaseToReport.find(params[:id])
     table = eval(name_table.base_in_text)
@@ -174,6 +397,7 @@ class ReporteadorController < ApplicationController
     @to_id = params[:to_id]
     @campaing = name_table.campaing
     @name_t = name_table
+    @param_add = params[:param_add]
 
     variables = params[:vars].split(',')
     varacces = []
@@ -188,6 +412,9 @@ class ReporteadorController < ApplicationController
     @data = advanced_agrouped(@hashx, varacces)
     puts @data
     @variables = variables
+
+    @crud_vars = params[:vars]
+    @id = params[:id]
 
     respond_to do |format|
      unless params.has_key?(:js) 
@@ -207,6 +434,7 @@ class ReporteadorController < ApplicationController
     @name_t = name_table
     @to_id = params[:to_id]
     @n = @hashx.count
+    @param_add = params[:param_add]
 
 
     ###### columna ########
@@ -321,9 +549,16 @@ private
       "null"
       end, v.size.to_f/porcent.to_f] }
     puts group_array
+
+    group_array_x = agroup_array.group_by { |u| u[:group_factor] }.map { |k, v| [
+      if !k.nil?
+      "#{k}".downcase 
+      else
+      "null"
+      end, v.size.to_f] }
     end
 
-    @grouped = {arrayIN: group_array, hashIN: group_hash }
+    @grouped = {arrayIN: group_array, hashIN: group_hash, arrayINX: group_array_x}
   end
 
   def advanced_agrouped(datacollection, params_to_agroup)

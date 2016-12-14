@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161122195607) do
+ActiveRecord::Schema.define(version: 20161213010730) do
 
   create_table "actions", force: :cascade do |t|
     t.string  "action"
@@ -66,6 +66,13 @@ ActiveRecord::Schema.define(version: 20161122195607) do
   add_index "campaings", ["admin_id"], name: "index_campaings_on_admin_id"
   add_index "campaings", ["campaing_code"], name: "index_campaings_on_campaing_code"
   add_index "campaings", ["customer_id"], name: "index_campaings_on_customer_id"
+
+  create_table "chart_proces", force: :cascade do |t|
+    t.text     "text_scrip"
+    t.integer  "report_dinamic_view_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "colum_in_table_works", force: :cascade do |t|
     t.integer  "table_work_id"
@@ -148,6 +155,7 @@ ActiveRecord::Schema.define(version: 20161122195607) do
     t.datetime "updated_at",                        null: false
     t.boolean  "function",          default: false
     t.text     "legend"
+    t.string   "type_chart"
   end
 
   create_table "request_base_to_reports", force: :cascade do |t|

@@ -18,6 +18,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_path_info
   helper_method :text_xx_counter_view
   helper_method :find_var_text_prototype
+  helper_method :dinamic_counter_chart
+  helper_method :multiple_off?
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def host_url
@@ -58,16 +60,33 @@ class ApplicationController < ActionController::Base
     @heads
   end
 
+  def multiple_off?(number, multiple)
+    if number != 0
+    multiplo =  (number.to_i % multiple.to_i).zero?
+    puts "********************* Multiplo (#{number} // #{multiple})"
+    puts multiplo
+    
+    @mu = multiplo
+    else
+    @mu = false
+    end
+  end
+
   def media(array, n)
     puts "*********** #{array}"
     puts "*********** #{n}"
     new_array = []
     array[:arrayIN].each do |a|
+      if a[0].to_i < 90
       q = a[1].to_f * n.to_f
       new_array.push(q.to_f)
+      end
     end
 
     l = new_array.size
+    puts "******** #{new_array}"
+    puts "******************* #{l}"
+
     sum = 0
     new_array.each do |nr|
       sum = sum.to_f + nr.to_f
@@ -118,6 +137,17 @@ class ApplicationController < ActionController::Base
       false
     end
 
+  end
+
+
+  def dinamic_counter_chart(camping, indx)
+    cc = ReportDinamicView.find_by_campaing_id_and_function_or_index(camping,indx)
+
+    if !cc.type_chart.nil?
+      @c = cc.type_chart
+      else
+      @c = false
+    end
   end
 
   def find_var_text_prototype(campaing, vary,token)

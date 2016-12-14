@@ -1,0 +1,1 @@
+$("#<%=@to_id%>").append("<%= escape_javascript render(:partial => '/reporteador/promedio', :locals => {n: @n, group: @group, variable: @variable, promedio: @promedio}) %>");

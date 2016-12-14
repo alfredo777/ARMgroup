@@ -2,7 +2,7 @@
 <% if rdx.function %>
 <div class="col-lg-12 page" style="display: none;" id="chart_position_indx_<%=index%>">
    <br/><br/>
-	<%= link_to 'Eliminar Gráfico', delete_view_acces_path(camping: rdx.campaing_id, indx: rdx.function_or_index), class: "btn btn-warning", data: {confirm: "¿Estas seguro de eliminar esta gráfica?"} if current_admin %><br/><br/>
+	<%= link_to 'Eliminar Gráfico', delete_view_acces_path(camping: rdx.campaing_id, indx: rdx.function_or_index), class: "btn btn-warning", data: {confirm: "¿Estas seguro de eliminar esta gráfica?"}, :"data-no-turbolink" => true if current_admin %><br/><br/>
 
 	<% if text_xx_counter_view(rdx.campaing_id, rdx.function_or_index).nil? %>
 	<% if current_admin %>

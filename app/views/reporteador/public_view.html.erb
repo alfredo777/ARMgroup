@@ -3,8 +3,6 @@ data-no-turbolink="true"
 <% end %>
 <% content_for(:header) do %>
 <script type="text/javascript" src="/js/highcharts/highcharts.js"></script>
-<script type="text/javascript" src="/canvas/html2canvas.js"></script>
-<script type="text/javascript" src="/canvas/canvas2image.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/highcharts-3d.js"></script>
@@ -50,22 +48,22 @@ data-no-turbolink="true"
 				</blockquote>
 			</div>
 			<%end%>
-				<%= render partial: "/reporteador/view_parts/public_views/count_view", locals: {campaing: @camp, heads: @heads, hashx: @hashx } %>
+				<%= render partial: "/reporteador/view_parts/public_views/count_view", locals: {campaing: params[:campaing], heads: @heads, hashx: @hashx } %>
 			</div>
 			<%end%>
 			<% @work_schema.table_works.each_with_index do |table,index|%>
-			<% if dinamic_counter_view(params[:campaing],"super_content_chart_#{index}") %>
-			<div class="inspirate page" id="super_<%=index%>" style="display:none;">
+			<% if dinamic_counter_view(params[:campaing],"super_content_chart_#{table.id}") %>
+			<div class="inspirate page" id="super_<%=table.id%>" style="display:none;">
 				<br/><br/>
-				<%= link_to 'Eliminar Gráfico', delete_view_acces_path(camping: params[:campaing], indx: "super_content_chart_#{index}"), class: "btn btn-warning", data: {confirm: "¿Estas seguro de eliminar esta gráfica?"} if current_admin %><br/><br/>
+				<%= link_to 'Eliminar Gráfico', delete_view_acces_path(camping: params[:campaing], indx: "super_content_chart_#{table.id}"), class: "btn btn-warning", data: {confirm: "¿Estas seguro de eliminar esta gráfica?"} if current_admin %><br/><br/>
 
 				<h4><%= table.alias %></h4>
 
-				<% if text_xx_counter_view(params[:campaing],"super_content_chart_#{index}").nil? %>
+				<% if text_xx_counter_view(params[:campaing],"super_content_chart_#{table.id}").nil? %>
 				<% if current_admin %>
 				<%= form_tag add_text_view_acces_path do -%>
 				<%= hidden_field_tag 'camping', params[:campaing]%>
-				<%= hidden_field_tag 'indx',"super_content_chart_#{index}"%>
+				<%= hidden_field_tag 'indx',"super_content_chart_#{table.id}"%>
 				<%= text_area_tag 'text', '' ,class: "form-control", placeholder: "Agregar una descripcción de la diapositiva" %><br/>
 				<%= submit_tag "Guardar", class: "btn btn-primary" %>
 				<%end%>
@@ -74,22 +72,22 @@ data-no-turbolink="true"
 				<div class="row">
 					<blockquote style="text-align: justify;" >
 						<h3>Descripcción</h3>
-						<p><%= text_xx_counter_view(params[:campaing],"super_content_chart_#{index}") %></p>
+						<p><%= text_xx_counter_view(params[:campaing],"super_content_chart_#{table.id}") %></p>
 					</blockquote>
 				</div>
 				<%end%>
 
 
-				<div id="super_chart_<%=index%>" data-sch="<%= agrouped_table(table, @hashx)[:array_chart_1] %>" data-cat="<%= agrouped_table(table, @hashx)[:heads] %>"></div>
+				<div id="super_chart_<%=table.id%>" data-sch="<%= agrouped_table(table, @hashx)[:array_chart_1] %>" data-cat="<%= agrouped_table(table, @hashx)[:heads] %>"></div>
 				<%= render partial: "/reporteador/view_parts/public_views/full_table", locals: {hashx: @hashx, table: table, displ: true} %>
 				<h4>Agrupación de datos por porcentajes de cada variable</h4>
 				<% if table.wordcloud %>
-				<%= render partial: '/reporteador/view_parts/public_views/wordcloud_proces', locals: {hashx: @hashx, table: table, displ: false, index: index}  %>
-				<%= render partial: '/reporteador/view_parts/public_views/wordcloud_table', locals: {hashx: @hashx, table: table, displ: false, index: index}  %>
+				<%= render partial: '/reporteador/view_parts/public_views/wordcloud_proces', locals: {hashx: @hashx, table: table, displ: false, index: table.id}  %>
+				<%= render partial: '/reporteador/view_parts/public_views/wordcloud_table', locals: {hashx: @hashx, table: table, displ: false, index: table.id}  %>
 				<%else%>
-				<%= render partial: '/reporteador/view_parts/public_views/single_table_chart', locals: {hashx: @hashx, table: table, displ: false, index: index}  %>
+				<%= render partial: '/reporteador/view_parts/public_views/single_table_chart', locals: {hashx: @hashx, table: table, displ: false, index: table.id}  %>
 				<br/><br/>
-				<%= render partial: '/reporteador/view_parts/public_views/advances_table_renamed', locals: {hashx: @hashx, table: table, displ: false, index: index, n: @n}  %>
+				<%= render partial: '/reporteador/view_parts/public_views/advances_table_renamed', locals: {hashx: @hashx, table: table, displ: false, index: table.id, n: @n, campaing: params[:campaing]}  %>
 				<%end%>
 			</div>
 			<%end%>
@@ -116,6 +114,9 @@ data-no-turbolink="true"
 </div>
 
 </div>
+
+<script type="text/javascript" src="/canvas/html2canvas.js"></script>
+<script type="text/javascript" src="/canvas/canvas2image.js"></script>
 
 
 <script type="text/javascript">
@@ -194,3 +195,4 @@ data-no-turbolink="true"
 	}
 	});
 </script>
+

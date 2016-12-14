@@ -1,3 +1,2 @@
 module ReporteadorHelper
-
 end

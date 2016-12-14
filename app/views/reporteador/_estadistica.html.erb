@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="col-lg-12">
+    <% if param_add %>
+    <% params_to_send = {:id => id, agroupby: variable} %>
+    <br/><br/><br/>
+    <%= link_to 'Agregar Función', add_view_access_path(campaing: @campaing.id, indx: "#{current_path_info}" , proccessid: "remove_function", function: true, params_to_send: params_to_send), remote: true, class: "btn btn-info", id: "remove_function" %>
+    <%end%>
+    </div>
+	<div class="col-lg-11">
+		<div class="table-responsive" >
+			<table class="table table-bordered">
+				<caption>Tabla de estadística de la variable <%= @variable %> </caption>
+				<thead>
+					<tr>
+						<th>N</th>
+						<th>Suma del arreglo</th>
+						<th>Media</th>
+						<th>Moda</th>
+						<th>Mediana</th>
+						<th>Maximo</th>
+						<th>Minimo</th>
+						<th>Varianza</th>
+						<th>Desviación Estandar</th>
+						<th>Rango</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><%= estadisticas[:number] %></td>
+						<td><%= estadisticas[:sum] %></td>
+						<td><%= estadisticas[:mean] %></td>
+						<td><%= estadisticas[:mode] %></td>
+						<td><%= estadisticas[:median] %></td>
+						<td><%= estadisticas[:max] %></td>
+						<td><%= estadisticas[:min] %></td>
+						<td><%= estadisticas[:variance] %></td>
+						<td><%= estadisticas[:standard_deviation] %></td>
+						<td><%= estadisticas[:range] %></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

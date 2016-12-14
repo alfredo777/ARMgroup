@@ -120,6 +120,24 @@ Rails.application.routes.draw do
 
   get 'reporteador/add_text_view_acces', as: :add_text_view_acces
   post 'reporteador/add_text_view_acces'
+
+  get 'reporteador/promedio', as: :promedio
+  post 'reporteador/promedio'
+
+  get 'reporteador/desviacion_standar', as: :desviacion_standar
+  post 'reporteador/desviacion_standar'
+
+  get 'reporteador/estadistica', as: :estadistica
+  post 'reporteador/estadistica'
+
+  get 'reporteador/suma_code', as: :suma_code
+  post 'reporteador/suma_code'
+
+  get 'reporteador/reporter_table', as: :reporter_table
+  post 'reporteador/reporter_table'
+
+  get 'reporteador/add_chart_view_acces', as: :add_chart_view_acces
+  post 'reporteador/add_chart_view_acces'
   
   authenticate :admins do
     resources :publications, only: [:new, :create, :edit, :update, :destroy]

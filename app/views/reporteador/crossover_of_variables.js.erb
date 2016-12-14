@@ -1,1 +1,1 @@
-$("#<%=@to_id%>").html("<%= escape_javascript render(:partial => '/reporteador/view_parts/cross_over_off_vars', locals: {x: @x, y: @y, table: @table, filas: @filas, columnas: @columnas, campaing: @campaing}) %>");
+$("#<%=@to_id%>").html("<%= escape_javascript render(:partial => '/reporteador/view_parts/cross_over_off_vars', locals: {x: @x, y: @y, table: @table, filas: @filas, columnas: @columnas, campaing: @campaing, param_add: @param_add}) %>");

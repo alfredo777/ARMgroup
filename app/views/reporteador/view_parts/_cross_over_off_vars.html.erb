@@ -1,12 +1,26 @@
 <% series = [] %>
 <div class="container">
+    <% if param_add %>
+    <% params_to_send = {:cols => params[:cols], :rows => params[:rows], :id => params[:id]} %>
+    <%= link_to 'Agregar Función', add_view_access_path(campaing: @campaing.id, indx: "#{current_path_info}" , proccessid: "remove_function", function: true, params_to_send: params_to_send), remote: true, class: "btn btn-info", id: "remove_function" %>
+
+    <%= form_tag add_chart_view_acces_path, remote: true do -%>
+      <%= hidden_field_tag 'chart_type', '', id: "chart_type" %>
+      <%= hidden_field_tag 'chart_type_id', '', id: "chart_type_id" %>
+      <div id="savechart" style="display:none;">
+      <%= submit_tag 'Guarda Gráfico', class: 'btn btn-default' %>
+      </div>
+      <div class="btn btn-default" id="primary-chart"><i class="fa fa-pie-chart" aria-hidden="true"></i></div>
+    </div>
+    <%end%>
+    <%end%>
 	<h1>Cruce de variables</h1>
 	<% random_x = SecureRandom.hex(10)%>
 	<div class="col-md-12">
 		<div id="tablex-<%=random_x%>" style="height: 500px; width: 70%;"></div>
 	</div>
-	<div class="col-md-12" style="background: #fff; padding: 10px;">
-		<div id="sliders-<%=random_x%>" style="background: #eee; padding: 10px; margin-top: -30px;">
+	<div class="col-md-12" style="padding: 10px;">
+		<div id="sliders-<%=random_x%>" style="padding: 10px; margin-top: -30px;">
 			<table>
 				<tr>
 					<td>Angulo ∂ </td>
@@ -28,42 +42,70 @@
 	<%#= @y %>
 	<%#= @table %><br/><br/>
 
-	<div class="col-lg-12">
+	<div class="col-lg-10">
 
 		<div class="table-responsive">
 			<table class="table table-bordered">
 				<caption>Tabla obtenida del proceso de cruzar las dos variables</caption>
 				<thead>
-					<tr><th>Variable (filas) <%= filas[0]%></th><th colspan="<%= x.size %>">Variable (columna) <%= columnas[0]%></th></tr>
+					<tr><th>Variable (filas) <%= filas[0]%></th><th colspan="<%= x.size %>">Variable (columna) <%= columnas[0]%></th>
+						<th>Total Horizontal</th>
+					</tr>
 					<tr><th>Valores</th>
 					<% x.each do |x| %>
 					<th><%=  find_var_text_prototype(campaing, columnas[0], x)%></th>
 					<%end%>
-				</tr>
+					<th><center>-</center></th>
+				    </tr>
 			</thead>
 			<tbody>
+			    
+
 				<% y.each do |y| %>
 				<% ha = {} %>
+				<% repeat = x.size %>
+			    <% rowin_y = [] %>
 				<tr>
 					<td><%= find_var_text_prototype(campaing, filas[0], y) %></td>
 					<% values = [] %>
-					
+
 					<% x.each do |x| %>
 					<% table.each do |t| %>
+
+					
+
+
 					<% if y == t["rowvin"] && x == t["colvin"] %>
-					<td class="<%=x%>"> <%= t["q"]%></td>
+					<td class="<%=x%>"> <%= t["q"]%>
+
+					</td>
+				    <% rowin_y.push(["#{y}",t["q"]]) %>
 					<% values.push(t["q"])%>
 					<%end%>
+
+		
+					   
 					<%end%>
 					<%end%>
+
+
+					<% @grouped_all = rowin_y.group_by(&:first).map {
+				        |k,v| [k, v.map(&:last).inject(:+)]
+				      } %>
+				    <% lfg = @grouped_all.size %>
+				    <% @grouped_all.each_with_index do |xx, index| %>
+				    	<td><%= xx[1] %></td>
+				    <%end%>
+
 					<% ha["name"] = find_var_text_prototype(campaing, filas[0], y) %>
 					<% ha["data"] = values %>
 					<% ha["stack"] = y %>
 					<% series.push(ha) %>
+
 				</tr>
 				<%end%>
 				<tr>
-					<td>Total</td>
+					<td>Total Vertical</td>
 					<% x.each do |x| %>
 					<% nx = 0 %>
 					<% table.each do |t| %>
@@ -71,8 +113,10 @@
 					<% nx = nx + t["q"]%>
 					<%end%>
 					<%end%>
-					<td><%=nx%></td>
+					<td><%=nx.round(2)%></td>
 					<% end %>
+					<td><center>-</center></td>
+
 				</tr>
 				<tr>
 					<td>Porcentaje</td>
@@ -86,7 +130,7 @@
 					<%end%>
 					<td><%=((nx.to_f / @n.to_f) * 100 ).round(2)%>% <% rdx = rdx + ((nx.to_f / @n.to_f) * 100 ).round(4) %> </td>
 					<% end %>
-					<td ><%=rdx%>%</td>
+					<td ><%=rdx.round(2)%>%</td>
 				</tr>
 			</tbody>
 		</table>
@@ -140,6 +184,460 @@ depth: 40
 },
 series: seriesARF
 });
+
+$('#column').click(function() {
+    chart.update({
+        chart: {
+            inverted: false,
+            polar: false,
+            type: "column"
+        },
+        plotOptions: {
+            area: {
+                stacking: 'normal',
+                lineColor: '#666666',
+                lineWidth: 1,
+                marker: {
+                    lineWidth: 1,
+                    lineColor: '#666666'
+                }
+            }
+        },
+        subtitle: {
+            text: 'ARMgroup'
+        }
+    });
+    $('#graficos').hide();
+    $('#chart_type').val('column');
+
+});
+$('#columninverted').click(function() {
+    chart.update({
+        chart: {
+            inverted: true,
+            polar: false,
+            type: "column"
+        },
+        plotOptions: {
+            area: {
+                stacking: 'normal',
+                lineColor: '#666666',
+                lineWidth: 1,
+                marker: {
+                    lineWidth: 1,
+                    lineColor: '#666666'
+                }
+            }
+        },
+        subtitle: {
+            text: 'ARMgroup'
+        }
+    });
+    $('#graficos').hide();
+    $('#chart_type').val('columninverted');
+
+
+});
+
+$('#line').click(function() {
+    chart.update({
+        chart: {
+            inverted: false,
+            polar: false,
+            type: "line"
+        },
+        plotOptions: {
+            area: {
+                stacking: 'normal',
+                lineColor: '#666666',
+                lineWidth: 1,
+                marker: {
+                    lineWidth: 1,
+                    lineColor: '#666666'
+                }
+            }
+        },
+        subtitle: {
+            text: 'ARMgroup'
+        }
+    });
+    $('#graficos').hide();
+    $('#chart_type').val('line');
+
+
+});
+
+$('#pie').click(function() {
+    chart.update({
+        chart: {
+            inverted: false,
+            polar: false,
+            type: "pie"
+        },
+        plotOptions: {
+            area: {
+                stacking: 'normal',
+                lineColor: '#666666',
+                lineWidth: 1,
+                marker: {
+                    lineWidth: 1,
+                    lineColor: '#666666'
+                }
+            }
+        },
+        subtitle: {
+            text: 'ARMgroup'
+        }
+    });
+    $('#graficos').hide();
+    $('#chart_type').val('pie');
+
+
+});
+
+$('#area').click(function() {
+    chart.update({
+        chart: {
+            inverted: false,
+            polar: false,
+            type: "area"
+        },
+        plotOptions: {
+            area: {
+                stacking: 'normal',
+                lineColor: '#666666',
+                lineWidth: 1,
+                marker: {
+                    lineWidth: 1,
+                    lineColor: '#666666'
+                }
+            }
+        },
+        subtitle: {
+            text: 'ARMgroup'
+        }
+    });
+    $('#graficos').hide();
+    $('#chart_type').val('area');
+
+
+});
+
+$('#spider').click(function() {
+    chart.update({
+        chart: {
+            inverted: false,
+            polar: true,
+            type: "line"
+        },
+        yAxis: {
+            gridLineInterpolation: 'polygon',
+            lineWidth: 0,
+            min: 0
+        },
+        pane: {
+            size: '80%'
+        },
+        subtitle: {
+            text: 'ARMgroup'
+        }
+    });
+    $('#graficos').hide();
+    $('#chart_type').val('spider');
+
+
+});
+
+$('#stakedarea').click(function() {
+    chart.update({
+        chart: {
+            inverted: false,
+            polar: false,
+            type: "area"
+        },
+        subtitle: {
+            text: 'ARMgroup'
+        },
+
+        plotOptions: {
+            area: {
+                stacking: 'normal',
+                lineColor: '#666666',
+                lineWidth: 1,
+                marker: {
+                    lineWidth: 1,
+                    lineColor: '#666666'
+                }
+            }
+        }
+    });
+    $('#graficos').hide();
+    $('#chart_type').val('stakedarea');
+
+
+});
+
+$('#invertedarea').click(function() {
+    chart.update({
+        chart: {
+            type: "area",
+            inverted: true
+        },
+        subtitle: {
+            text: 'ARMgroup'
+        },
+
+        plotOptions: {
+            area: {
+                fillOpacity: 0.5
+            }
+        }
+    });
+    $('#graficos').hide();
+    $('#chart_type').val('inverted');
+
+});
+
+
+<% if dinamic_counter_view(@campaing.id,"#{current_path_info}" ) %>
+
+
+    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'column'){
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('column');
+
+    }
+    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'columninverted'){
+
+        chart.update({
+            chart: {
+                inverted: true,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columninverted');
+
+
+    }
+
+
+    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'line'){
+
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "line"
+            },
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('line');
+
+
+    }
+
+    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'pie'){
+
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "pie"
+            },
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('pie');
+
+
+    }
+
+    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'area'){
+
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "area"
+            },
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('area');
+
+
+    }
+
+    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'spider'){
+
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: true,
+                type: "line"
+            },
+            yAxis: {
+                gridLineInterpolation: 'polygon',
+                lineWidth: 0,
+                min: 0
+            },
+            pane: {
+                size: '80%'
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('spider');
+
+
+    }
+
+    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'stakedarea'){
+
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "area"
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            },
+
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('stakedarea');
+
+
+    }
+
+
+
+    if('<%= dinamic_counter_chart(@campaing.id,"init-count-table") %>' == 'invertedarea'){
+
+        chart.update({
+            chart: {
+                type: "area",
+                inverted: true
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            },
+
+            plotOptions: {
+                area: {
+                    fillOpacity: 0.5
+                }
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('inverted');
+
+    }
+
+<%end%>
+
+
+
+$('#primary-chart').click(function() {
+    $('.charted').attr('data-chart', chart);
+    $('#graficos').show();
+});
+
+
+
+
+
 function showValues() {
 $('#alpha-value-<%=random_x%>').html(chart.options.chart.options3d.alpha);
 $('#beta-value-<%=random_x%>').html(chart.options.chart.options3d.beta);

@@ -11,69 +11,317 @@
   </div>
 </div>
 <script type="text/javascript">
-$(function () {
-var calculus = $(window).width() * 0.70;
-console.log(calculus);
-var datad = $('#chart').data('sch');
-console.log(datad);
-$('#chart').highcharts({
-chart: {
-zoomType: 'x',
-margin: 0,
-width: calculus
-},
-title: {
-text: 'Captura de registros por fechas'
-},
-subtitle: {
-text: document.ontouchstart === undefined ?
-'Da click y arrastra para hacer zoom' : 'Da click en la gráfica para hacer zoom'
-},
-xAxis: {
-type: 'date',
-title: {
-text: 'Dias'
-}
-},
-yAxis: {
-title: {
-text: 'Cantidad'
-}
-},
-legend: {
-enabled: false
-},
-plotOptions: {
-area: {
-fillColor: {
-linearGradient: {
-x1: 0,
-y1: 0,
-x2: 0,
-y2: 1
-},
-stops: [
-[0, Highcharts.getOptions().colors[0]],
-[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-]
-},
-marker: {
-radius: 2
-},
-lineWidth: 1,
-states: {
-hover: {
-lineWidth: 1
-}
-},
-threshold: null
-}
-},
-series: [{
-type: 'area',
-name: 'Capturas',
-data: datad
-}]
-});
+$(function() {
+  var calculus = $(window).width() * 0.70;
+  console.log(calculus);
+  var datad = $('#chart').data('sch');
+  console.log(datad);
+  
+
+  var chart = Highcharts.chart('chart', {
+      chart: {
+          zoomType: 'x',
+          margin: 0,
+          width: calculus
+      },
+      title: {
+          text: 'Captura de registros por fechas'
+      },
+      subtitle: {
+          text: document.ontouchstart === undefined ?
+              'Da click y arrastra para hacer zoom' : 'Da click en la gráfica para hacer zoom'
+      },
+      xAxis: {
+          type: 'date',
+          title: {
+              text: 'Dias'
+          }
+      },
+      yAxis: {
+          title: {
+              text: 'Cantidad'
+          }
+      },
+      legend: {
+          enabled: false
+      },
+      plotOptions: {
+          area: {
+              fillColor: {
+                  linearGradient: {
+                      x1: 0,
+                      y1: 0,
+                      x2: 0,
+                      y2: 1
+                  },
+                  stops: [
+                      [0, Highcharts.getOptions().colors[0]],
+                      [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                  ]
+              },
+              marker: {
+                  radius: 2
+              },
+              lineWidth: 1,
+              states: {
+                  hover: {
+                      lineWidth: 1
+                  }
+              },
+              threshold: null
+          }
+      },
+      series: [{
+          type: 'area',
+          name: 'Capturas',
+          data: datad
+      }]
+  });
+
+
+  <% if dinamic_counter_view(campaing,"init-count-table") %>
+    if('<%= dinamic_counter_chart(campaing,"init-count-table") %>' == 'column'){
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            },
+            series: [{
+            type: 'column',
+            name: 'Capturas',
+            data: datad
+            }]
+        });
+      
+    }
+
+
+    if('<%= dinamic_counter_chart(campaing,"init-count-table") %>' == 'columninverted'){
+        chart.update({
+            chart: {
+                inverted: true,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            },
+            series: [{
+            type: 'column',
+            name: 'Capturas',
+            data: datad
+            }]
+        });
+      
+    }
+
+
+
+    if('<%= dinamic_counter_chart(campaing,"init-count-table") %>' == 'line'){
+
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "line"
+            },
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            },
+            series: [{
+            type: 'line',
+            name: 'Capturas',
+            data: datad
+            }]
+        });
+      
+
+    }
+
+    if('<%= dinamic_counter_chart(campaing,"init-count-table") %>' == 'pie'){
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "pie"
+            },
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            },
+            series: [{
+            type: 'pie',
+            name: 'Capturas',
+            data: datad
+            }]
+        });
+     
+    }
+
+    if('<%= dinamic_counter_chart(campaing,"init-count-table") %>' == 'area'){
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "area"
+            },
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            },
+            series: [{
+            type: 'area',
+            name: 'Capturas',
+            data: datad
+            }]
+        });
+      
+
+    }
+
+    if('<%= dinamic_counter_chart(campaing,"init-count-table") %>' == 'spider'){
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: true,
+                type: "line"
+            },
+            yAxis: {
+            gridLineInterpolation: 'polygon',
+            lineWidth: 0,
+            min: 0
+            },
+            pane: {
+                size: '80%'
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            },
+            series: [{
+            type: 'line',
+            name: 'Capturas',
+            data: datad,
+            pointPlacement: 'on'
+            }]
+        });
+
+
+    }
+
+    if('<%= dinamic_counter_chart(campaing,"init-count-table") %>' == 'stakedarea'){
+        chart.update({
+            chart: {
+                type: "area"
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            },
+
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            },
+            series: [{
+            type: 'area',
+            name: 'Capturas',
+            data: datad
+            }]
+        });
+
+
+    }
+
+    if('<%= dinamic_counter_chart(campaing,"init-count-table") %>' == 'invertedarea'){
+
+        chart.update({
+            chart: {
+                type: "area",
+                inverted: true
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            },
+
+            plotOptions: {
+            area: {
+                fillOpacity: 0.5
+            }
+            },
+            series: [{
+            type: 'area',
+            name: 'Capturas',
+            data: datad
+            }]
+        });
+
+    }
+
+  <%end%>
+
+
 });
 </script>

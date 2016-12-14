@@ -1,0 +1,1 @@
+$("#<%=@to_id%>").append("<%= escape_javascript render(:partial => '/reporteador/desviacion_estandar', :locals => {n: @n, group: @group, variable: @variable, desviacion_standar: @desviacion_standar}) %>");

@@ -1,111 +1,42 @@
-<% random_x = SecureRandom.hex(10)%>
-<div class="row">
-    <div class="col-lg-12">
-    <% if param_add %>
-    <% params_to_send = {:agroupby => params[:agroupby], :date => params[:date], :id => params[:id]} %>
-	<%= link_to 'Agregar Función', add_view_access_path(campaing: @campaing.id, indx: "#{current_path_info}" , proccessid: "remove_function", function: true, params_to_send: params_to_send), remote: true, class: "btn btn-info", id: "remove_function" %>
-		<%= form_tag add_chart_view_acces_path, remote: true do -%>
-	      <%= hidden_field_tag 'chart_type', '', id: "chart_type" %>
-	      <%= hidden_field_tag 'chart_type_id', '', id: "chart_type_id" %>
-	      <div id="savechart" style="display:none;">
-	      <%= submit_tag 'Guarda Gráfico', class: 'btn btn-default' %>
-	      </div>
-	      <div class="btn btn-default" id="primary-chart"><i class="fa fa-pie-chart" aria-hidden="true"></i></div>
-	    </div>
-	    <%end%>
-	<%end%>
+<div class="col-md-12 inspirate" id="super_<%=idx%>">
+  <% unless dinamic_counter_view(campaing,"super_content_chart_#{idx}") %>
+    <%= link_to 'Agregar Gráfico', add_view_access_path(campaing: campaing, indx: "super_content_chart_#{idx}", proccessid: "hid_init_count_table_index_#{idx}"), remote: true, class: "btn btn-info", id: "super_content_chart_#{idx}" %>
+    <%= form_tag add_chart_view_acces_path, remote: true do -%>
+      <%= hidden_field_tag 'chart_type', '', id: "chart_type" %>
+      <%= hidden_field_tag 'chart_type_id', '', id: "chart_type_id" %>
+      <div id="savechart" style="display:none;">
+      <%= submit_tag 'Guarda Gráfico', class: 'btn btn-default' %>
+      </div>
+      <div class="btn btn-default" id="primary-chart"><i class="fa fa-pie-chart" aria-hidden="true"></i></div>
     </div>
-	<div class="col-lg-12">
-
-	   
-		<div class="col-md-6">
-			<table class="table">
-				<caption><h3>Agrupamiento por <%= variable %></h3></caption>
-				<thead>
-					<tr>
-						<% data[:arrayIN].each do |d| %>
-						<th><%= find_var_text_prototype(campaing, variable, d[0])   %></th>
-						<%end%>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<% data[:arrayIN].each do |d| %>
-						<td><%= (d[1] * 100).round(2) %> %</td>
-						<%end%>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<% @data_cf = eval(chart_data).each do |lx|%>
-		  <% lx[:name] = find_var_text_prototype(campaing, variable, lx[:name]) %> 
-		<%end%>
-		<div class="col-md-6"> 
-			<div id="chart-pie-<%=random_x%>" data-target="<%= @data_cf.to_json %>"></div>
-		</div>
-	</div>
+    <%end%>
+  <%end%>
+  <h4><%= table.alias %></h4>
+  <div id="super_chart_<%=idx%>" data-sch="<%= agrouped_table(table, hashx)[:array_chart_1] %>" data-cat="<%= agrouped_table(table, hashx)[:heads] %>"></div>
+  <div class="col-lg-12 ">
+    <%= render partial: "/reporteador/view_parts/full_table", locals: {hashx: hashx, table: table, displ: true} %>
+    <h4>Agrupación de datos por porcentajes de cada variable</h4>
+    <% if table.wordcloud %>
+    <%= render partial: '/reporteador/view_parts/wordcloud_proces', locals: {hashx: hashx, table: table, displ: false, index: idx}  %>
+    <%= render partial: '/reporteador/view_parts/wordcloud_table', locals: {hashx: hashx, table: table, displ: false, index: idx}  %>
+    <%else%>
+    <%= render partial: '/reporteador/view_parts/single_table_chart', locals: {hashx: hashx, table: table, displ: false, index: idx}  %>
+    <br/><br/>
+    <%= render partial: '/reporteador/view_parts/advances_table_renamed', locals: {hashx: hashx, table: table, displ: false, index: idx, n: n}  %>
+    <%end%>
+  </div>
 </div>
-<script type="text/javascript" charset="utf-8" >
-$(document).ready(function(){
-var pie = $("#chart-pie-<%=random_x%>").attr('data-target');
-var pie_eval = eval(pie);
 
-    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
-        return {
-            radialGradient: {
-                cx: 0.5,
-                cy: 0.3,
-                r: 0.7
-            },
-            stops: [
-                [0, color],
-                [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
-            ]
-        };
-    });
 
-    // Build the chart
-    var chart = Highcharts.chart('chart-pie-<%=random_x%>', {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: 'Grafica de Pie para porcentajes'
-        },
-        tooltip: {
-            shared: true,
-            valueSuffix: '% Porciento'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    },
-                    connectorColor: 'silver'
-                }
-            }
-        },
-        series: [{
-            name: 'Variable',
-            data: pie_eval
-        }]
-    });
+<script type="text/javascript">
+    $(function () {
 
-    $('#primary-chart').click(function() {
+      $('#primary-chart').click(function() {
         $('.charted').attr('data-chart', chart);
         $('#graficos').show();
-    });
+      });
 
-
-    $('#column').click(function() {
+      $('#column').click(function() {
         chart.update({
             chart: {
                 inverted: false,
@@ -320,10 +251,10 @@ var pie_eval = eval(pie);
 
     
 
-    <% if dinamic_counter_view(@campaing.id,"#{current_path_info}" ) %>
+    <% if dinamic_counter_view(campaing.id,"super_content_chart_#{idx}" ) %>
 
 
-    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'column'){
+    if('<%= dinamic_counter_chart(campaing.id,"super_content_chart_#{idx}") %>' == 'column'){
         chart.update({
             chart: {
                 inverted: false,
@@ -349,7 +280,7 @@ var pie_eval = eval(pie);
         $('#chart_type').val('column');
 
     }
-    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'columninverted'){
+    if('<%= dinamic_counter_chart(campaing.id,"super_content_chart_#{idx}") %>' == 'columninverted'){
 
         chart.update({
             chart: {
@@ -379,7 +310,7 @@ var pie_eval = eval(pie);
     }
 
 
-    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'line'){
+    if('<%= dinamic_counter_chart(campaing.id,"super_content_chart_#{idx}") %>' == 'line'){
 
         chart.update({
             chart: {
@@ -408,7 +339,7 @@ var pie_eval = eval(pie);
 
     }
 
-    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'pie'){
+    if('<%= dinamic_counter_chart(campaing.id,"super_content_chart_#{idx}") %>' == 'pie'){
 
         chart.update({
             chart: {
@@ -437,7 +368,7 @@ var pie_eval = eval(pie);
 
     }
 
-    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'area'){
+    if('<%= dinamic_counter_chart(campaing.id,"super_content_chart_#{idx}") %>' == 'area'){
 
         chart.update({
             chart: {
@@ -466,7 +397,7 @@ var pie_eval = eval(pie);
 
     }
 
-    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'spider'){
+    if('<%= dinamic_counter_chart(campaing.id,"super_content_chart_#{idx}") %>' == 'spider'){
 
         chart.update({
             chart: {
@@ -492,7 +423,7 @@ var pie_eval = eval(pie);
 
     }
 
-    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'stakedarea'){
+    if('<%= dinamic_counter_chart(campaing.id,"super_content_chart_#{idx}") %>' == 'stakedarea'){
 
         chart.update({
             chart: {
@@ -524,7 +455,7 @@ var pie_eval = eval(pie);
 
 
 
-    if('<%= dinamic_counter_chart(@campaing.id,"init-count-table") %>' == 'invertedarea'){
+    if('<%= dinamic_counter_chart(campaing.id,"super_content_chart_#{idx}") %>' == 'invertedarea'){
 
         chart.update({
             chart: {
@@ -547,11 +478,6 @@ var pie_eval = eval(pie);
     }
 
     <%end%>
+    });
 
-
-  
-
-});
 </script>
-
-

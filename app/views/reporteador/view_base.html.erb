@@ -5,46 +5,68 @@ data-no-turbolink="true"
 <script type="text/javascript" src="/js/highcharts/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+
 <% end %>
 <% @idx =  params[:id] %>
 <% @camp = params[:campaing] %>
-<%= render partial: "/reporteador/view_parts/left_menu_functions", locals: {work_schema: @work_schema, id: @idx, heads: @heads, campaing: @camp, table_in: @table_in}%>
-<div class="col-md-9">
-  <%= render partial: "/reporteador/view_parts/count_view", locals: {campaing: @camp, heads: @heads, hashx: @hashx } %>
-  <div class="col-lg-12" style="padding: 30px;">
-    <% @work_schema.table_works.each_with_index do |table,index|%>
-    <div class="col-md-12 inspirate" style="display:none;" id="super_<%=index%>">
-      <% unless dinamic_counter_view(params[:campaing],"super_content_chart_#{index}") %>
-      <div id="hid_init_count_table_index_<%=index%>">
-        <%= link_to 'Agregar Gráfico', add_view_access_path(campaing: params[:campaing], indx: "super_content_chart_#{index}", proccessid: "hid_init_count_table_index_#{index}"), remote: true, class: "btn btn-info" %>
+<%= render partial: "/reporteador/view_parts/top_menu_functions", locals: {work_schema: @work_schema, id: @idx, heads: @heads, campaing: @camp, table_in: @table_in}%>
+<div id="graficos" style="width:auto; display: none; background-color: #000000; padding: 10px; margin-top: -20px; margin-left: -30px;">
+  <div   style="overflow-y: none; overflow-x: auto; position:absolute; height: 400px; z-index:1; width: auto; ">
+      
+      <div class="col-md-3">
+      <a style="margin-top: 5px; margin-bottom: 5px;" id="line" class="charted">
+      <img src="/charts/1.png" alt="imagen-grafica-1" width="370px" height="200px">
+      </a>
       </div>
-      <%end%>
-      <h4><%= table.alias %></h4>
-      <div id="super_chart_<%=index%>" data-sch="<%= agrouped_table(table, @hashx)[:array_chart_1] %>" data-cat="<%= agrouped_table(table, @hashx)[:heads] %>"></div>
-      <div class="col-lg-12 ">
-        <%= render partial: "/reporteador/view_parts/full_table", locals: {hashx: @hashx, table: table, displ: true} %>
-        <h4>Agrupación de datos por porcentajes de cada variable</h4>
-        <% if table.wordcloud %>
-        <%= render partial: '/reporteador/view_parts/wordcloud_proces', locals: {hashx: @hashx, table: table, displ: false, index: index}  %>
-        <%= render partial: '/reporteador/view_parts/wordcloud_table', locals: {hashx: @hashx, table: table, displ: false, index: index}  %>
-        <%else%>
-        <%= render partial: '/reporteador/view_parts/single_table_chart', locals: {hashx: @hashx, table: table, displ: false, index: index}  %>
-        <br/><br/>
-        <%= render partial: '/reporteador/view_parts/advances_table_renamed', locals: {hashx: @hashx, table: table, displ: false, index: index, n: @n}  %>
-        <%end%>
+      <div class="col-md-3">
+      <a style="margin-top: 5px; margin-bottom: 5px;" id="pie" class="charted">
+      <img src="/charts/13.png" alt="imagen-grafica-13" width="370px" height="200px">
+      </a>
       </div>
-    </div>
-    <%end%>
-    <script  type="text/javascript" charset="utf-8" >
-    function seeDiv(id){
-    $('.inspirate').hide();
-    $('#agroup').hide();
-    $('.tav').removeClass('active');
-    $('#tab_'+id).addClass('active');
-    $('#super_'+id).show();
-    }
-    </script>
+      <div class="col-md-3">
+      <a style="margin-top: 5px; margin-bottom: 5px;" id="column" class="charted">
+      <img src="/charts/10.png" alt="imagen-grafica-10" width="370px" height="200px">
+      </a>
+      </div>
+      <div class="col-md-3">
+      <a style="margin-top: 5px; margin-bottom: 5px;" id="columninverted" class="charted">
+      <img src="/charts/7.png" alt="imagen-grafica-7" width="370px" height="200px">
+      </a>
+      </div>
+      <div class="col-md-3">
+      <a style="margin-top: 5px; margin-bottom: 5px;" id="area" class="charted">
+      <img src="/charts/2.png" alt="imagen-grafica-2" width="370px" height="200px">
+      </a>
+      </div>
+      <div class="col-md-3">
+      <a style="margin-top: 5px; margin-bottom: 5px;" id="stakedarea" class="charted">
+      <img src="/charts/4.png" alt="imagen-grafica-4" width="370px" height="200px">
+      </a>
+      </div>
+      <div class="col-md-3">
+      <a style="margin-top: 5px; margin-bottom: 5px;" id="invertedarea" class="charted">
+      <img src="/charts/6.png" alt="imagen-grafica-6" width="370px" height="200px">
+      </a>
+      </div>
+      <div class="col-md-3">
+      <a style="margin-top: 5px; margin-bottom: 5px;" id="spider" class="charted">
+      <img src="/charts/24.png" alt="imagen-grafica-24" width="370px" height="200px">
+      </a>
+      </div>
+      
   </div>
+</div>
+<div>
+<%= render partial: "/reporteador/view_parts/left_menu_functions", locals: {work_schema: @work_schema, id: @idx, heads: @heads, campaing: @camp, table_in: @table_in}%>
+
+<div class="col-md-9">
+  <div id="dinamic-function"></div>
+  <div id="dinamic-load">
+    <%= render partial: "/reporteador/view_parts/count_view", locals: {campaing: @camp, heads: @heads, hashx: @hashx } %>
+  </div>
+</div>
 </div>
 </div>
 </div>
@@ -77,3 +99,4 @@ $('.'+Cvalue).show();
 });
 });
 </script>
+

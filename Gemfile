@@ -51,6 +51,10 @@ gem "nokogiri"
 gem 'groupdate'
 gem "cocoon"
 gem "auto_strip_attributes", "~> 2.1"
+gem  "descriptive_statistics"
+gem "bootstrap-table-rails"
+#gem 'momentjs-rails'
+#gem 'rails_bootstrap_sortable'
 #gem "pdfkit"
 #gem 'wkhtmltopdf-binary', '~> 0.9.9.3'
 #gem 'actionpack-page_caching'

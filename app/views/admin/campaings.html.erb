@@ -17,7 +17,7 @@
           <td><%= campaing.campaing_code %></td>
           <th> <%= link_to "Eliminar", delete_campaing_path(id: campaing.id), data: { confirm: '¿Estas seguro de elminar esta Campaña?' } %></th>
           <% if campaing.request_base_to_reports.count == 0 %>
-          <th> <%= link_to "Preparar una base de datos", load_db_path(campaing.id) %></th>
+          <th> <%#= link_to "Preparar una base de datos", load_db_path(campaing.id) %></th>
           <%else%>
            <th> <%#= link_to 'Ver la base', base_path(id: campaing.request_base_to_reports.last.id, campaing: campaing.id), data: { no_turbolink: true } %> |  <%#= link_to "UPDATE", load_db_path(campaing.id) %></th>
 

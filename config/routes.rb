@@ -138,6 +138,9 @@ Rails.application.routes.draw do
 
   get 'reporteador/add_chart_view_acces', as: :add_chart_view_acces
   post 'reporteador/add_chart_view_acces'
+
+  get 'reporteador/suspended', as: :suspended
+  
   
   authenticate :admins do
     resources :publications, only: [:new, :create, :edit, :update, :destroy]

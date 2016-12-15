@@ -2,6 +2,8 @@ class ReporteadorController < ApplicationController
   layout "internreporteador"
   #caches_page :public_view
 
+  before_filter :renn
+
   #caches_page :show
   def index
   end
@@ -424,7 +426,7 @@ class ReporteadorController < ApplicationController
       end
     end
   end
-
+  
   def crossover_of_variables
     ###### datos generales para operaciones #######
     name_table = RequestBaseToReport.find(params[:id])
@@ -472,6 +474,8 @@ class ReporteadorController < ApplicationController
       end
     end
   end
+def suspended
+end
 private 
   ######## lector de tablas #######
   def read_table(name_table)
@@ -706,5 +710,9 @@ private
 
     @crossover = {data: adv_array,values_in_row: values_in_row , values_in_col: values_in_col}
 
+  end
+
+  def renn
+    render suspended_path
   end
 end

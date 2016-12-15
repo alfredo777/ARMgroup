@@ -2,7 +2,7 @@ class ReporteadorController < ApplicationController
   layout "internreporteador"
   #caches_page :public_view
 
-  before_filter :renn
+  #before_filter :renn
 
   #caches_page :show
   def index

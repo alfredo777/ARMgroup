@@ -119,5 +119,43 @@
   
   });
   </script>
+  <%else%>
+  <script>  
+
+  $(function () {
+
+    var calculus = $(window).width() * 0.70;
+    console.log(calculus);
+
+    window.chart = Highcharts.chart("load_chart_table_<%=index%>", {
+        data: {
+            table: "non_response_table_<%=index%>"
+        },
+        chart: {
+            type: 'column',
+            width: calculus
+        },
+        title: {
+            text: 'Extraida de la tabla'
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Units'
+            }
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    this.point.y + '% ' + this.point.name.toLowerCase();
+            }
+        }
+    });
+
+
+  
+  });
+
+  </script>
   <%end%>
 </div>

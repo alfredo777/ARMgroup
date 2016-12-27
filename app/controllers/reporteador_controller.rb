@@ -347,10 +347,6 @@ class ReporteadorController < ApplicationController
       array_chart.push({name:aa[0],y:(aa[1].to_f * 100).round(2)})
     end
 
-
-
-    
-
     @chart_data = array_chart.to_json
 
     puts @group

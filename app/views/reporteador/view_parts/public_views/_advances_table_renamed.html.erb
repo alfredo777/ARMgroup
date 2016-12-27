@@ -146,6 +146,7 @@
             $('#chart_type').val('column');
 
         }
+
         if('<%= dinamic_counter_chart(campaing,"super_content_chart_#{index}") %>' == 'columninverted'){
 
             chart.update({
@@ -174,6 +175,73 @@
 
 
         }
+
+        if('<%= dinamic_counter_chart(campaing,"super_content_chart_#{index}") %>' == 'columnstaked'){
+            chart.update({
+                chart: {
+                    inverted: false,
+                    polar: false,
+                    type: "column"
+                },
+                plotOptions: {
+                    column: {
+                      stacking: 'normal'
+                    }
+                },
+                subtitle: {
+                    text: 'ARMgroup'
+                }
+            });
+            $('#graficos').hide();
+            $('#chart_type').val('columnstaked');
+
+        }
+
+        if('<%= dinamic_counter_chart(campaing,"super_content_chart_#{index}") %>' == 'columnstakedinverted'){
+            chart.update({
+                chart: {
+                    inverted: true,
+                    polar: false,
+                    type: "column"
+                },
+                plotOptions: {
+                    column: {
+                      stacking: 'normal'
+                    }
+                },
+                subtitle: {
+                    text: 'ARMgroup'
+                }
+            });
+            $('#graficos').hide();
+            $('#chart_type').val('columnstaked');
+
+        }
+
+
+       if('<%= dinamic_counter_chart(campaing,"super_content_chart_#{index}") %>' == 'polarcolumn'){
+
+            chart.update({
+                chart: {
+                    inverted: false,
+                    polar: true,
+                    type: "column"
+                },
+                plotOptions: {
+                    column: {
+                      stacking: 'normal'
+                    }
+                },
+                subtitle: {
+                    text: 'ARMgroup'
+                }
+            });
+            $('#graficos').hide();
+            $('#chart_type').val('polarcolumn');
+
+        }
+
+
 
 
         if('<%= dinamic_counter_chart(campaing,"super_content_chart_#{index}") %>' == 'line'){

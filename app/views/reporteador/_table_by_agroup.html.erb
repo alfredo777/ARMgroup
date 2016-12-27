@@ -705,7 +705,7 @@ var pie_eval = eval(pie);
 
 
 
-    if('<%= dinamic_counter_chart(@campaing.id,"init-count-table") %>' == 'invertedarea'){
+    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'invertedarea'){
 
         chart.update({
             chart: {

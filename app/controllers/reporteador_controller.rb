@@ -328,13 +328,28 @@ class ReporteadorController < ApplicationController
     @codigos = params[:codigos]
     @param_add = params[:param_add]
 
-    @n = @hashx.count
+   
 
     array_chart = []
+    resize_array = []
+
+    @hashx.each do |hh|
+     if hh["#{@variable}"] != nil
+     resize_array.push(hh["#{@variable}"].to_i)
+     end
+    end
+
+
+    @n = resize_array.size
+    puts @n
 
     hash_chart.each do |aa|
       array_chart.push({name:aa[0],y:(aa[1].to_f * 100).round(2)})
     end
+
+
+
+    
 
     @chart_data = array_chart.to_json
 

@@ -16,14 +16,6 @@
           </div>
         <%else%>
           <% @idxccvd =  ReportDinamicView.find_by_campaing_id_and_function_or_index(campaing,"init-count-table").id %>
-          <%= form_tag add_chart_view_acces_path, remote: true do -%>
-              <%= hidden_field_tag 'chart_type', @idxccvd, id: "chart_type" %>
-              <%= hidden_field_tag 'chart_type_id', '', id: "chart_type_id" %>
-              <div id="savechart">
-              <%= submit_tag 'Guarda Gráfico', class: 'btn btn-default' %>
-              </div>
-              <div class="btn btn-default" id="primary-chart"><i class="fa fa-pie-chart" aria-hidden="true"></i></div>
-          <%end%>
         <%end%>
       </div>
       <div class="col-md-12">

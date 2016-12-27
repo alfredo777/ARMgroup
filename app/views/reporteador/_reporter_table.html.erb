@@ -52,6 +52,9 @@
                         lineWidth: 1,
                         lineColor: '#666666'
                     }
+                },
+                column: {
+                  stacking: null
                 }
             },
             subtitle: {
@@ -78,6 +81,9 @@
                         lineWidth: 1,
                         lineColor: '#666666'
                     }
+                },
+                column: {
+                    stacking: null
                 }
             },
             subtitle: {
@@ -87,6 +93,69 @@
         $('#graficos').hide();
         $('#chart_type').val('columninverted');
 
+
+    });
+
+    $('#columnstaked').click(function() {
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columnstaked');
+
+    });
+
+    $('#columnstakedinverted').click(function() {
+        chart.update({
+            chart: {
+                inverted: true,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columnstakedinverted');
+
+    });
+
+    $('#polarcolumn').click(function() {
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: true,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('polarcolumn');
 
     });
 
@@ -270,6 +339,9 @@
                         lineWidth: 1,
                         lineColor: '#666666'
                     }
+                },
+                column: {
+                    stacking: null
                 }
             },
             subtitle: {
@@ -297,6 +369,9 @@
                         lineWidth: 1,
                         lineColor: '#666666'
                     }
+                },
+                column: {
+                    stacking: null
                 }
             },
             subtitle: {
@@ -306,6 +381,71 @@
         $('#graficos').hide();
         $('#chart_type').val('columninverted');
 
+
+    }
+
+   if('<%= dinamic_counter_chart(campaing.id,"super_content_chart_#{idx}") %>' == 'columnstaked'){
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columnstaked');
+
+    }
+
+    if('<%= dinamic_counter_chart(campaing.id,"super_content_chart_#{idx}") %>' == 'columnstakedinverted'){
+        chart.update({
+            chart: {
+                inverted: true,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columnstaked');
+
+    }
+
+
+   if('<%= dinamic_counter_chart(campaing.id,"super_content_chart_#{idx}") %>' == 'polarcolumn'){
+
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: true,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('polarcolumn');
 
     }
 

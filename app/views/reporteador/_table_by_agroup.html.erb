@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-lg-12">
     <% if param_add %>
-    <% params_to_send = {:agroupby => params[:agroupby], :date => params[:date], :id => params[:id]} %>
+    <% params_to_send = {:agroupby => params[:agroupby], :date => params[:date], :id => params[:id], :group => params[:group]} %>
 	<%= link_to 'Agregar Función', add_view_access_path(campaing: @campaing.id, indx: "#{current_path_info}" , proccessid: "remove_function", function: true, params_to_send: params_to_send), remote: true, class: "btn btn-info", id: "remove_function" %>
 		<%= form_tag add_chart_view_acces_path, remote: true do -%>
 	      <%= hidden_field_tag 'chart_type', '', id: "chart_type" %>
@@ -16,26 +16,65 @@
 	<%end%>
     </div>
 	<div class="col-lg-12">
-
-	   
+	    <% sortxx  = data[:arrayIN].sort_by {|_key, value| value} %>
 		<div class="col-md-6">
 			<table class="table">
 				<caption><h3>Agrupamiento por <%= variable %></h3></caption>
 				<thead>
 					<tr>
-						<% data[:arrayIN].each do |d| %>
+
+						<% sortxx.reverse.each do |d| %>
 						<th><%= find_var_text_prototype(campaing, variable, d[0])   %></th>
 						<%end%>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<% data[:arrayIN].each do |d| %>
-						<td><%= (d[1] * 100).round(2) %> %</td>
+						<% sortxx.reverse.each do |d| %>
+						<td><%= (d[1] * 100).round(2) %>%</td>
 						<%end%>
 					</tr>
 				</tbody>
 			</table>
+            <%if params[:group] %>
+            <table class="table">
+                <caption>Tabla de agrupados</caption>
+                <thead>
+                    <tr>  
+                        <% texted = [] %>
+                        <% @group[:arrayIN].each_with_index do |d,index| %>
+                          <% variation = find_var_text_prototype(@campaing, @variable, d[0]) %>
+                          <% indx = index + 1 %>
+                          <% if multiple_off?(indx,params[:group]) == true %>
+                            <% texted.push(variation) %>
+                            <th><%= "#{texted}" %> </th>
+                            <% texted.clear %>
+                            <%else%>
+                            <% texted.push(variation) %>
+                          <%end%>
+                        <%end%>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <tr>
+                            <% valorem = 0 %>
+                            <% @group[:arrayIN].each_with_index do |d, index| %>
+                              <% indx = index + 1 %>
+                              <% if multiple_off?(indx,params[:group]) == true %>
+                                <% valorem = valorem + d[1] %>
+                                <th><%= (valorem * 100).round(2) %>% </th>
+                                <% valorem = 0 %>
+                                <%else%>
+                                <% valorem = valorem + d[1] %>
+                               <%end%>
+                            <%end%>
+                        </tr>
+                    </tr>
+                </tbody>
+        </table>
+        <%end%>
+
 		</div>
 		<% @data_cf = eval(chart_data).each do |lx|%>
 		  <% lx[:name] = find_var_text_prototype(campaing, variable, lx[:name]) %> 
@@ -45,6 +84,8 @@
 		</div>
 	</div>
 </div>
+
+
 <script type="text/javascript" charset="utf-8" >
 $(document).ready(function(){
 var pie = $("#chart-pie-<%=random_x%>").attr('data-target');
@@ -121,6 +162,9 @@ var pie_eval = eval(pie);
                         lineWidth: 1,
                         lineColor: '#666666'
                     }
+                },
+                column: {
+                    stacking: null
                 }
             },
             subtitle: {
@@ -147,6 +191,9 @@ var pie_eval = eval(pie);
                         lineWidth: 1,
                         lineColor: '#666666'
                     }
+                },
+                column: {
+                    stacking: null
                 }
             },
             subtitle: {
@@ -156,6 +203,69 @@ var pie_eval = eval(pie);
         $('#graficos').hide();
         $('#chart_type').val('columninverted');
 
+
+    });
+
+    $('#columnstaked').click(function() {
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columnstaked');
+
+    });
+
+    $('#columnstakedinverted').click(function() {
+        chart.update({
+            chart: {
+                inverted: true,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columnstakedinverted');
+
+    });
+
+    $('#polarcolumn').click(function() {
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: true,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('polarcolumn');
 
     });
 
@@ -195,13 +305,16 @@ var pie_eval = eval(pie);
                 type: "pie"
             },
             plotOptions: {
-                area: {
-                    stacking: 'normal',
-                    lineColor: '#666666',
-                    lineWidth: 1,
-                    marker: {
-                        lineWidth: 1,
-                        lineColor: '#666666'
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false,
+                        format: '<b>{point.name}</b>: {point} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        },
+                        connectorColor: 'silver'
                     }
                 }
             },
@@ -378,6 +491,71 @@ var pie_eval = eval(pie);
 
     }
 
+    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'columnstaked'){
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columnstaked');
+
+    }
+
+    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'columnstakedinverted'){
+        chart.update({
+            chart: {
+                inverted: true,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columnstaked');
+
+    }
+
+
+   if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'polarcolumn'){
+
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: true,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('polarcolumn');
+
+    }
+
 
     if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'line'){
 
@@ -417,13 +595,16 @@ var pie_eval = eval(pie);
                 type: "pie"
             },
             plotOptions: {
-                area: {
-                    stacking: 'normal',
-                    lineColor: '#666666',
-                    lineWidth: 1,
-                    marker: {
-                        lineWidth: 1,
-                        lineColor: '#666666'
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false,
+                        format: '<b>{point.name}</b>: {point} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        },
+                        connectorColor: 'silver'
                     }
                 }
             },
@@ -553,5 +734,8 @@ var pie_eval = eval(pie);
 
 });
 </script>
+
+
+
 
 

@@ -21,10 +21,6 @@ data-no-turbolink="true"
     <%end%>
 
     <%end%>
-
-
-
-
   </div>
   <br/><br/>
 
@@ -57,19 +53,31 @@ data-no-turbolink="true"
         <div class="row">
         <% sing_rerie = [] %>
         <div class="col-md-6">
+        <div class="btn btn-default" id="button-filter-porcent-<%=index%>-<%=random_x%>" >
+          <%= @variables[index] %> <i class="fa fa-sort" aria-hidden="true"></i> | %
+        </div>
+
+        <script>
+          $("#button-filter-porcent-<%=index%>-<%=random_x%>").click(function(){
+            $("#table-data-var-<%=index%>-<%=random_x%>").slideToggle('fast');
+            $("#table-porcent-<%=index%>-<%=random_x%>").slideToggle('fast');
+          });
+
+        </script>
         <div class="table-responsive" >
+         
         <table id="table-data-var-<%=index%>-<%=random_x%>" class="table table-bordered"
          data-toggle="table"
          data-sort-name="porcent"
          data-sort-order="desc"
         >
-          <caption>Tabla de datos sobre variable <%= @variables[index] %></caption>
+          <caption>Tabla de datos sobre variable <%= @variables[index] %> ordenada por código</caption>
           <thead>
             <tr>
              <td
              data-field="code" 
              data-sortable="true"
-             >Codigo</td>
+             >Código</td>
              <td 
              data-field="porcent" 
              data-sortable="true"
@@ -112,6 +120,43 @@ data-no-turbolink="true"
           </tfoot>
         </table>
         </div>
+
+        <div class="table-responsive" id="table-porcent-<%=index%>-<%=random_x%>" style="display:none;">
+          <% @serie = serie[:hash].sort_by {|_key, value| value} %>
+          <table class="table table-bordered">
+            <caption>Tabla ordenada por porcentajes de <%= @variables[index] %></caption>
+            <thead> 
+              <tr>
+               <tr>
+               <td
+               data-field="code" 
+               data-sortable="true"
+               >Codigo</td>
+               <td 
+               data-field="porcent" 
+               data-sortable="true"
+               >%</td>
+              </tr>
+              </tr>
+            </thead>
+            <tbody>
+               <% @serie.reverse.each do |ser| %>
+              <tr>
+                <td><%= find_var_text_prototype(campaing, @variables[index], ser[0]) %> - <%= ser[0]%></td>
+                <td><%= ((ser[1].to_f * 100).to_f).round(2) %>%</td>
+
+              </tr>
+              <%end%>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td>Total</td>
+              <td><%= totalx.round(4) %>%</td>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+
         </div>
 
         <div class="col-md-6">
@@ -250,6 +295,9 @@ $(function() {
                         lineWidth: 1,
                         lineColor: '#666666'
                     }
+                },
+                column: {
+                    stacking: null
                 }
             },
             subtitle: {
@@ -276,6 +324,9 @@ $(function() {
                         lineWidth: 1,
                         lineColor: '#666666'
                     }
+                },
+                column: {
+                    stacking: null
                 }
             },
             subtitle: {
@@ -285,6 +336,69 @@ $(function() {
         $('#graficos').hide();
         $('#chart_type').val('columninverted');
 
+
+    });
+
+    $('#columnstaked').click(function() {
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columnstaked');
+
+    });
+
+    $('#columnstakedinverted').click(function() {
+        chart.update({
+            chart: {
+                inverted: true,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columnstakedinverted');
+
+    });
+
+    $('#polarcolumn').click(function() {
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: true,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('polarcolumn');
 
     });
 
@@ -507,6 +621,71 @@ $(function() {
 
     }
 
+    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'columnstaked'){
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columnstaked');
+
+    }
+
+    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'columnstakedinverted'){
+        chart.update({
+            chart: {
+                inverted: true,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columnstaked');
+
+    }
+
+
+   if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'polarcolumn'){
+
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: true,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('polarcolumn');
+
+    }
+
 
     if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'line'){
 
@@ -697,6 +876,11 @@ function getJSonObject(value) {
         <% @grouped_all = serie_arx.group_by(&:first).map {
           |k,v| [k, v.map(&:last).inject(:+)]
         } %>
+
+       <% @grouped_all = @grouped_all.sort_by {|_key, value| value} %>
+       <%# @serie = serie[:hash].sort_by {|_key, value| value} %>
+
+
         <div class="table-responsive" >
         <table class="table table-bordered">
           <caption>Gráfico de acumulados</caption>
@@ -708,7 +892,7 @@ function getJSonObject(value) {
           </thead>
           <tbody>
             <% tt = 0 %>
-            <% @grouped_all.each do |dd| %>
+            <% @grouped_all.reverse.each do |dd| %>
             <tr>
               <td><%= dd[0] %></td>
               <td><%= (dd[1] * n).round %></td>

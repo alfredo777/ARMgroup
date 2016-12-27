@@ -96,6 +96,9 @@ $(function () {
                         lineWidth: 1,
                         lineColor: '#666666'
                     }
+                },
+                column: {
+                    stacking: null
                 }
             },
             subtitle: {
@@ -122,6 +125,9 @@ $(function () {
                         lineWidth: 1,
                         lineColor: '#666666'
                     }
+                },
+                column: {
+                    stacking: null
                 }
             },
             subtitle: {
@@ -131,6 +137,69 @@ $(function () {
         $('#graficos').hide();
         $('#chart_type').val('columninverted');
 
+
+    });
+
+    $('#columnstaked').click(function() {
+    chart.update({
+        chart: {
+            inverted: false,
+            polar: false,
+            type: "column"
+        },
+        plotOptions: {
+            column: {
+              stacking: 'normal'
+            }
+        },
+        subtitle: {
+            text: 'ARMgroup'
+        }
+    });
+    $('#graficos').hide();
+    $('#chart_type').val('columnstaked');
+
+    });
+
+    $('#columnstakedinverted').click(function() {
+    chart.update({
+        chart: {
+            inverted: true,
+            polar: false,
+            type: "column"
+        },
+        plotOptions: {
+            column: {
+              stacking: 'normal'
+            }
+        },
+        subtitle: {
+            text: 'ARMgroup'
+        }
+    });
+    $('#graficos').hide();
+    $('#chart_type').val('columnstakedinverted');
+
+    });
+
+    $('#polarcolumn').click(function() {
+    chart.update({
+        chart: {
+            inverted: false,
+            polar: true,
+            type: "column"
+        },
+        plotOptions: {
+            column: {
+              stacking: 'normal'
+            }
+        },
+        subtitle: {
+            text: 'ARMgroup'
+        }
+    });
+    $('#graficos').hide();
+    $('#chart_type').val('polarcolumn');
 
     });
 
@@ -352,6 +421,72 @@ $(function () {
 
 
     }
+
+    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'columnstaked'){
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columnstaked');
+
+    }
+
+    if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'columnstakedinverted'){
+        chart.update({
+            chart: {
+                inverted: true,
+                polar: false,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('columnstaked');
+
+    }
+
+
+   if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'polarcolumn'){
+
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: true,
+                type: "column"
+            },
+            plotOptions: {
+                column: {
+                  stacking: 'normal'
+                }
+            },
+            subtitle: {
+                text: 'ARMgroup'
+            }
+        });
+        $('#graficos').hide();
+        $('#chart_type').val('polarcolumn');
+
+    }
+
 
 
     if('<%= dinamic_counter_chart(@campaing.id,"#{current_path_info}") %>' == 'line'){

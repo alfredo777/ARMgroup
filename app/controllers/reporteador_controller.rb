@@ -290,8 +290,13 @@ class ReporteadorController < ApplicationController
     #end
 
     @hashx.each do |hh|
+     if hh["#{@variable}"] != nil
      array_chart.push(hh["#{@variable}"].to_i)
+     end
     end
+
+    puts array_chart.size
+    puts "#{array_chart}"
 
     @estadisticas = array_chart.descriptive_statistics
 

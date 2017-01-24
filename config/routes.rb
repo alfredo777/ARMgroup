@@ -140,6 +140,8 @@ Rails.application.routes.draw do
   post 'reporteador/add_chart_view_acces'
 
   get 'reporteador/suspended', as: :suspended
+
+  get 'admin/secure', as: :secure_block
   
   
   authenticate :admins do

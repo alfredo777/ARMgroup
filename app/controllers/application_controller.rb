@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+  #before_filter :aup_op
   protect_from_forgery with: :exception
   helper_method :host_url
   helper_method :customer_act_search
@@ -44,6 +45,10 @@ class ApplicationController < ActionController::Base
 
   def array_agroup(array)
     @x = array.each_with_object(Hash.new(0)) {|e, h| h[e] += 1}
+  end
+
+  def aup_op
+    render :"admin/secure", layout: "mantenimiento"
   end
 
 

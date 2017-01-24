@@ -46,6 +46,8 @@ class AdminController < ApplicationController
     redirect_to :back
   end
 
+  def secure
+  end
 
   def create_customer
     @customer = Customer.create(email: params[:email], password: params[:password], name: params[:name], submname: params[:submname], empresa: params[:empresa], idempresa: params[:idempresa], route_files: params[:route_files], logo: params[:logo], avatar: params[:avatar])

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="shortcut icon" type="image/png" href="/images/logo/favicon.png"/>
+    <title>ARMgroup | Agencia lider en investigación de mercados.</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application' %>
+    <script type="text/javascript" src="/javascripts/bootstrap.js"></script>
+
+    <script type="text/javascript" src="/js/highcharts/highcharts.js"></script>
+
+    <%= yield(:header) %>
+</head>
+<body style="background: url('images/backparallax/26.jpg'); background-size: 100%, 100%; ">
+<%= yield %>
+</body>
+</html>
